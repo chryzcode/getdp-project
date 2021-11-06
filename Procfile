@@ -1,0 +1,1 @@
+web: gunicorn getdp_project.wsgi --log-file -
