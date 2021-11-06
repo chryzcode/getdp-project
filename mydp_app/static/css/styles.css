@@ -41,7 +41,7 @@ nav:after {
   margin-right: 10px;
   font-size: 22px;
   cursor: pointer;
-  color: white;
+  color: #26174b;
 }
 
 #cross {
@@ -50,7 +50,7 @@ nav:after {
   margin-right: 10px;
   font-size: 22px;
   cursor: pointer;
-  color: white;
+  color: #26174b;
 }
 
 #check:checked + label i#bars {
@@ -59,6 +59,7 @@ nav:after {
 
 #check:checked + label i#cross {
   display: block;
+  
 }
 
 nav ul {
@@ -123,4 +124,26 @@ li a:hover {
   padding: 19px;
   margin-bottom: 50px;
   margin-top: 5rem;
+}
+
+.header {
+  text-align: center;
+  color: #28125e;
+  margin: 15px;
+}
+
+form {
+  color: #28125e;
+  text-align: center;
+}
+
+.auth-button {
+  display: block !important;
+  margin-right: auto !important;
+  margin-left: auto !important;
+  background-color: #26174b !important;
+  color: white;
+  border: none !important;
+  outline: none !important;
+  width: 40%;
 }

@@ -3,7 +3,7 @@
     {% if messages %} {% for message in messages %}
     <p class="messages">{{message}}</p>
     {% endfor %} {% endif %}
-    <h3 style="text-align: center; margin-top: 10px; color: #0d6efd">Sign In</h3>
+    <h3 class="header">Sign In</h3>
     <form action="" method="post">
       {% csrf_token %}
       <div class="container">
@@ -32,13 +32,12 @@
 
         <div style="text-align: center; margin: 15px 0">
           <span style="display: block"
-            >Haven't signed up yet? <a style="color: #0d6efd" href="{% url 'register' %}">Sign Up</a></span
+            >Haven't signed up yet? <a href="{% url 'register' %}">Sign Up</a></span
           >
-          <span style="display: block"><a style="color: #0d6efd" href="#">Forgot Password</a></span>
+          <span style="display: block"><a href="#">Forgot Password</a></span>
         </div>
       </div>
-      <button class="btn btn-secondary btn-sm" style="float: right; background-color: #0d6efd; border: 0" type="submit">
-        <title>lock</title>
+      <button class="auth-button btn btn-secondary btn-sm" type="submit">
         Login
       </button>
     </form>
