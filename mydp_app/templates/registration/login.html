@@ -1,0 +1,46 @@
+{% extends 'base.html' %} {% block content %}
+  <div class="login-container">
+    {% if messages %} {% for message in messages %}
+    <p class="messages">{{message}}</p>
+    {% endfor %} {% endif %}
+    <h3 style="text-align: center; margin-top: 10px; color: #0d6efd">Sign In</h3>
+    <form action="" method="post">
+      {% csrf_token %}
+      <div class="container">
+        <div class="form-floating mb-3">
+          <input
+            id="email"
+            class="form-control"
+            id="floatingInput"
+            name="email"
+            type="text"
+            placeholder="e.g. johndoe@gmail.com"
+          />
+          <label for="floatingInput">Email address</label>
+        </div>
+        <div class="form-floating">
+          <input
+            type="password"
+            id="password"
+            name="password"
+            class="form-control"
+            id="floatingPassword"
+            placeholder="Password"
+          />
+          <label for="floatingPassword">Password</label>
+        </div>
+
+        <div style="text-align: center; margin: 15px 0">
+          <span style="display: block"
+            >Haven't signed up yet? <a style="color: #0d6efd" href="{% url 'register' %}">Sign Up</a></span
+          >
+          <span style="display: block"><a style="color: #0d6efd" href="#">Forgot Password</a></span>
+        </div>
+      </div>
+      <button class="btn btn-secondary btn-sm" style="float: right; background-color: #0d6efd; border: 0" type="submit">
+        <title>lock</title>
+        Login
+      </button>
+    </form>
+  </div>
+{% endblock %}

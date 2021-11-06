@@ -1,0 +1,126 @@
+* {
+  padding: 0;
+  margin: 0;
+  font-family: "Eczar", sans-serif;
+  box-sizing: border-box;
+}
+
+nav {
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: 0;
+  height: 57px;
+  width: 100%;
+  border-bottom: 1px solid #cdcdcd;
+  z-index: 10;
+  background-color: White;
+}
+
+nav:after {
+  content: "";
+  clear: both;
+  display: table;
+}
+
+.checkbtn {
+  font-size: 25px;
+  float: right;
+  line-height: 80px;
+  margin-right: 40px;
+  display: none;
+  cursor: pointer;
+}
+
+#check {
+  display: none;
+}
+
+#bars {
+  line-height: 80px;
+  margin-right: 10px;
+  font-size: 22px;
+  cursor: pointer;
+  color: white;
+}
+
+#cross {
+  display: none;
+  line-height: 80px;
+  margin-right: 10px;
+  font-size: 22px;
+  cursor: pointer;
+  color: white;
+}
+
+#check:checked + label i#bars {
+  display: none;
+}
+
+#check:checked + label i#cross {
+  display: block;
+}
+
+nav ul {
+  float: right;
+  padding-right: 30px;
+}
+
+nav ul li {
+  display: inline-block;
+  line-height: 80px;
+  margin: 0 10px;
+}
+
+li {
+  list-style: none;
+}
+
+li a {
+  text-decoration: none;
+  color: #28125e;
+  font-size: 18px;
+}
+
+li a:hover {
+  font-size: 18.3px;
+  color: #28125e;
+  transition: ease-out 0.3s;
+}
+
+.messages {
+  color: red;
+  font-size: 20px;
+  text-align: center;
+  margin: 0;
+  padding: 0;
+}
+
+.messages {
+  color: red;
+  font-size: 20px;
+  text-align: center;
+  margin: 0;
+  padding: 0;
+}
+
+.login-container {
+  border-radius: 20px;
+  margin-left: auto;
+  margin-right: auto;
+  width: 40%;
+  height: 65vh;
+  padding: 19px;
+  margin-top: 5rem;
+}
+
+.register-container {
+  border-radius: 20px;
+  margin-left: auto;
+  margin-right: auto;
+  width: 40%;
+  height: 95vh;
+  padding: 19px;
+  margin-bottom: 50px;
+  margin-top: 5rem;
+}

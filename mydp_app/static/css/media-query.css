@@ -1,0 +1,9 @@
+@media all and (min-width: 100px) and (max-width: 950px) {
+  .login-container {
+    width: 80%;
+  }
+
+  .register-container {
+    width: 60%;
+  }
+}
