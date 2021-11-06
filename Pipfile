@@ -9,6 +9,9 @@ django-heroku = "*"
 gunicorn = "*"
 whitenoise = "*"
 dj-database-url = "*"
+django-ckeditor = "*"
+django-hitcount = "*"
+pillow = "*"
 
 [dev-packages]
 
