@@ -23,6 +23,21 @@ nav:after {
   display: table;
 }
 
+.navbar-logo {
+  font-size: 28px;
+  padding-left: 20px;
+  text-decoration: none;
+  color: #26174b;
+  margin-top: 10px;
+  display: inline-block !important;
+}
+
+.navbar-logo:hover {
+  font-size: 28.3px;
+  text-decoration: none;
+  color: #26174b;
+}
+
 .checkbtn {
   font-size: 25px;
   float: right;
@@ -59,7 +74,6 @@ nav:after {
 
 #check:checked + label i#cross {
   display: block;
-  
 }
 
 nav ul {
@@ -146,4 +160,11 @@ form {
   border: none !important;
   outline: none !important;
   width: 40%;
+}
+
+.auth-button:hover {
+  color: white !important;
+  background-color: #26174bec !important;
+  transition: ease-out 0.3s;
+  border: 1px solid #26174b !important;
 }
