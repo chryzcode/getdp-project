@@ -50,7 +50,39 @@ class Banner(models.Model, HitCountMixin):
     def __str__(self):
         return self.name
 
-    def save(self, *args, **kwargs):
+    def save(self, request, *args, **kwargs):
+        self.user = request.user
         if not self.slug:
             self.slug = slugify(self.banner_name)
         return super(Banner, self).save(*args, **kwargs)
+
+class UserBanner(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    banner = models.ForeignKey(Banner, on_delete=models.CASCADE)
+    created = models.DateTimeField(auto_now_add=True)
+    updated = models.DateTimeField(auto_now=True)
+    user_image = models.ImageField(upload_to='user_image/', blank=True, null=True)
+    full_name = models.CharField(max_length=300, null=True, blank=True)
+
+    def __str__(self):
+        return self.name
+
+    def save(self, request, *args, **kwargs):
+        self.user = request.user
+        if not self.full_name:
+            self.full_name = self.user.full_name
+        return super(UserBanner, self).save(*args, **kwargs)
+
+class Comment(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    banner = models.ForeignKey(Banner, on_delete=models.CASCADE)
+    name  = models.TextField()
+    created = models.DateTimeField(auto_now_add=True)
+    updated = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return self.name
+
+    def save(self, request, *args, **kwargs):
+        self.user = request.user
+        return super(Comment, self).save(*args, **kwargs)

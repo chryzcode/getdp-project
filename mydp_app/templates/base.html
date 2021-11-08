@@ -32,7 +32,7 @@
         <span class="nav-item-center"> 
           <li><a href="#">Discover</a></li>
           <li><a href="#">Categories</a></li>
-          <li><a href="#">Create Banner</a></li>
+          <li><a href="{% url 'create-banner' %}">Create Banner</a></li>
         </span>
         {% if user.is_authenticated %}
         <li><a href="{% url 'logout' %}">Log Out</a></li>

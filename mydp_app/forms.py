@@ -1,6 +1,6 @@
 from django.forms import ModelForm
 from django import forms
-from .models import User, Banner
+from .models import User, Banner, UserBanner
 from django.contrib.auth.forms import UserCreationForm
 
 class SignupForm(UserCreationForm):
@@ -24,7 +24,13 @@ class BannerForm(ModelForm):
         super(BannerForm, self).__init__(*args, **kwargs)
 
 
+class UserBannerForm(ModelForm):
+    class Meta:
+        model = UserBanner
+        fields = ['user_image', 'full_name' ]
 
+    def __init__(self, *args, **kwargs):
+        super(UserBannerForm, self).__init__(*args, **kwargs)
 
 
 # class PasswordChangeForm(SetPasswordForm):

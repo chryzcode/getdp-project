@@ -50,6 +50,7 @@ def logoutPage(request):
 def home(request):
     return render(request, 'home.html')
 
+@login_required(login_url='login')
 def createBanner(request):
     form = BannerForm
     categories = Category.objects.all()
@@ -63,3 +64,5 @@ def createBanner(request):
             messages.error(request, 'An error occured during banner creation')
     context = {'form':form, 'categories':categories, 'tags':tags}
     return render(request, 'create-banner.html', context)
+
+# def useBanner(request):
