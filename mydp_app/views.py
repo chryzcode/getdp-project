@@ -1,8 +1,9 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
-from .forms import SignupForm
+from .forms import SignupForm, BannerForm
 from django.contrib.auth.decorators import login_required
+from .models import Category, Tag, Banner
 
 # Create your views here.
 def loginPage(request):
@@ -48,3 +49,17 @@ def logoutPage(request):
 
 def home(request):
     return render(request, 'home.html')
+
+def createBanner(request):
+    form = BannerForm
+    categories = Category.objects.all()
+    tags = Tag.objects.all()
+    if request.method == 'POST':
+        form = BannerForm(request.POST, request.FILES)
+        if form.is_valid():
+            form.save()
+            return redirect('home')
+        else:
+            messages.error(request, 'An error occured during banner creation')
+    context = {'form':form, 'categories':categories, 'tags':tags}
+    return render(request, 'create-banner.html', context)

@@ -9,14 +9,20 @@
 }
 
 @media all and (min-width: 100px) and (max-width: 620px) {
+  .nav-item-center {
+    position: initial;
+    margin-top: 40px;
+    text-align: center;
+    float: none !important;
+    padding: 0 !important;
+  }
 
   nav ul {
-    position: fixed;
+    position: inherit;
     width: 100%;
     height: 100%;
     top: 57px;
     left: 100%;
-    text-align: left;
     background: white;
     z-index: 1000;
     transition: all 0.5s;
@@ -54,7 +60,7 @@
     left: 0;
   }
 
-  #cross{
+  #cross {
     display: none;
   }
 }

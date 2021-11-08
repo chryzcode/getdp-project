@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/ckeditor-cleaning.css' %}">
     <link rel="stylesheet" href="{% static 'css/styles.css' %}">
     <link rel="stylesheet" href="{% static 'css/media-query.css' %}">
     <link
@@ -28,17 +29,20 @@
       </label>
       <a class="navbar-logo" href="/">Get My Dp</a>
       <ul>
+        <span class="nav-item-center"> 
+          <li><a href="#">Discover</a></li>
+          <li><a href="#">Categories</a></li>
+          <li><a href="#">Create Banner</a></li>
+        </span>
         {% if user.is_authenticated %}
-        <li><a href="#">{{request.user.username}}</a></li>
         <li><a href="{% url 'logout' %}">Log Out</a></li>
         {% else %}
-        <li><a href="{% url 'login' %}">Sign In</a></li>
-        <li><a href="{% url 'register' %}">Sign Up</a></li>
-        {% endif %}
+        <li nav justify-content-end ><a href="{% url 'login' %}">Sign In</a></li>
       </ul>
+      {% endif %}
     </nav>
     {% block content %} 
-
+  
     {% endblock %}
   </body>
   <script
