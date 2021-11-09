@@ -207,9 +207,25 @@ form {
   margin-left: auto;
   margin-right: auto;
   width: 80%;
-  height: 200vh;
+  height: 150vh;
   padding: 19px;
   margin-bottom: 50px;
   border: 4px solid #cdcdcd;
 
+}
+
+.form-btn {
+  display: block !important;
+  background-color: #26174b !important;
+  color: white;
+  border: none !important;
+  outline: none !important;
+  width: 10%;
+}
+
+.form-btn:hover {
+  color: white !important;
+  background-color: #26174bec !important;
+  transition: ease-out 0.3s;
+  border: 1px solid #26174b !important;
 }

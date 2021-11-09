@@ -3,6 +3,7 @@ from django.contrib.auth.models import AbstractUser
 from ckeditor.fields import RichTextField
 from hitcount.models import HitCountMixin, HitCount
 from django.contrib.contenttypes.fields import GenericRelation
+from django.utils.text import slugify
 
 # Create your models here.
 class User(AbstractUser):
@@ -36,22 +37,21 @@ class Banner(models.Model, HitCountMixin):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     banner_name = models.CharField(max_length=100 , unique=True)
     description = RichTextField(blank=True, null=True)
-    category = models.ForeignKey(Category, on_delete=models.CASCADE)
-    tag = models.ForeignKey(Tag, on_delete=models.CASCADE)
+    category = models.CharField(max_length=200)
+    tag = models.CharField(max_length=200, blank=True, null=True)
     banner_image = models.ImageField(upload_to='banner/')
     updated = models.DateTimeField(auto_now=True)
     created = models.DateTimeField(auto_now_add=True)
-    banner_users = models.ManyToManyField(User, related_name='banner_users')
+    banner_users = models.ManyToManyField(User, related_name='banner_users', blank=True)
     slug = models.SlugField(unique=True, max_length=100)
     hit_count_generic = GenericRelation(
     HitCount, object_id_field='object_pk',
     related_query_name='hit_count_generic_relation')
 
     def __str__(self):
-        return self.name
+        return self.banner_name
 
-    def save(self, request, *args, **kwargs):
-        self.user = request.user
+    def save(self, *args, **kwargs):
         if not self.slug:
             self.slug = slugify(self.banner_name)
         return super(Banner, self).save(*args, **kwargs)

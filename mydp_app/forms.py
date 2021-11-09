@@ -1,7 +1,8 @@
 from django.forms import ModelForm
 from django import forms
-from .models import User, Banner, UserBanner
+from .models import *
 from django.contrib.auth.forms import UserCreationForm
+
 
 class SignupForm(UserCreationForm):
     full_name = forms.CharField(max_length = 100)
@@ -20,6 +21,11 @@ class BannerForm(ModelForm):
         fields = "__all__"
         exclude = ['user', 'slug', 'banner_users']
 
+        widgets={
+            'category':forms.Select(choices= Category.objects.all().values_list('name', 'name'), attrs={'class':'form-control'}),
+            'tag':forms.Select(choices= Tag.objects.all().values_list('name', 'name'), attrs={'class':'form-control'}),
+    }
+
     def __init__(self, *args, **kwargs):
         super(BannerForm, self).__init__(*args, **kwargs)
 
@@ -31,6 +37,22 @@ class UserBannerForm(ModelForm):
 
     def __init__(self, *args, **kwargs):
         super(UserBannerForm, self).__init__(*args, **kwargs)
+
+class CommentForm(ModelForm):
+    class Meta:
+        model = Comment
+        fields = ['name']
+
+    def __init__(self, *args, **kwargs):
+        super(CommentForm, self).__init__(*args, **kwargs)
+
+class UserProfileForm(ModelForm):
+    class Meta:
+        model = User
+        fields = ['avatar', 'full_name', 'username', 'phone']
+
+    def __init__(self, *args, **kwargs):
+        super(UserProfileForm, self).__init__(*args, **kwargs)
 
 
 # class PasswordChangeForm(SetPasswordForm):

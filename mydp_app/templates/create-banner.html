@@ -12,12 +12,11 @@
         <input
           id="banner_name"
           class="form-control"
-          id="floatingInput"
           name="banner_name"
           type="text"
           placeholder="e.g. The Dev Fest Conference Banner"
         />
-        <label for="floatingInput">Banner Name</label>
+        <label for="banner_name">Banner Name</label>
       </div>
 
       {{ form.media }}
@@ -25,33 +24,21 @@
       {{ form.description }}
 
       <div class="form-floating mb-3">
-        <input class="form-control" list="category-list" id="categories" placeholder="Type to search..." />
-        <datalist id="category-list">
-          <select id="categories">
-            {% for category in categories %}
-            <option value="{{category.name}}">{{category.name}}</option>
-            {% endfor %}
-          </select>
-        </datalist>
-        <label for="categories">Categories</label>
+      {{form.tag}}
+        <label>{{ form.tag.label_tag }}</label>
       </div>
 
       <div class="form-floating mb-3">
-        <input class="form-control" list="tag-list" id="tags" placeholder="Type to search..." />
-        <datalist id="tag-list">
-          <select id="tags">
-            {% for tag in tags %}
-            <option value="{{tag.name}}">{{tag.name}}</option>
-            {% endfor %}
-          </select>
-        </datalist>
-        <label for="tags">Tags</label>
+        {{form.category}}
+        <label>{{ form.category.label_tag }}</label>
       </div>
 
       <div class="form-floating mb-3">
-        <input class="form-control form-control-lg" type="file" id="formFile" />
-        <label for="formFile" class="form-label">Banner Image</label>
+        <input class="form-control form-control-lg" type="file" id="banner_image" name="banner_image" />
+        <label for="banner" class="form-label">Banner Image</label>
       </div>
+
+      <button class="form-btn btn-sm" type="submit">Save</button>
     </form>
   </div>
 </div>

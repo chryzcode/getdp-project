@@ -1,9 +1,9 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
-from .forms import SignupForm, BannerForm
+from .forms import *
 from django.contrib.auth.decorators import login_required
-from .models import Category, Tag, Banner
+from .models import *
 
 # Create your views here.
 def loginPage(request):
@@ -53,16 +53,54 @@ def home(request):
 @login_required(login_url='login')
 def createBanner(request):
     form = BannerForm
+    slug_field = 'slug'
     categories = Category.objects.all()
     tags = Tag.objects.all()
     if request.method == 'POST':
-        form = BannerForm(request.POST, request.FILES)
+        banner = Banner.objects.create(
+            user = request.user,
+            banner_name = request.POST.get('banner_name'),
+            description = request.POST.get('description'),
+            slug = request.POST.get('slug'),
+            category = request.POST.get('category_name'),
+            tag = request.POST.get('tag_name'),
+            banner_image = request.POST.get('banner_image'),
+        )
+        return redirect('home')
+    context = {'form':form, 'categories':categories, 'tags':tags}
+    return render(request, 'create-banner.html', context)
+
+@login_required(login_url='login')
+def userBanner(request):
+    form = UserBannerForm
+    if request.method == 'POST':
+        form = UserBannerForm()
         if form.is_valid():
             form.save()
             return redirect('home')
         else:
             messages.error(request, 'An error occured during banner creation')
-    context = {'form':form, 'categories':categories, 'tags':tags}
+    context = {'form':form}
     return render(request, 'create-banner.html', context)
 
-# def useBanner(request):
+def userProfile(request, username):
+    user = get_object_or_404(User, username=username)
+    banners = user.banner_set.all()
+    context = {'user':user, 'banners':banners}
+    return render(request, 'user-profile.html', context)
+
+def editUserProfile(request, username):
+    user = get_object_or_404(User, username=username)
+    if request.method == 'POST':
+        form = UserProfileForm(request.POST, request.FILES)
+        if form.is_valid():
+            form.save()
+            return redirect('home')
+        else:
+            messages.error(request, 'An error occured during profile update')
+    context = {'form':form}
+    return render(request, 'edit-user-profile.html', context)
+
+
+
+
