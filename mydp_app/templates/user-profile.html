@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div style="padding-top: 50px;" class="container">
+    {% if user.avatar %}
+    <img src="{{ user.avatar.url}}" alt="">
+    {% endif %}
+    <h2 class="header">{{user.full_name}}</h2>
+
+</div>
+
+{% endblock %}

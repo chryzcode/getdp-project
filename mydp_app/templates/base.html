@@ -35,6 +35,7 @@
           <li><a href="{% url 'create-banner' %}">Create Banner</a></li>
         </span>
         {% if user.is_authenticated %}
+        <li><a href="{% url 'user-profile' user.username %}">My Profile</a></li>
         <li><a href="{% url 'logout' %}">Log Out</a></li>
         {% else %}
         <li nav justify-content-end ><a href="{% url 'login' %}">Sign In</a></li>
