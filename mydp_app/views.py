@@ -105,7 +105,6 @@ def userProfile(request, username):
 
 
 def deleteAccount(request):
-    if request.method == 'POST':
-        user = request.user
-        user.delete()
-        return redirect('home')
+    user = request.user
+    user.delete()
+    return redirect('home')

@@ -268,3 +268,8 @@ form {
   transition: ease-out 0.3s;
   border: 1px solid #26174b !important;
 }
+
+.delete-btn{
+  float: left !important;
+  margin-top: 60px;
+}
