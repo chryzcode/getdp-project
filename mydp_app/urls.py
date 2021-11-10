@@ -8,5 +8,5 @@ urlpatterns = [
     path('register/', views.registerPage, name='register'),
     path('create-banner/', views.createBanner, name='create-banner'),
     path('profile/<username>/', views.userProfile, name='user-profile'),
-    path('profile/<username>/edit/', views.editUserProfile, name='edit-user-profile'),
+    path('delete-account/', views.deleteAccount, name='delete-account'),
 ]

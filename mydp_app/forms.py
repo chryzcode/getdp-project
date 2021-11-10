@@ -49,7 +49,12 @@ class CommentForm(ModelForm):
 class UserProfileForm(ModelForm):
     class Meta:
         model = User
-        fields = ['avatar', 'full_name', 'username', 'phone']
+        fields = ['full_name', 'username']
+
+        widgets={
+            'full_name':forms.TextInput(attrs={'class':'form-control', 'placeholder':'Full Name'}),
+            'username':forms.TextInput(attrs={'class':'form-control', 'placeholder':'Username'}),
+    }
 
     def __init__(self, *args, **kwargs):
         super(UserProfileForm, self).__init__(*args, **kwargs)

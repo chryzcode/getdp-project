@@ -86,21 +86,26 @@ def userBanner(request):
 def userProfile(request, username):
     user = get_object_or_404(User, username=username)
     banners = user.banner_set.all()
-    context = {'user':user, 'banners':banners}
-    return render(request, 'user-profile.html', context)
-
-def editUserProfile(request, username):
-    user = get_object_or_404(User, username=username)
+    form = UserProfileForm(
+        initial={
+            'username':user.username,
+            'full_name':user.full_name,
+            'avatar':user.avatar,
+        }
+        ) 
     if request.method == 'POST':
-        form = UserProfileForm(request.POST, request.FILES)
+        form = UserProfileForm(request.POST, request.FILES, instance = request.user) 
         if form.is_valid():
             form.save()
-            return redirect('home')
-        else:
-            messages.error(request, 'An error occured during profile update')
-    context = {'form':form}
-    return render(request, 'edit-user-profile.html', context)
+            username = request.POST.get('username')
+            return redirect('user-profile', username)
+
+    context = {'user':user, 'banners':banners, 'form':form}
+    return render(request, 'user-profile.html', context)
 
 
-
-
+def deleteAccount(request):
+    if request.method == 'POST':
+        user = request.user
+        user.delete()
+        return redirect('home')

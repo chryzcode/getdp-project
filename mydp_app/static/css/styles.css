@@ -15,10 +15,8 @@ nav {
   border-bottom: 1px solid #cdcdcd;
   z-index: 10;
   background-color: White;
- overflow: hidden;
+  overflow: hidden;
 }
-
-
 
 nav:after {
   content: "";
@@ -26,17 +24,15 @@ nav:after {
   display: table;
 }
 
-
 nav ul {
- float: right;
- padding-right: 20px;
+  float: right;
+  padding-right: 20px;
 }
 
-.nav-item-center{
+.nav-item-center {
   position: absolute;
   left: 35%;
 }
-
 
 .navbar-logo {
   font-size: 28px;
@@ -179,30 +175,30 @@ form {
   border: 1px solid #26174b !important;
 }
 
-.intro-img{
-  background: url('../images/images.png') no-repeat center center;
+.intro-img {
+  background: url("../images/images.png") no-repeat center center;
   background-size: cover;
   width: 100%;
   height: 40vh;
 }
 
-.intro{
+.intro {
   padding-top: 100px;
   text-align: center;
   color: white;
-  margin:  0 20px;
+  margin: 0 20px;
 }
 
-.intro > p{
+.intro > p {
   font-size: 20px;
   margin-top: 10px;
 }
 
-.create-banner-container{
+.create-banner-container {
   padding: 100px 0;
 }
 
-.create-banner-form-container{
+.create-banner-form-container {
   border-radius: 20px;
   margin-left: auto;
   margin-right: auto;
@@ -228,20 +224,47 @@ form {
   border: 1px solid #26174b !important;
 }
 
-.save-btn{
+.save-btn {
   width: 60px;
   border-radius: 5px;
   background-color: #26174b;
-  color: white; 
+  color: white;
   outline: none;
   border: none;
   margin: 20px 0;
   padding: 5px;
 }
 
-.save-btn:hover{
+.save-btn:hover {
   background-color: #26174bec;
   transition: ease-out 0.3s;
   border: 1px solid #26174b !important;
 }
 
+.user-profile-avatar {
+  border-radius: 50%;
+  width: 200px;
+  margin: 20px auto;
+  display: block !important;
+  border: 5px solid #26174b;
+}
+
+.btn-guide {
+  text-align: center;
+  width: 100%;
+}
+
+.edit-profile-btn {
+  border-radius: 15px;
+  padding: 5px 10px;
+  color: white;
+  text-decoration: none;
+  background-color: #26174b;
+}
+
+.edit-profile-btn:hover {
+  color: white;
+  background-color: #26174bec;
+  transition: ease-out 0.3s;
+  border: 1px solid #26174b !important;
+}

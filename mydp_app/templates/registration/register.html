@@ -1,8 +1,6 @@
 {% extends 'base.html' %} {% block content %}
 
-
-
-  <div class="register-container">
+<div class="register-container">
   {% if messages %} {% for message in messages %}
   <p class="messages">{{message}}</p>
   {% endfor %} {% endif %}
@@ -10,74 +8,69 @@
   <form action="" method="post">
     {% csrf_token %}
     <div class="container">
-       <div class="form-floating mb-3">
-          <input
-            id="full_name"
-            class="form-control"
-            id="floatingInput"
-            name="full_name"
-            type="text"
-            placeholder="e.g. john doe"
-          />
-          <label for="floatingInput">Full Name</label>
-        </div>
+      <div class="form-floating mb-3">
+        <input
+          id="full_name"
+          class="form-control"
+          id="floatingInput"
+          name="full_name"
+          type="text"
+          placeholder="e.g. john doe"
+        />
+        <label for="floatingInput">Full Name</label>
+      </div>
 
-        <div class="form-floating mb-3">
-          <input
-            id="username"
-            class="form-control"
-            id="floatingInput"
-            name="username"
-            type="text"
-            placeholder="e.g. john"
-          />
-          <label for="floatingInput">Username</label>
-        </div>
+      <div class="form-floating mb-3">
+        <input
+          id="username"
+          class="form-control"
+          id="floatingInput"
+          name="username"
+          type="text"
+          placeholder="e.g. john"
+        />
+        <label for="floatingInput">Username</label>
+      </div>
 
-         <div class="form-floating mb-3">
-          <input
-            id="email"
-            class="form-control"
-            id="floatingInput"
-            name="email"
-            type="text"
-            placeholder="e.g. johndoe@gmail.com"
-          />
-          <label for="floatingInput">Email address</label>
-        </div>
+      <div class="form-floating mb-3">
+        <input
+          id="email"
+          class="form-control"
+          id="floatingInput"
+          name="email"
+          type="text"
+          placeholder="e.g. johndoe@gmail.com"
+        />
+        <label for="floatingInput">Email address</label>
+      </div>
 
-        <div class="form-floating">
-          <input
-            type="password"
-            id="password1"
-            name="password1"
-            class="form-control"
-            id="floatingPassword"
-            placeholder="Password"
-          />
-          <label for="floatingPassword">Password</label>
-        </div>
+      <div class="form-floating">
+        <input
+          type="password"
+          id="password1"
+          name="password1"
+          class="form-control"
+          id="floatingPassword"
+          placeholder="Password"
+        />
+        <label for="floatingPassword">Password</label>
+      </div>
 
-        <div style="margin-top: 15px;" class="form-floating">
-          <input
-            type="password"
-            id="password2"
-            name="password2"
-            class="form-control"
-            id="floatingPassword"
-            placeholder="Password"
-          />
-          <label for="floatingPassword">Confirm Password</label>
-        </div>
+      <div style="margin-top: 15px" class="form-floating">
+        <input
+          type="password"
+          id="password2"
+          name="password2"
+          class="form-control"
+          id="floatingPassword"
+          placeholder="Password"
+        />
+        <label for="floatingPassword">Confirm Password</label>
+      </div>
 
-      <p style="margin-top: 15px">
-        Already signed up?<a href="{% url 'login' %}">Sign In</a>
-      </p>
+      <p style="margin-top: 15px">Already signed up?<a href="{% url 'login' %}">Sign In</a></p>
     </div>
-    <button  class="auth-button btn btn-secondary btn-sm" type="submit">
-    <title>lock</title>
-    Register
-  </button>
+    <button class="auth-button btn btn-secondary btn-sm" type="submit">Register</button>
   </form>
 </div>
 

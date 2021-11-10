@@ -1,12 +1,46 @@
-{% extends 'base.html' %}
+{% extends 'base.html' %} {% load static %} {% block content %}
+<div style="padding-top: 50px" class="container">
+  {% if user.avatar %}
+  <img class="user-profile-avatar" src="{{ user.avatar.url}}" alt="" />
+  {% else %}
+  <img class="user-profile-avatar" src="{% static 'images/default-avatar.svg' %}" alt="" />
+  {% endif %}
+  <h2 class="header">{{user.full_name}}</h2>
+  <h4 class="header">@{{user.username}}</h4>
+  {% if user.email %}
+  <h6 class="header">{{ user.email}}</h6>
+  {% endif %} {% if request.user == user %}
+  <div class="btn-guide">
+    <a
+      class="edit-profile-btn"
+      data-bs-toggle="offcanvas"
+      data-bs-target="#offcanvasRight"
+      aria-controls="offcanvasRight"
+      href="{% url 'user-profile' user.username %}"
+      >Edit Profile</a
+    >
+    <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
+      <div class="offcanvas-header">
+        <h5 class="header" id="offcanvasRightLabel">Edit Profile</h5>
+        <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+      </div>
+      <div class="offcanvas-body">
+        <form action="{% url 'user-profile' user.username %}" method="post">
+          {% csrf_token %}
 
-{% block content %}
-<div style="padding-top: 50px;" class="container">
-    {% if user.avatar %}
-    <img src="{{ user.avatar.url}}" alt="">
-    {% endif %}
-    <h2 class="header">{{user.full_name}}</h2>
+          <div class="form-floating mb-3">
+            <input class="form-control form-control-lg" type="file" id="avatar" name="avatar" />
+            <label for="username" class="form-label">Avatar</label>
+          </div>
+      
+          {{form.as_p}}
+          <button class="save-btn" type="submit">Save</button>
+        </form>
 
+      </div>
+    </div>
+  </div>
+  {% endif %}
 </div>
 
 {% endblock %}
