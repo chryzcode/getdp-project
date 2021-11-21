@@ -70,19 +70,6 @@ def createBanner(request):
     context = {'form':form, 'categories':categories, 'tags':tags}
     return render(request, 'create-banner.html', context)
 
-@login_required(login_url='login')
-def userBanner(request):
-    form = UserBannerForm
-    if request.method == 'POST':
-        form = UserBannerForm()
-        if form.is_valid():
-            form.save()
-            return redirect('home')
-        else:
-            messages.error(request, 'An error occured during banner creation')
-    context = {'form':form}
-    return render(request, 'create-banner.html', context)
-
 def userProfile(request, username):
     user = get_object_or_404(User, username=username)
     banners = user.banner_set.all()
@@ -135,3 +122,17 @@ def useBanner(request, slug):
             form.save()
             return redirect(request, 'user-profile', user.username)
     return render(request, 'use-banner.html', {'form':form})
+
+def allBannerCategory(request):
+    allBannerCategory= Category.objects.all()
+    context = {'allBannerCategory': allbannerCategory}
+    return render(request, 'all-banner-category', context)
+
+def bannerCategory(request, category_name):
+    category = Category.objects.get(category_name)
+    bannerCategory = Banner.objects.filter(category)
+    context = {'bannerCategory':bannerCategory}
+    return render(request, 'banner-category', context)
+
+# def discoverPage(request):
+#     banners = Banner.objects.filter
