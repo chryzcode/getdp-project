@@ -108,3 +108,30 @@ def deleteAccount(request):
     user = request.user
     user.delete()
     return redirect('home')
+
+
+def viewBanner(request, slug):
+    banner = Banner.objects.get(slug=slug)
+    comment = Comment.objects.filter(banner=banner)
+    form = CommentForm
+    context = {'banner': banner, 'comment':comment, 'form':form}
+    if request.method == 'POST':
+        form = CommentForm(request.POST)
+        if form.is_valid():
+            form  = form.save(commit=False)
+            form.user = request.user
+            form.banner = banner
+            form.save()
+            return redirect('view-banner', slug)
+    return render(request, 'view-banner.html', context)
+
+@login_required(login_url='login')
+def useBanner(request, slug):
+    banner = Banner.objects.get(slug=slug)
+    form = UserBannerForm
+    if request.method == "POST":
+        form = UserBannerForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect(request, 'user-profile', user.username)
+    return render(request, 'use-banner.html', {'form':form})
