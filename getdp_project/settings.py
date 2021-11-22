@@ -138,7 +138,7 @@ USE_TZ = True
 
 
 STATIC_URL = '/static/'
-MEDIA_URL = '/get-dp/'
+MEDIA_URL = '/images/'
 
 STATICFILES_DIRS = [
     BASE_DIR / 'static'

@@ -304,12 +304,6 @@ form {
   border-bottom: 1px solid #cdcdcd;
 }
 
-.banner-category{
-  text-align: left;
-  display: inline-block;
-}
-
 .banner-created{
-  text-align: right;
-  display: inline-block;
+ float: right;
 }

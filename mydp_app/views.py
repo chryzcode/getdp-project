@@ -49,7 +49,8 @@ def logoutPage(request):
 
 def home(request):
     banners = Banner.objects.all()
-    comment_count = Comment.objects.count()
+    comment = Comment.objects.all()
+    comment_count = comment.count()
     context = {'banners':banners, 'comment_count':comment_count}
     return render(request, 'home.html', context)
 
