@@ -50,25 +50,21 @@ def logoutPage(request):
 def home(request):
     return render(request, 'home.html')
 
+# @login_required(login_url='login')
+
+
 @login_required(login_url='login')
 def createBanner(request):
     form = BannerForm
-    slug_field = 'slug'
-    categories = Category.objects.all()
-    tags = Tag.objects.all()
     if request.method == 'POST':
-        banner = Banner.objects.create(
-            user = request.user,
-            banner_name = request.POST.get('banner_name'),
-            description = request.POST.get('description'),
-            slug = request.POST.get('slug'),
-            category = request.POST.get('category_name'),
-            tag = request.POST.get('tag_name'),
-            banner_image = request.POST.get('banner_image'),
-        )
-        return redirect('home')
-    context = {'form':form, 'categories':categories, 'tags':tags}
-    return render(request, 'create-banner.html', context)
+        form = BannerForm(request.POST, request.FILES)
+        if form.is_valid():
+            banner = form.save(commit=False)
+            banner.user = request.user
+            banner.save()
+            return redirect('home')
+    return render(request, 'create-banner.html', {'form':form})
+
 
 def userProfile(request, username):
     user = get_object_or_404(User, username=username)
@@ -105,10 +101,10 @@ def viewBanner(request, slug):
     if request.method == 'POST':
         form = CommentForm(request.POST)
         if form.is_valid():
-            form  = form.save(commit=False)
-            form.user = request.user
-            form.banner = banner
-            form.save()
+            banner = form.save(commit=False)
+            banner.user = request.user
+            banner.banner = banner
+            banner.save()
             return redirect('view-banner', slug)
     return render(request, 'view-banner.html', context)
 

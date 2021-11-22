@@ -1,8 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
 from ckeditor.fields import RichTextField
-from hitcount.models import HitCountMixin, HitCount
-from django.contrib.contenttypes.fields import GenericRelation
 from django.utils.text import slugify
 
 # Create your models here.
@@ -10,7 +8,7 @@ class User(AbstractUser):
     full_name = models.CharField(max_length=300, null=True, blank=True)
     username = models.CharField(max_length=150)
     email = models.EmailField(unique=True)
-    avatar = models.ImageField(upload_to='avatars/', blank=True, null=True)
+    avatar = models.ImageField(upload_to='user-profile-images/', null=True)
 
     USERNAME_FIELD = 'email'
     
@@ -30,21 +28,20 @@ class Tag(models.Model):
         return self.name
 
 
-class Banner(models.Model, HitCountMixin):
+
+
+class Banner(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    banner_name = models.CharField(max_length=100 , unique=True)
+    banner_name = models.CharField(max_length=150 , unique=True)
     description = RichTextField(blank=True, null=True)
     category = models.CharField(max_length=200)
-    tag = models.CharField(max_length=200, blank=True, null=True)
-    banner_image = models.ImageField(upload_to='banner/')
-    updated = models.DateTimeField(auto_now=True)
-    created = models.DateTimeField(auto_now_add=True)
+    tag = models.CharField(max_length=200)
+    banner_image = models.ImageField(upload_to='banner-images/')
+    updated = models.DateField(auto_now=True)
+    created = models.DateField(auto_now_add = True)
     banner_users = models.ManyToManyField(User, related_name='banner_users', blank=True)
     slug = models.SlugField(unique=True, max_length=100)
-    hit_count_generic = GenericRelation(
-    HitCount, object_id_field='object_pk',
-    related_query_name='hit_count_generic_relation')
-
+  
     def __str__(self):
         return self.banner_name
 
@@ -52,23 +49,6 @@ class Banner(models.Model, HitCountMixin):
         if not self.slug:
             self.slug = slugify(self.banner_name)
         return super(Banner, self).save(*args, **kwargs)
-
-class UserBanner(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
-    banner = models.ForeignKey(Banner, on_delete=models.CASCADE)
-    created = models.DateTimeField(auto_now_add=True)
-    updated = models.DateTimeField(auto_now=True)
-    user_image = models.ImageField(upload_to='user_image/', blank=True, null=True)
-    full_name = models.CharField(max_length=300, null=True, blank=True)
-
-    def __str__(self):
-        return self.name
-
-    def save(self, request, *args, **kwargs):
-        self.user = request.user
-        if not self.full_name:
-            self.full_name = self.user.full_name
-        return super(UserBanner, self).save(*args, **kwargs)
 
 class Comment(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
@@ -80,6 +60,20 @@ class Comment(models.Model):
     def __str__(self):
         return self.name
 
+class UserBanner(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    banner = models.ForeignKey(Banner, on_delete=models.CASCADE)
+    created = models.DateField(auto_now_add=True)
+    updated = models.DateField(auto_now=True)
+    user_image = models.ImageField(upload_to='banner-users-image/', null=True)
+    full_name = models.CharField(max_length=300, null=True, blank=True)
+
+    def __str__(self):
+        return self.name
+
     def save(self, request, *args, **kwargs):
         self.user = request.user
-        return super(Comment, self).save(*args, **kwargs)
+        if not self.full_name:
+            self.full_name = self.user.full_name
+        return super(UserBanner, self).save(*args, **kwargs)
+
