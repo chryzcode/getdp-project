@@ -4,5 +4,9 @@
        <h2>Get Your DP Banner</h2>
         <p>By enabling them create and share personalized DP based on your brand, event or campaign banners</p>
   </div>
+  {% for banner in banners %}
+<p><a href="{% url 'view-banner' slug=banner.slug %}">{{banner.banner_name}}</a></p>
+{% endfor %}
 </div>
+
 {% endblock %}

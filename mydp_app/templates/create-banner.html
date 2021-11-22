@@ -5,10 +5,10 @@
     {% if messages %} {% for message in messages %}
     <p class="messages">{{message}}</p>
     {% endfor %} {% endif %}
-     <h4 class="header">Create DP Banner</h4>
+    <h4 class="header">Create DP Banner</h4>
     <form action="" method="post">
       {% csrf_token %}
-      <!--<div class="form-floating mb-3">
+      <!-- <div class="form-floating mb-3">
         <input
           id="banner_name"
           class="form-control"
@@ -37,7 +37,8 @@
         <input class="form-control form-control-lg" type="file" id="banner_image" name="banner_image" />
         <label for="banner" class="form-label">Banner Image</label>
       </div> -->
-    {{form.as_p}}
+
+      {{ form.as_p }}
 
         <button class="save-btn" type="submit">Save</button>
     </form>
