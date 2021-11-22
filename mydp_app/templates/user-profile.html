@@ -1,7 +1,7 @@
 {% extends 'base.html' %} {% load static %} {% block content %}
 <div style="padding-top: 50px" class="container">
   {% if user.avatar %}
-  <img class="user-profile-avatar" src="{{ user.avatar.url}}" alt="" />
+  <img class="user-profile-avatar" src="{{ user.avatar.url }}" alt="" />
   {% else %}
   <img class="user-profile-avatar" src="{% static 'images/default-avatar.svg' %}" alt="" />
   {% endif %}

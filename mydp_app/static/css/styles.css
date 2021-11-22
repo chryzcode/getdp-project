@@ -273,3 +273,43 @@ form {
   float: left !important;
   margin-top: 60px;
 }
+
+.banner-grid{
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  margin-top: 30px;
+  grid-column-gap: 10px;
+}
+
+.banner-card{
+  width: 500px;
+  height: 250px;
+  border: 1px solid #cdcdcd;
+  display: block;
+  margin: 0 auto;
+  border-radius: 6px;
+  padding: 20px; 
+  color: #28125e;
+}
+
+.banner-link{
+  text-decoration: none;
+}
+
+.banner-header{
+  font-size: 27px;
+}
+
+.banner-top{
+  border-bottom: 1px solid #cdcdcd;
+}
+
+.banner-category{
+  text-align: left;
+  display: inline-block;
+}
+
+.banner-created{
+  text-align: right;
+  display: inline-block;
+}

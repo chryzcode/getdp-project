@@ -8,7 +8,7 @@
     <h4 class="header">Create DP Banner</h4>
     <form action="" method="post">
       {% csrf_token %}
-      <!-- <div class="form-floating mb-3">
+      <div class="form-floating mb-3">
         <input
           id="banner_name"
           class="form-control"
@@ -36,10 +36,7 @@
       <div class="form-floating mb-3">
         <input class="form-control form-control-lg" type="file" id="banner_image" name="banner_image" />
         <label for="banner" class="form-label">Banner Image</label>
-      </div> -->
-
-      {{ form.as_p }}
-
+      </div>
         <button class="save-btn" type="submit">Save</button>
     </form>
   </div>

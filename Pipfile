@@ -12,6 +12,7 @@ dj-database-url = "*"
 django-ckeditor = "*"
 django-hitcount = "*"
 pillow = "*"
+django-cloudinary-storage = "*"
 
 [dev-packages]
 

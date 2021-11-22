@@ -19,7 +19,7 @@ class BannerForm(ModelForm):
     class Meta:
         model = Banner
         fields = "__all__"
-        # exclude = ['user', 'slug', 'banner_users']
+        exclude = ['user', 'slug', 'banner_users']
 
         widgets={
             'category':forms.Select(choices= Category.objects.all().values_list('name', 'name'), attrs={'class':'form-control'}),

@@ -49,28 +49,9 @@ def logoutPage(request):
 
 def home(request):
     banners = Banner.objects.all()
-    return render(request, 'home.html', {'banners':banners})
-
-# @login_required(login_url='login')
-# def createBanner(request):
-#     form = BannerForm
-#     slug_field = 'slug'
-#     categories = Category.objects.all()
-#     tags = Tag.objects.all()
-#     if request.method == 'POST':
-#         banner = Banner.objects.create(
-#             user = request.user,
-#             banner_name = request.POST.get('banner_name'),
-#             description = request.POST.get('description'),
-#             slug = request.POST.get('slug'),
-#             category = request.POST.get('category'),
-#             tag = request.POST.get('tag'),
-#             banner_image = request.POST.get('banner_image'),
-#         )
-#         return redirect('home')
-#     context = {'form':form, 'categories':categories, 'tags':tags}
-#     return render(request, 'create-banner.html', context)
-
+    comment_count = Comment.objects.count()
+    context = {'banners':banners, 'comment_count':comment_count}
+    return render(request, 'home.html', context)
 
 @login_required(login_url='login')
 def createBanner(request):
@@ -79,15 +60,19 @@ def createBanner(request):
     categories = Category.objects.all()
     tags = Tag.objects.all()
     if request.method == 'POST':
-        form = BannerForm(request.POST)
-        if form.is_valid():
-            banner = form.save(commit=False)
-            banner.user = request.user
-            banner.slug = banner.slug
-            banner.save()
-            return redirect('view-banner', slug=slug)
+        banner = Banner.objects.create(
+            user = request.user,
+            banner_name = request.POST.get('banner_name'),
+            description = request.POST.get('description'),
+            slug = request.POST.get('slug'),
+            category = request.POST.get('category'),
+            tag = request.POST.get('tag'),
+            banner_image = request.POST.get('banner_image'),
+        )
+        return redirect('home')
     context = {'form':form, 'categories':categories, 'tags':tags}
     return render(request, 'create-banner.html', context)
+
 
 def userProfile(request, username):
     user = get_object_or_404(User, username=username)

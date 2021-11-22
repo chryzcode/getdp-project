@@ -1,12 +1,35 @@
 {% extends 'base.html' %} {% block content %}
 <div class="intro-img">
   <div class="intro">
-       <h2>Get Your DP Banner</h2>
-        <p>By enabling them create and share personalized DP based on your brand, event or campaign banners</p>
+    <h2>Get Your DP Banner</h2>
+    <p>By enabling them create and share personalized DP based on your brand, event or campaign banners</p>
   </div>
-  {% for banner in banners %}
-<p><a href="{% url 'view-banner' slug=banner.slug %}">{{banner.banner_name}}</a></p>
-{% endfor %}
+  
+ 
+  
 </div>
+
+  <div class="banner-grid">
+    {% for banner in banners %}
+    <a class="banner-link" href="{% url 'view-banner' banner.slug %}">
+      <div class="banner-card">
+        <div class="banner-top">
+          <span class="banner-category">
+            {{banner.category}}
+          </span>  
+          <span class="banner-created">
+            {{banner.created}}
+          </span>
+        </div>
+      <h5 class="banner-header">{{banner.banner_name}}</h5>
+      <p>{{banner.description|safe}}</p>
+      <div class="banner-bottom">
+        <span>{{banner.comment_count}}</span>
+      </div>
+    </div>
+    </a>
+    {% endfor %}
+  </div>
+
 
 {% endblock %}

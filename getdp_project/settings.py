@@ -38,9 +38,13 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
     'mydp_app',
     'ckeditor',
     'hitcount',
+
+    'cloudinary_storage',
+    'cloudinary'
 ]
 
 MIDDLEWARE = [
@@ -133,25 +137,31 @@ USE_L10N = True
 USE_TZ = True
 
 
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/3.2/howto/static-files/
-
 STATIC_URL = '/static/'
-# STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
-STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+MEDIA_URL = '/get-dp/'
+
+STATICFILES_DIRS = [
+    BASE_DIR / 'static'
+]
+
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
-MEDIA_ROOT  = os.path.join(BASE_DIR, 'media')
-MEDIA_URL = '/media/'
-
+MEDIA_ROOT = BASE_DIR/'static/images'
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
+
+CLOUDINARY_STORAGE = {
+    'CLOUD_NAME': 'chryzhub',
+    'API_KEY': '889363813899634',
+    'API_SECRET': 'DEnPnYS-ozwwGsj85hlKycvqb-I'
+}
 
 import django_heroku
 django_heroku.settings(locals())
 
 LOGIN_REDIRECT_URL = 'home'
-# LOGIN_REDIRECT_URL = 'home'
+LOGOUT_REDIRECT_URL = 'home'
