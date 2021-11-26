@@ -21,6 +21,11 @@
             {{banner.created}}
           </span>
         </div>
+        {% if banner.banner_image %}
+        <img src="{{ banner.banner_image.url }}" alt="">
+        {% else %}
+        <p>hi</p>
+        {% endif %}
       <h5 class="banner-header">{{banner.banner_name}}</h5>
       <p>{{banner.description|safe}}</p>
       <div class="banner-bottom">
