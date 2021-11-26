@@ -1,0 +1,30 @@
+{% extends 'base.html' %} {% block content %}
+<div class="intro-img">
+  <div class="intro">
+    <h2>{{category}} Category</h2>
+    <p>These are banners in the Tech category</p>
+  </div>
+</div>
+<div class="banner-grid">
+  {% for banner in banners %}
+  <a class="banner-link" href="{% url 'view-banner' banner.slug %}">
+    <div class="banner-card">
+      <div class="banner-top">
+        <div>{{banner.created}}</div>
+      </div>
+      {% if banner.banner_image %}
+      <img src="{{ banner.banner_image.url }}" alt="" />
+      {% else %}
+      <p>hi</p>
+      {% endif %}
+      <h5 class="banner-header">{{banner.banner_name}}</h5>
+      <p>{{banner.description|safe}}</p>
+      <div class="banner-bottom">
+        <span>{{banner.comment_count}}jhg</span>
+      </div>
+    </div>
+  </a>
+  {% endfor %}
+</div>
+
+{% endblock %}

@@ -102,6 +102,19 @@ def deleteAccount(request):
     return redirect('home')
 
 
+
+
+def Categories(request):
+    categories = Category.objects.all()
+    context = {'categories': categories}
+    return render(request, 'categories.html', context)
+
+def bannerCategory(request, category_name):
+    category = Category.objects.get(name = category_name)
+    banners = Banner.objects.filter(category = category)
+    context = {'banners':banners, 'category':category}
+    return render(request, 'banner-category.html', context)
+
 def viewBanner(request, slug):
     banner = Banner.objects.get(slug=slug)
     comment = Comment.objects.filter(banner=banner)
@@ -127,17 +140,6 @@ def useBanner(request, slug):
             form.save()
             return redirect('home')
     return render(request, 'use-banner.html', {'form':form})
-
-def Categories(request):
-    categories = Category.objects.all()
-    context = {'categories': categories}
-    return render(request, 'categories.html', context)
-
-def bannerCategory(request, category_name):
-    category = Category.objects.get(category_name)
-    bannerCategory = Banner.objects.filter(category)
-    context = {'bannerCategory':bannerCategory}
-    return render(request, 'banner-category', context)
 
 # def discoverPage(request):
 #     banners = Banner.objects.filter
