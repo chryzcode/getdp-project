@@ -128,10 +128,10 @@ def useBanner(request, slug):
             return redirect(request, 'user-profile', user.username)
     return render(request, 'use-banner.html', {'form':form})
 
-def allBannerCategory(request):
+def Categories(request):
     allBannerCategory= Category.objects.all()
     context = {'allBannerCategory': allbannerCategory}
-    return render(request, 'all-banner-category', context)
+    return render(request, 'categories.html', context)
 
 def bannerCategory(request, category_name):
     category = Category.objects.get(category_name)
