@@ -9,8 +9,8 @@ urlpatterns = [
     path('create-banner/', views.createBanner, name='create-banner'),
     path('profile/<username>/', views.userProfile, name='user-profile'),
     path('delete-account/', views.deleteAccount, name='delete-account'),
-    path('banner/<slug:slug>/', views.viewBanner, name='view-banner'),
-    path('use-banner/<slug:slug>/', views.useBanner, name='use-banner'),
     path('banner/categories/', views.Categories, name='categories'),
     path('banner/<str:category_name>/', views.bannerCategory, name='banner-category'),
+    path('banner/<slug:slug>/', views.viewBanner, name='view-banner'),
+    path('use-banner/<slug:slug>/', views.useBanner, name='use-banner'),   
 ]

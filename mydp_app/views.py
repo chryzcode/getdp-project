@@ -110,11 +110,11 @@ def viewBanner(request, slug):
     if request.method == 'POST':
         form = CommentForm(request.POST)
         if form.is_valid():
-            banner = form.save(commit=False)
-            banner.user = request.user
-            banner.banner = banner
-            banner.save()
-            return redirect('view-banner', slug)
+            comment = form.save(commit=False)
+            comment.user = request.user
+            comment.banner = banner
+            comment.save()
+            return redirect('home')
     return render(request, 'view-banner.html', context)
 
 @login_required(login_url='login')
@@ -125,12 +125,12 @@ def useBanner(request, slug):
         form = UserBannerForm(request.POST)
         if form.is_valid():
             form.save()
-            return redirect(request, 'user-profile', user.username)
+            return redirect('home')
     return render(request, 'use-banner.html', {'form':form})
 
 def Categories(request):
-    allBannerCategory= Category.objects.all()
-    context = {'allBannerCategory': allbannerCategory}
+    categories = Category.objects.all()
+    context = {'categories': categories}
     return render(request, 'categories.html', context)
 
 def bannerCategory(request, category_name):

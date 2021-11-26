@@ -31,7 +31,7 @@
       <ul>
         <span class="nav-item-center"> 
           <li><a href="#">Discover</a></li>
-          <li><a href="#">Categories</a></li>
+          <li><a href="{% url 'categories' %}">Categories</a></li>
           <li><a href="{% url 'create-banner' %}">Create Banner</a></li>
         </span>
         {% if user.is_authenticated %}
