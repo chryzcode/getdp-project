@@ -19,6 +19,11 @@
         <label for="banner_name">Banner Name</label>
       </div>
 
+      <div>
+       <label>{{form.banner_image.label_tag}}</label>
+        {{form.banner_image}}
+     </div>
+     
       {{ form.media }}
       <p>{{ form.description.label_tag }}</p>
       {{ form.description }}
@@ -31,11 +36,6 @@
       <div class="form-floating mb-3">
         {{form.category}}
         <label>{{ form.category.label_tag }}</label>
-      </div>
-
-      <div class="form-floating mb-3">
-        <input class="form-control form-control-lg" type="file" id="banner_image" name="banner_image" />
-        <label for="banner" class="form-label">Banner Image</label>
       </div>
         <button class="save-btn" type="submit">Save</button>
     </form>

@@ -54,6 +54,26 @@ def home(request):
     context = {'banners':banners, 'comment_count':comment_count}
     return render(request, 'home.html', context)
 
+# @login_required(login_url='login')
+# def createBanner(request):
+#     form = BannerForm
+#     slug_field = 'slug'
+#     categories = Category.objects.all()
+#     tags = Tag.objects.all()
+#     if request.method == 'POST':
+#         banner = Banner.objects.create(
+#             user = request.user,
+#             banner_name = request.POST.get('banner_name'),
+#             description = request.POST.get('description'),
+#             slug = request.POST.get('slug'),
+#             category = request.POST.get('category'),
+#             tag = request.POST.get('tag'),
+#             banner_image = request.POST.get('banner_image'),
+#         )
+#         return redirect('home')
+#     context = {'form':form, 'categories':categories, 'tags':tags}
+#     return render(request, 'create-banner.html', context)
+
 @login_required(login_url='login')
 def createBanner(request):
     form = BannerForm
@@ -61,19 +81,15 @@ def createBanner(request):
     categories = Category.objects.all()
     tags = Tag.objects.all()
     if request.method == 'POST':
-        banner = Banner.objects.create(
-            user = request.user,
-            banner_name = request.POST.get('banner_name'),
-            description = request.POST.get('description'),
-            slug = request.POST.get('slug'),
-            category = request.POST.get('category'),
-            tag = request.POST.get('tag'),
-            banner_image = request.POST.get('banner_image'),
-        )
-        return redirect('home')
+        form = BannerForm(request.POST, request.FILES)
+        if form.is_valid():
+            banner = form.save(commit=False)
+            banner.user = request.user
+            banner.slug = slug
+            banner.save()
+            return redirect('home')
     context = {'form':form, 'categories':categories, 'tags':tags}
     return render(request, 'create-banner.html', context)
-
 
 def userProfile(request, username):
     user = get_object_or_404(User, username=username)
@@ -100,9 +116,6 @@ def deleteAccount(request):
     user = request.user
     user.delete()
     return redirect('home')
-
-
-
 
 def Categories(request):
     categories = Category.objects.all()
