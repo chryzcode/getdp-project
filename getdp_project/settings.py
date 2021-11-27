@@ -26,7 +26,7 @@ SECRET_KEY = str(os.environ.get('SECRET_KEY'))
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['get-my-dp.herokuapp.com', '127.0.0.1', 'localhost']
+ALLOWED_HOSTS = ['get-my-dp.herokuapp.com',  'localhost']
 
 
 # Application definition
@@ -154,9 +154,9 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
 
 CLOUDINARY_STORAGE = {
-    'CLOUD_NAME': 'chryzhub',
-    'API_KEY': '889363813899634',
-    'API_SECRET': 'DEnPnYS-ozwwGsj85hlKycvqb-I'
+    'CLOUD_NAME': 'chryz',
+    'API_KEY': '247126667243974',
+    'API_SECRET': 'v5t7W6565VTtGuE5sh1MbkPT_sM'
 }
 
 import django_heroku

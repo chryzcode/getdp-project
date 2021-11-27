@@ -1,11 +1,14 @@
-{% extends 'base.html' %}
+{% extends 'base.html' %} {% load static %} {% block content %}
 
-
-{% block content %}
-
-<div style="margin-top:  150px;" class="container">
+<div style="margin-top: 150px">
+  <div class="category-grid">
     {% for category in categories %}
-        <h2><a href="{% url 'banner-category' category.name %}">{{category.name}}</a></h2>
-    {% endfor %}
+    <a href="{% url 'banner-category' category.name %}">
+      <div class="category-card">
+        <img class="category-img" src="{{category.image.url}}" alt="" />
+        <h4 class="category-name">{{category.name}}</h4>
+      </div>
+      </a>
+  {% endfor %}
 </div>
 {% endblock %}
