@@ -47,32 +47,7 @@ def logoutPage(request):
     logout(request)
     return redirect('home')
 
-def home(request):
-    banners = Banner.objects.all()
-    comment = Comment.objects.all()
-    comment_count = comment.count()
-    context = {'banners':banners, 'comment_count':comment_count}
-    return render(request, 'home.html', context)
 
-# @login_required(login_url='login')
-# def createBanner(request):
-#     form = BannerForm
-#     slug_field = 'slug'
-#     categories = Category.objects.all()
-#     tags = Tag.objects.all()
-#     if request.method == 'POST':
-#         banner = Banner.objects.create(
-#             user = request.user,
-#             banner_name = request.POST.get('banner_name'),
-#             description = request.POST.get('description'),
-#             slug = request.POST.get('slug'),
-#             category = request.POST.get('category'),
-#             tag = request.POST.get('tag'),
-#             banner_image = request.POST.get('banner_image'),
-#         )
-#         return redirect('home')
-#     context = {'form':form, 'categories':categories, 'tags':tags}
-#     return render(request, 'create-banner.html', context)
 
 @login_required(login_url='login')
 def createBanner(request):
@@ -81,15 +56,35 @@ def createBanner(request):
     categories = Category.objects.all()
     tags = Tag.objects.all()
     if request.method == 'POST':
-        form = BannerForm(request.POST, request.FILES)
-        if form.is_valid():
-            banner = form.save(commit=False)
-            banner.user = request.user
-            banner.slug = slug
-            banner.save()
-            return redirect('home')
+        banner = Banner.objects.create(
+            user = request.user,
+            banner_name = request.POST.get('banner_name'),
+            description = request.POST.get('description'),
+            slug = request.POST.get('slug'),
+            category = request.POST.get('category'),
+            tag = request.POST.get('tag'),
+            banner_image = request.POST.get('banner_image'),
+        )
+        return redirect('home')
     context = {'form':form, 'categories':categories, 'tags':tags}
     return render(request, 'create-banner.html', context)
+
+# @login_required(login_url='login')
+# def createBanner(request):
+#     form = BannerForm
+#     slug_field = 'slug'
+#     categories = Category.objects.all()
+#     tags = Tag.objects.all()
+#     if request.method == 'POST':
+#         form = BannerForm(request.POST)
+#         if form.is_valid():
+#             banner = form.save(commit=False)
+#             banner.user = request.user
+#             banner.slug = slug
+#             banner.save()
+#             return redirect('home')
+#     context = {'form':form, 'categories':categories, 'tags':tags}
+#     return render(request, 'create-banner.html', context)
 
 def userProfile(request, username):
     user = get_object_or_404(User, username=username)
@@ -122,11 +117,13 @@ def Categories(request):
     context = {'categories': categories}
     return render(request, 'categories.html', context)
 
-def bannerCategory(request, category_name):
-    category = Category.objects.get(name = category_name)
-    banners = Banner.objects.filter(category = category)
-    context = {'banners':banners, 'category':category}
-    return render(request, 'banner-category.html', context)
+def home(request):
+    banners = Banner.objects.all()
+    comment = Comment.objects.all()
+    comment_count = comment.count()
+    context = {'banners':banners, 'comment_count':comment_count}
+    return render(request, 'home.html', context)
+
 
 def viewBanner(request, slug):
     banner = Banner.objects.get(slug=slug)
@@ -142,6 +139,12 @@ def viewBanner(request, slug):
             comment.save()
             return redirect('home')
     return render(request, 'view-banner.html', context)
+
+def bannerCategory(request, category_name):
+    category = Category.objects.get(name = category_name)
+    banners = Banner.objects.filter(category = category)
+    context = {'banners':banners, 'category':category}
+    return render(request, 'banner-category.html', context)
 
 @login_required(login_url='login')
 def useBanner(request, slug):

@@ -33,11 +33,11 @@ class Tag(models.Model):
 
 class Banner(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    banner_name = models.CharField(max_length=150 , unique=True)
+    name = models.CharField(max_length=150 , unique=True)
     description = RichTextField(blank=True, null=True)
     category = models.CharField(max_length=200)
     tag = models.CharField(max_length=200)
-    banner_image = models.ImageField(upload_to='banner-images/')
+    image = models.ImageField(upload_to='banner-images/')
     updated = models.DateField(auto_now=True)
     created = models.DateField(auto_now_add = True)
     banner_users = models.ManyToManyField(User, related_name='banner_users', blank=True)
@@ -48,15 +48,15 @@ class Banner(models.Model):
 
     def save(self, *args, **kwargs):
         if not self.slug:
-            self.slug = slugify(self.banner_name)
+            self.slug = slugify(self.name)
         return super(Banner, self).save(*args, **kwargs)
 
 class Comment(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     banner = models.ForeignKey(Banner, on_delete=models.CASCADE)
     name  = models.TextField()
-    created = models.DateTimeField(auto_now_add=True)
-    updated = models.DateTimeField(auto_now=True)
+    created = models.DateField(auto_now_add=True)
+    updated = models.DateField(auto_now=True)
 
     def __str__(self):
         return self.name
@@ -66,7 +66,7 @@ class UserBanner(models.Model):
     banner = models.ForeignKey(Banner, on_delete=models.CASCADE)
     created = models.DateField(auto_now_add=True)
     updated = models.DateField(auto_now=True)
-    user_image = models.ImageField(upload_to='banner-users-image/', null=True)
+    image = models.ImageField(upload_to='banner-users-image/',)
     full_name = models.CharField(max_length=300, null=True, blank=True)
 
     def __str__(self):

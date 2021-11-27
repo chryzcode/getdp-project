@@ -21,12 +21,10 @@
             {{banner.created}}
           </span>
         </div>
-        {% if banner.banner_image %}
-        <img src="{{ banner.banner_image.url }}" alt="">
-        {% else %}
-        <p>hi</p>
+        {% if banner.image %}
+        <img src="{{ banner.image.url }}" alt="">
         {% endif %}
-      <h5 class="banner-header">{{banner.banner_name}}</h5>
+      <h5 class="banner-header">{{banner.name}}</h5>
       <p>{{banner.description|safe}}</p>
       <div class="banner-bottom">
         <span>{{banner.comment_count}}jhg</span>

@@ -2,9 +2,10 @@
 <div class="intro-img">
   <div class="intro">
     <h2>{{category}} Category</h2>
-    <p>These are banners in the Tech category</p>
+    <p>These are banners in the {{category}} category</p>
   </div>
 </div>
+{% if banners %}
 <div class="banner-grid">
   {% for banner in banners %}
   <a class="banner-link" href="{% url 'view-banner' banner.slug %}">
@@ -26,5 +27,7 @@
   </a>
   {% endfor %}
 </div>
-
+{% else %}
+<h2 class="header">There are no banners in this category</h2>
+{% endif %}
 {% endblock %}

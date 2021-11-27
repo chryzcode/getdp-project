@@ -18,7 +18,7 @@ class SignupForm(UserCreationForm):
 class BannerForm(ModelForm):
     class Meta:
         model = Banner
-        fields = "__all__"
+        fields = ('name', 'description', 'category', 'tag', 'image')
         exclude = ['user', 'slug', 'banner_users']
 
         widgets={
@@ -33,7 +33,7 @@ class BannerForm(ModelForm):
 class UserBannerForm(ModelForm):
     class Meta:
         model = UserBanner
-        fields = ['user_image', 'full_name' ]
+        fields = ['image', 'full_name' ]
 
     def __init__(self, *args, **kwargs):
         super(UserBannerForm, self).__init__(*args, **kwargs)
@@ -54,7 +54,7 @@ class CommentForm(ModelForm):
 class UserProfileForm(ModelForm):
     class Meta:
         model = User
-        fields = ['full_name', 'username']
+        fields = ['avatar', 'full_name', 'username']
 
         widgets={
             'full_name':forms.TextInput(attrs={'class':'form-control', 'placeholder':'Full Name'}),
