@@ -286,19 +286,24 @@ form {
 
 .banner-card{
   width: 600px;
-  height: 250px;
+  height: 330px;
   border: 1px solid #cdcdcd;
   display: block;
   margin: 0 auto;
   border-radius: 6px;
-  padding: 20px; 
   color: #28125e;
 }
 
 .banner-image{
   width: 100%;
   overflow: hidden;
-  height: 100%;
+}
+
+.banner-image-container{
+  overflow: hidden;
+  background-size: cover;
+  width: 100%;
+  height: 40%;
 }
 
 .banner-link{
@@ -310,11 +315,23 @@ form {
 }
 
 .banner-top{
-  border-bottom: 1px solid #cdcdcd;
+  padding: 10px 20px;
 }
 
 .banner-created{
  float: right;
+}
+
+.banner-content{
+  padding: 8px 20px;
+}
+
+.banner-bottom{
+  padding: 8px 20px;
+  border-top: 1px solid #cdcdcd;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  text-align: center;
 }
 
 .category-grid{

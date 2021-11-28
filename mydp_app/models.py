@@ -44,7 +44,7 @@ class Banner(models.Model):
     slug = models.SlugField(unique=True, max_length=100)
   
     def __str__(self):
-        return self.banner_name
+        return self.name
 
     def save(self, *args, **kwargs):
         if not self.slug:

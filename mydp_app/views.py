@@ -48,27 +48,6 @@ def logoutPage(request):
     return redirect('home')
 
 
-
-# @login_required(login_url='login')
-# def createBanner(request):
-#     form = BannerForm
-#     slug_field = 'slug'
-#     categories = Category.objects.all()
-#     tags = Tag.objects.all()
-#     if request.method == 'POST':
-#         banner = Banner.objects.create(
-#             user = request.user,
-#             name = request.POST.get('name'),
-#             description = request.POST.get('description'),
-#             slug = request.POST.get('slug'),
-#             category = request.POST.get('category'),
-#             tag = request.POST.get('tag'),
-#             banner_image = request.POST.get('banner_image'),
-#         )
-#         return redirect('home')
-#     context = {'form':form, 'categories':categories, 'tags':tags}
-#     return render(request, 'create-banner.html', context)
-
 @login_required(login_url='login')
 def createBanner(request):
     form = BannerForm
@@ -119,21 +98,6 @@ def home(request):
     return render(request, 'home.html', context)
 
 
-def viewBanner(request, slug):
-    banner = Banner.objects.get(slug=slug)
-    comment = Comment.objects.filter(banner=banner)
-    form = CommentForm
-    context = {'banner': banner, 'comment':comment, 'form':form}
-    if request.method == 'POST':
-        form = CommentForm(request.POST)
-        if form.is_valid():
-            comment = form.save(commit=False)
-            comment.user = request.user
-            comment.banner = banner
-            comment.save()
-            return redirect('home')
-    return render(request, 'view-banner.html', context)
-
 def bannerCategory(request, category_name):
     category = Category.objects.get(name = category_name)
     banners = Banner.objects.filter(category = category)
@@ -150,6 +114,21 @@ def useBanner(request, slug):
             form.save()
             return redirect('home')
     return render(request, 'use-banner.html', {'form':form})
+
+def viewBanner(request, slug):
+    banner = Banner.objects.get(slug=slug)
+    comment = Comment.objects.filter(banner=banner)
+    form = CommentForm
+    context = {'banner': banner, 'comment':comment, 'form':form}
+    if request.method == 'POST':
+        form = CommentForm(request.POST)
+        if form.is_valid():
+            comment = form.save(commit=False)
+            comment.user = request.user
+            comment.banner = banner
+            comment.save()
+            return redirect('home')
+    return render(request, 'view-banner.html', context)
 
 # def discoverPage(request):
 #     banners = Banner.objects.filter

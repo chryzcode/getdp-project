@@ -11,17 +11,21 @@
   <a class="banner-link" href="{% url 'view-banner' banner.slug %}">
     <div class="banner-card">
       <div class="banner-top">
-        <div>{{banner.created}}</div>
+        <span class="banner-created"> {{banner.created}} </span>
       </div>
-      {% if banner.banner_image %}
-      <img src="{{ banner.banner_image.url }}" alt="" />
-      {% else %}
-      <p>hi</p>
-      {% endif %}
-      <h5 class="banner-header">{{banner.banner_name}}</h5>
-      <p>{{banner.description|safe}}</p>
+      <div class="banner-image-container">
+        {% if banner.image %}
+        <img class="banner-image" src="{{ banner.image.url }}" alt="" />
+        {% endif %}
+      </div>
+      <div class="banner-content">
+        <h5 class="banner-header">{{banner.name}}</h5>
+        <div>{{banner.description|safe|truncatewords:15}}</div>
+      </div>
       <div class="banner-bottom">
-        <span>{{banner.comment_count}}jhg</span>
+        <span>100 Views</span>
+        <span>229 Usage</span>
+        <span>5 Comments</span>
       </div>
     </div>
   </a>
