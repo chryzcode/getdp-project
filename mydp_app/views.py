@@ -97,10 +97,24 @@ def home(request):
     context = {'banners':banners, 'comment_count':comment_count}
     return render(request, 'home.html', context)
 
+def viewBanner(request, slug):
+    banner = get_object_or_404(Banner.objects.all(), slug=slug)
+    comment = Comment.objects.filter(banner=banner)
+    form = CommentForm
+    context = {'banner': banner, 'comment':comment, 'form':form}
+    if request.method == 'POST':
+        form = CommentForm(request.POST)
+        if form.is_valid():
+            comment = form.save(commit=False)
+            comment.user = request.user
+            comment.banner = banner
+            comment.save()
+            return redirect('home')
+    return render(request, 'view-banner.html', context)
 
 def bannerCategory(request, category_name):
-    category = Category.objects.get(name = category_name)
-    banners = Banner.objects.filter(category = category)
+    category = Category.objects.get(name=category_name)
+    banners = Banner.objects.filter(category=category)
     context = {'banners':banners, 'category':category}
     return render(request, 'banner-category.html', context)
 
@@ -115,20 +129,7 @@ def useBanner(request, slug):
             return redirect('home')
     return render(request, 'use-banner.html', {'form':form})
 
-def viewBanner(request, slug):
-    banner = Banner.objects.get(slug=slug)
-    comment = Comment.objects.filter(banner=banner)
-    form = CommentForm
-    context = {'banner': banner, 'comment':comment, 'form':form}
-    if request.method == 'POST':
-        form = CommentForm(request.POST)
-        if form.is_valid():
-            comment = form.save(commit=False)
-            comment.user = request.user
-            comment.banner = banner
-            comment.save()
-            return redirect('home')
-    return render(request, 'view-banner.html', context)
+
 
 # def discoverPage(request):
 #     banners = Banner.objects.filter

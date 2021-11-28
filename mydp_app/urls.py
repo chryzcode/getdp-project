@@ -11,6 +11,6 @@ urlpatterns = [
     path('delete-account/', views.deleteAccount, name='delete-account'),
     path('banner/categories/', views.Categories, name='categories'),
     path('use-banner/<slug:slug>/', views.useBanner, name='use-banner'),
+    path('banner/category/<str:category_name>/', views.bannerCategory, name='banner-category'),  
     path('banner/<slug:slug>/', views.viewBanner, name='view-banner'),
-    path('banner/<str:category_name>/', views.bannerCategory, name='banner-category'),  
 ]
