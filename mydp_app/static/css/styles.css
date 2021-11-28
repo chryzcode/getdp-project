@@ -243,7 +243,7 @@ form {
 
 .user-profile-avatar {
   border-radius: 50%;
-  width: 200px;
+  width: 300px;
   margin: 20px auto;
   display: block !important;
   border: 5px solid #26174b;
@@ -293,6 +293,12 @@ form {
   border-radius: 6px;
   padding: 20px; 
   color: #28125e;
+}
+
+.banner-image{
+  width: 100%;
+  overflow: hidden;
+  height: 100%;
 }
 
 .banner-link{

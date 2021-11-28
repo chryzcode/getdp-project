@@ -49,26 +49,6 @@ def logoutPage(request):
 
 
 
-@login_required(login_url='login')
-def createBanner(request):
-    form = BannerForm
-    slug_field = 'slug'
-    categories = Category.objects.all()
-    tags = Tag.objects.all()
-    if request.method == 'POST':
-        banner = Banner.objects.create(
-            user = request.user,
-            banner_name = request.POST.get('banner_name'),
-            description = request.POST.get('description'),
-            slug = request.POST.get('slug'),
-            category = request.POST.get('category'),
-            tag = request.POST.get('tag'),
-            banner_image = request.POST.get('banner_image'),
-        )
-        return redirect('home')
-    context = {'form':form, 'categories':categories, 'tags':tags}
-    return render(request, 'create-banner.html', context)
-
 # @login_required(login_url='login')
 # def createBanner(request):
 #     form = BannerForm
@@ -76,33 +56,47 @@ def createBanner(request):
 #     categories = Category.objects.all()
 #     tags = Tag.objects.all()
 #     if request.method == 'POST':
-#         form = BannerForm(request.POST)
-#         if form.is_valid():
-#             banner = form.save(commit=False)
-#             banner.user = request.user
-#             banner.slug = slug
-#             banner.save()
-#             return redirect('home')
+#         banner = Banner.objects.create(
+#             user = request.user,
+#             name = request.POST.get('name'),
+#             description = request.POST.get('description'),
+#             slug = request.POST.get('slug'),
+#             category = request.POST.get('category'),
+#             tag = request.POST.get('tag'),
+#             banner_image = request.POST.get('banner_image'),
+#         )
+#         return redirect('home')
 #     context = {'form':form, 'categories':categories, 'tags':tags}
 #     return render(request, 'create-banner.html', context)
+
+@login_required(login_url='login')
+def createBanner(request):
+    form = BannerForm
+    slug_field = 'slug'
+    categories = Category.objects.all()
+    tags = Tag.objects.all()
+    if request.method == 'POST':
+        form = BannerForm(request.POST, request.FILES)
+        if form.is_valid():
+            banner = form.save(commit=False)
+            banner.user = request.user
+            banner.slug = banner.slug
+            banner.save()
+            return redirect('home')
+    context = {'form':form, 'categories':categories, 'tags':tags}
+    return render(request, 'create-banner.html', context)
+
 
 def userProfile(request, username):
     user = get_object_or_404(User, username=username)
     banners = user.banner_set.all()
-    form = UserProfileForm(
-        initial={
-            'username':user.username,
-            'full_name':user.full_name,
-            'avatar':user.avatar,
-        }
-        ) 
+    form = UserProfileForm(instance= user) 
     if request.method == 'POST':
-        form = UserProfileForm(request.POST, request.FILES, instance = request.user) 
+        form = UserProfileForm(request.POST, request.FILES, instance = user) 
         if form.is_valid():
             form.save()
             username = request.POST.get('username')
             return redirect('user-profile', username)
-
     context = {'user':user, 'banners':banners, 'form':form}
     return render(request, 'user-profile.html', context)
 

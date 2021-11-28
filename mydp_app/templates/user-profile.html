@@ -25,7 +25,7 @@
         <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
       </div>
       <div class="offcanvas-body">
-        <form action="{% url 'user-profile' user.username %}" method="post">
+        <form action="{% url 'user-profile' user.username %}" method="POST" enctype="multipart/form-data">
           {% csrf_token %}
           {{form.as_p}}
           <button class="save-btn" type="submit">Save</button>

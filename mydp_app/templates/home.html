@@ -22,12 +22,12 @@
           </span>
         </div>
         {% if banner.image %}
-        <img src="{{ banner.image.url }}" alt="">
+        <img class="banner-image" src="{{ banner.image.url }}" alt="">
         {% endif %}
       <h5 class="banner-header">{{banner.name}}</h5>
       <p>{{banner.description|safe}}</p>
       <div class="banner-bottom">
-        <span>{{banner.comment_count}}jhg</span>
+        <span>{{banner.comment_count}}</span>
       </div>
     </div>
     </a>
