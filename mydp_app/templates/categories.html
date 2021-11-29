@@ -1,6 +1,6 @@
 {% extends 'base.html' %} {% load static %} {% block content %}
 
-<div style="margin-top: 150px">
+<div style="margin-top: 100px">
   <div class="category-grid">
     {% for category in categories %}
     <a href="{% url 'banner-category' category.name %}">

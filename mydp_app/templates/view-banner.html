@@ -5,7 +5,7 @@
     </div>
   <div class="container">
     <h2 class="header">{{ banner.name }}</h2>
-    <div class="view-banner-">
+    <div class="view-banner-data">
         <span>By <a href="{% url 'user-profile' banner.user.username %}">{{banner.user.full_name}}</a></span>
         <span>{{banner.created}}</span>
         <span>546 views</span>
@@ -13,7 +13,7 @@
     </div>
     {% if banner.description %}
     <h4>Description</h4>
-    <p>{{ banner.description|safe}}</p>
+    <div>{{ banner.description|safe}}</div>
     {% endif %}
 
     <form class="mini-form" action="" method="POST" enctype="multipart/form-data">
