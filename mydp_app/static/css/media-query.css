@@ -71,6 +71,10 @@
   .banner-grid {
     grid-template-columns: 1fr;
   }
+
+  .view-banner-data{
+    grid-template-columns: 1fr 1fr;
+  }
 }
 
 @media all and (min-width: 620px) and (max-width: 950px) {
@@ -80,5 +84,10 @@
 
   .banner-grid {
     grid-template-columns: 1fr;
+  }
+
+  .view-banner-data{
+    grid-template-columns: 1fr 1fr;
+
   }
 }

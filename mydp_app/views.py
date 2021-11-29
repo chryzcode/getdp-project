@@ -70,13 +70,21 @@ def editBanner(request, slug):
     banner = get_object_or_404(Banner.objects.all(), slug=slug)
     form = BannerForm(instance = banner)
     if request.method =="POST":
-        form = BannerForm(request.POST, request.FILES, instance = banner)
-        if form.is_valid():
-            form.save()
-            return redirect('home')
+        if banner.user == request.user:
+            form = BannerForm(request.POST, request.FILES, instance = banner)
+            if form.is_valid():
+                form.save()
+                return redirect('home')
+        return redirect('home')
     context = {'form':form, 'banner':banner}
 
-
+@login_required(login_url='login')
+def deleteBanner(request, slug):
+    banner = Banner.objects.get(slug = slug)
+    if banner.user == request.user:
+        banner.delete()
+        return redirect('home')
+    return redirect('home')
 
 def userProfile(request, username):
     user = get_object_or_404(User, username=username)
@@ -135,7 +143,12 @@ def viewBanner(request, slug):
    
     return render(request, 'view-banner.html', context)
 
-
+@login_required(login_url='login')
+def deleteComment(request, pk):
+    comment = Comment.objects.get(id=pk)
+    if request.user == comment.user:
+        comment.delete()
+        return redirect('view-banner', slug=comment.banner.slug)
 
 def bannerCategory(request, category_name):
     category = Category.objects.get(name=category_name)
@@ -145,3 +158,7 @@ def bannerCategory(request, category_name):
 
 # def discoverPage(request):
 #     banners = Banner.objects.filter
+
+#def downloadBanner(request)
+
+#def previewBanner(request)

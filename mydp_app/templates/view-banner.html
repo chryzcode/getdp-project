@@ -15,7 +15,7 @@
     <h4>Description</h4>
     <div>{{ banner.description|safe}}</div>
     {% endif %}
-
+    <h4 class="header">Generate Banner</h4>
     <form class="mini-form" action="" method="POST" enctype="multipart/form-data">
       {% csrf_token %}
 
@@ -28,6 +28,8 @@
        <label>{{usebannerform.full_name.label_tag}}</label>
         {{usebannerform.full_name}}
      </div>
+
+     <input class="edit-profile-btn" type="submit" value="submit" />
     </form>
 
     <h4>Comments</h4>
