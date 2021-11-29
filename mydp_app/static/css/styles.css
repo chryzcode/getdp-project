@@ -368,3 +368,35 @@ form {
 a {
   text-decoration: none !important;
 }
+
+.mini-form{
+  width: 70%;
+  margin: 10px auto;
+  display: block;
+}
+
+.view-banner-container{
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  height: 300px;
+}
+
+.view-banner-container:after{
+  content: "";
+  display: block;
+  width: 100%;
+  height: 100%;
+  background-color: #212529;
+  opacity: 0.2;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.view-banner-image{
+  width: 100%;
+  background-size: cover;
+  overflow: hidden;
+  filter: blur(3px);
+}

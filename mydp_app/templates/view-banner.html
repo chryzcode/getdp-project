@@ -1,27 +1,45 @@
-{% extends 'base.html' %}
-
-{% block content %}
-<div class="container" style="margin-top: 150px;">
-
-            <h1>{{ banner.name }}</h1>
-            
-            <p>{{ banner.description|safe}}</p>
-            <small>{{banner.created}}</small>
-
-            <h4>Comments</h4>
-            <form action="" method="post">
-                {% csrf_token %}
-                {{form.as_p}}
-                <input class="edit-profile-btn" type="submit" value="comment">
-            </form>
-            {% if comments %}
-            {% for comment in comments %}
-            <h3>{{comment.name}}</h3>
-            <small>{{comment.created}}</small>
-           
-            {% endfor %}
-            {% else %}
-            <p>There are no comments</p>
-            {% endif %}
+{% extends 'base.html' %} {% block content %}
+<div style="margin-top: 15=00px">
+    <div class="view-banner-container">
+        <img class="view-banner-image" src="{{banner.image.url}}" alt="" />
     </div>
+  <div class="container">
+    <h2 class="header">{{ banner.name }}</h2>
+    <div class="view-banner-">
+        <span>By <a href="{% url 'user-profile' banner.user.username %}">{{banner.user.full_name}}</a></span>
+        <span>{{banner.created}}</span>
+        <span>546 views</span>
+        <span>2 comments</span>
+    </div>
+    {% if banner.description %}
+    <h4>Description</h4>
+    <p>{{ banner.description|safe}}</p>
+    {% endif %}
+
+    <form class="mini-form" action="" method="POST" enctype="multipart/form-data">
+      {% csrf_token %}
+
+      <div class="mb-3">
+        <label for="image" class="form-label">Image</label>
+        <input class="form-control" type="file" id="image" name="image" />
+      </div>
+
+      <div>
+       <label>{{usebannerform.full_name.label_tag}}</label>
+        {{usebannerform.full_name}}
+     </div>
+    </form>
+
+    <h4>Comments</h4>
+    <form class="mini-form" action="" method="post">
+      {% csrf_token %} {{form.as_p}}
+      <input class="edit-profile-btn" type="submit" value="comment" />
+    </form>
+    {% if comments %} {% for comment in comments %}
+    <h3>{{comment.name}}</h3>
+    <small>{{comment.created}}</small>
+    {% endfor %}
+    {% endif %}
+  </div>
+</div>
 {% endblock %}

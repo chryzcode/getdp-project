@@ -117,6 +117,7 @@ def viewBanner(request, slug):
             usebanner.user = request.user
             usebanner.banner = banner
             usebanner.save()
+            banner.banner_users.add(request.user)
             return redirect('home')
     return render(request, 'view-banner.html', context)
 
