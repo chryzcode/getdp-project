@@ -31,15 +31,19 @@
     </form>
 
     <h4>Comments</h4>
-    <form class="mini-form" action="" method="post">
+    <form action="" method="post">
       {% csrf_token %} {{form.as_p}}
       <input class="edit-profile-btn" type="submit" value="comment" />
     </form>
-    {% if comments %} {% for comment in comments %}
-    <h3>{{comment.name}}</h3>
-    <small>{{comment.created}}</small>
+    {% for comment in comments %}
+    <div>
+      <div>
+        <span><a href="{% url 'user-profile' comment.user.username %}">{{comment.user.full_name}}</a></span>
+      </div>
+      <small>{{comment.created}}</small>
+      <h5>{{comment.name}}</h5>   
+    </div>
     {% endfor %}
-    {% endif %}
   </div>
 </div>
 {% endblock %}

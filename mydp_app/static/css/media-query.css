@@ -63,4 +63,22 @@
   #cross {
     display: none;
   }
+
+  .category-grid {
+    grid-template-columns: 1fr;;
+  }
+
+  .banner-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media all and (min-width: 620px) and (max-width: 950px) {
+  .category-grid {
+    grid-template-columns: 1fr 1fr;;
+  }
+
+  .banner-grid {
+    grid-template-columns: 1fr;
+  }
 }
