@@ -101,14 +101,22 @@ def viewBanner(request, slug):
     banner = get_object_or_404(Banner.objects.all(), slug=slug)
     comment = Comment.objects.filter(banner=banner)
     form = CommentForm
-    context = {'banner': banner, 'comment':comment, 'form':form}
+    usebannerform = UserBannerForm
+    context = {'banner': banner, 'comment':comment, 'form':form, 'usebannerform':usebannerform}
     if request.method == 'POST':
         form = CommentForm(request.POST)
+        usebannerform = UserBannerForm(request.POST)
         if form.is_valid():
             comment = form.save(commit=False)
             comment.user = request.user
             comment.banner = banner
             comment.save()
+            return redirect('home')
+        if usebannerform.is_valid():
+            usebanner = usebannerform.save(commit=False)
+            usebanner.user = request.user
+            usebanner.banner = banner
+            usebanner.save()
             return redirect('home')
     return render(request, 'view-banner.html', context)
 
@@ -121,9 +129,9 @@ def bannerCategory(request, category_name):
 @login_required(login_url='login')
 def useBanner(request, slug):
     banner = Banner.objects.get(slug=slug)
-    form = UserBannerForm
+    
     if request.method == "POST":
-        form = UserBannerForm(request.POST)
+        form = UserBannerForm(request.POST, request.FILES)
         if form.is_valid():
             form.save()
             return redirect('home')

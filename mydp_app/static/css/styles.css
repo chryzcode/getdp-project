@@ -285,7 +285,7 @@ form {
 }
 
 .banner-card{
-  width: 600px;
+  width: 90%;
   height: 330px;
   border: 1px solid #cdcdcd;
   display: block;
@@ -357,6 +357,7 @@ form {
   width: 300px;
   height: 200px;
   border-radius: 8px;
+  border: 1px solid #cdcdcd;
 }
 
 .category-name{
