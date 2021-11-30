@@ -16,6 +16,9 @@
     <div>{{ banner.description|safe}}</div>
     {% endif %}
     <h4 class="header">Generate Banner</h4>
+    <div class="main-banner-image-container">
+      <img class="main-banner-image" src="{{banner.image.url}}" alt="">
+    </div>
     <form class="mini-form" action="" method="POST" enctype="multipart/form-data">
       {% csrf_token %}
 
@@ -29,13 +32,13 @@
         {{usebannerform.full_name}}
      </div>
 
-     <input class="edit-profile-btn" type="submit" value="submit" />
+     <input class="gen-btn" type="submit" value="submit" />
     </form>
 
     <h4>Comments</h4>
     <form action="" method="post">
       {% csrf_token %} {{form.as_p}}
-      <input class="edit-profile-btn" type="submit" value="comment" />
+      <input class="gen-btn" type="submit" value="comment" />
     </form>
     {% for comment in comments %}
     <div>

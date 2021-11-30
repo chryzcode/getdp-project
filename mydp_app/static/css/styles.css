@@ -410,3 +410,22 @@ a {
   text-align: center;
   margin-bottom: 20px;
 }
+
+.gen-btn{
+  border-radius: 10px;
+  padding: 5px 10px;
+  color: white;
+  text-decoration: none;
+  background-color: #26174b;
+  outline: none;
+  border: none;
+  margin: 5px auto;
+}
+
+.main-banner-image{
+  width: 100%;
+  height: 300px;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+}
