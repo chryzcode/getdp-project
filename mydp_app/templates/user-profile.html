@@ -1,5 +1,5 @@
 {% extends 'base.html' %} {% load static %} {% block content %}
-<div style="padding-top: 50px" >
+<div style="padding-top: 50px">
   {% if user.avatar %}
   <img class="user-profile-avatar" src="{{ user.avatar.url }}" alt="" />
   {% else %}
@@ -27,42 +27,57 @@
       <div class="offcanvas-body">
         <form action="{% url 'user-profile' user.username %}" method="POST" enctype="multipart/form-data">
           {% csrf_token %}
-          {{form.as_p}}
+          {% if user.avatar %}
+          Current Avatar:
+          <a href="{{user.avatar.url}}">{{user.avatar.url}}</a>
+          {% endif %}
+          <div>
+            <label>{{form.avatar.label_tag}}</label>
+            {{ form.avatar}}
+          </div>
+
+          <div>
+            <label>{{form.username.label_tag}}</label>
+            {{ form.username}}
+          </div>
+
+          <div>
+            <label>{{form.full_name.label_tag}}</label>
+            {{ form.full_name}}
+          </div>
           <button class="save-btn" type="submit">Save</button>
         </form>
-        <a  class="delete-btn btn btn-danger btn-sm" href="{% url 'delete-account' %}">Delete Account</a>
+        <a class="delete-btn btn btn-danger btn-sm" href="{% url 'delete-account' %}">Delete Account</a>
       </div>
     </div>
   </div>
   {% endif %}
 
-
-<div class="banner-grid">
-  {% for banner in banners %}
-  <a class="banner-link" href="{% url 'view-banner' banner.slug %}">
-    <div class="banner-card">
-      <div class="banner-top">
-        <span class="banner-category"> {{banner.category}} </span>
-        <span class="banner-created"> {{banner.created}} </span>
+  <div class="banner-grid">
+    {% for banner in banners %}
+    <a class="banner-link" href="{% url 'view-banner' banner.slug %}">
+      <div class="banner-card">
+        <div class="banner-top">
+          <span class="banner-category"> {{banner.category}} </span>
+          <span class="banner-created"> {{banner.created}} </span>
+        </div>
+        <div class="banner-image-container">
+          {% if banner.image %}
+          <img class="banner-image" src="{{ banner.image.url }}" alt="" />
+          {% endif %}
+        </div>
+        <div class="banner-content">
+          <h5 class="banner-header">{{banner.name}}</h5>
+          <div>{{banner.description|safe|truncatewords:15}}</div>
+        </div>
+        <div class="banner-bottom">
+          <span>100 Views</span>
+          <span>229 Usage</span>
+        </div>
       </div>
-      <div class="banner-image-container">
-        {% if banner.image %}
-        <img class="banner-image" src="{{ banner.image.url }}" alt="" />
-        {% endif %}
-      </div>
-      <div class="banner-content">
-        <h5 class="banner-header">{{banner.name}}</h5>
-        <div>{{banner.description|safe|truncatewords:15}}</div>
-      </div>
-      <div class="banner-bottom">
-        <span>100 Views</span>
-        <span>229 Usage</span>
-        <span>5 Comments</span>
-      </div>
-    </div>
-  </a>
-  {% endfor %}
-</div>
+    </a>
+    {% endfor %}
+  </div>
 </div>
 
 {% endblock %}

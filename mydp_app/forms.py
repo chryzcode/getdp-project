@@ -61,6 +61,7 @@ class UserProfileForm(ModelForm):
         fields = ['avatar', 'full_name', 'username']
 
         widgets={
+            'avatar':forms.FileInput(attrs={'class':'form-control'}),
             'full_name':forms.TextInput(attrs={'class':'form-control', 'placeholder':'Full Name'}),
             'username':forms.TextInput(attrs={'class':'form-control', 'placeholder':'Username'}),
     }
