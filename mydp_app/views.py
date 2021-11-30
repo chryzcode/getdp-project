@@ -50,6 +50,7 @@ def logoutPage(request):
 
 @login_required(login_url='login')
 def createBanner(request):
+    page = 'create-banner'
     form = BannerForm
     slug_field = 'slug'
     categories = Category.objects.all()
@@ -67,6 +68,7 @@ def createBanner(request):
 
 @login_required(login_url='login')
 def editBanner(request, slug):
+    page= 'edit-banner'
     banner = get_object_or_404(Banner.objects.all(), slug=slug)
     form = BannerForm(instance = banner)
     if request.method =="POST":
@@ -77,6 +79,7 @@ def editBanner(request, slug):
                 return redirect('home')
         return redirect('home')
     context = {'form':form, 'banner':banner}
+    return render(request, 'create-banner.html', context)
 
 @login_required(login_url='login')
 def deleteBanner(request, slug):

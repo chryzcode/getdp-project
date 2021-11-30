@@ -12,4 +12,5 @@ urlpatterns = [
     path('banner/categories/', views.Categories, name='categories'),
     path('banner/category/<str:category_name>/', views.bannerCategory, name='banner-category'),  
     path('banner/<slug:slug>/', views.viewBanner, name='view-banner'),
+    path('banner/<slug:slug>/edit/', views.editBanner, name='edit-banner'),
 ]
