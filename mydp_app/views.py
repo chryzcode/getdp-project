@@ -113,8 +113,7 @@ def Categories(request):
 def home(request):
     banners = Banner.objects.all()
     comment = Comment.objects.all()
-    comment_count = comment.count()
-    context = {'banners':banners, 'comment_count':comment_count}
+    context = {'banners':banners, 'comment':comment}
     return render(request, 'home.html', context)
 
 def viewBanner(request, slug):
