@@ -4,7 +4,8 @@
         <img class="view-banner-image" src="{{banner.image.url}}" alt="" />
     </div>
   <div class="container">
-    <p><a href="{% url 'edit-banner' banner.slug %}">Edit</a></p>
+    <p><a href="{% url 'edit-banner' banner.slug %}"><span class="material-icons"> edit </span>Edit Banner</a></p>
+    <p><a href="{% url 'delete-banner' banner.slug %}"><span class="material-icons"> delete </span>Delete Banner</a></p>
     <h2 class="header">{{ banner.name }}</h2>
     <p class="header">
       {{banner.category|title}} Category
