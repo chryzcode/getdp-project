@@ -120,10 +120,12 @@ def home(request):
 def viewBanner(request, slug):
     banner = get_object_or_404(Banner.objects.all(), slug=slug)
     comments = Comment.objects.filter(banner=banner)
+    comments_count = comments.count()
+    banner_users = banner.banner_users.all()[:5]
     form = CommentForm
     usebannerform = UserBannerForm
     deletecommentform = CommentForm
-    context = {'banner': banner, 'comments':comments, 'form':form, 'usebannerform':usebannerform}
+    context = {'banner': banner, 'comments':comments, 'form':form, 'usebannerform':usebannerform, 'comments_count':comments_count, 'banner_users':banner_users}
     if request.method == 'POST':
         form = CommentForm(request.POST)
         usebannerform = UserBannerForm(request.POST)

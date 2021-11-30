@@ -9,7 +9,7 @@
         <span>By <a href="{% url 'user-profile' banner.user.username %}">{{banner.user.full_name}}</a></span>
         <span>{{banner.created}}</span>
         <span>546 views</span>
-        <span>2 comments</span>
+        <span>{{comments_count}} comments</span>
     </div>
     {% if banner.description %}
     <h4>Description</h4>
