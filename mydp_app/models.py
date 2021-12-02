@@ -2,6 +2,8 @@ from django.db import models
 from django.contrib.auth.models import AbstractUser
 from ckeditor.fields import RichTextField
 from django.utils.text import slugify
+from hitcount.models import HitCountMixin, HitCount
+from django.contrib.contenttypes.fields import GenericRelation
 
 # Create your models here.
 class User(AbstractUser):
@@ -42,6 +44,8 @@ class Banner(models.Model):
     created = models.DateField(auto_now_add = True)
     banner_users = models.ManyToManyField(User, related_name='banner_users', blank=True)
     slug = models.SlugField(unique=True, max_length=100)
+    hit_count_generic = GenericRelation(HitCount, object_id_field='object_p',
+ related_query_name='hit_count_generic_relation')
   
     def __str__(self):
         return self.name

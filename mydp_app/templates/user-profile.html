@@ -1,4 +1,4 @@
-{% extends 'base.html' %} {% load static %} {% block content %}
+{% extends 'base.html' %} {% load hitcount_tags %} {% load static %} {% block content %}
 <div style="padding-top: 50px">
   <div>
     {% if user.avatar %}
@@ -60,7 +60,7 @@
     <a class="banner-link" href="{% url 'view-banner' banner.slug %}">
       <div class="banner-card">
         <div class="banner-top">
-          <span class="banner-category"> {{banner.category}} </span>
+          <span class="banner-category"> {{banner.category|title}} </span>
           <span class="banner-created"> {{banner.created}} </span>
         </div>
         <div class="banner-image-container">
@@ -73,7 +73,7 @@
           <div>{{banner.description|safe|truncatewords:15}}</div>
         </div>
         <div class="banner-bottom">
-          <span>100 Views</span>
+          <span>{% get_hit_count for banner %} Views</span>
           <span>{{banner.banner_users.all.count}} Usage</span>
         </div>
       </div>

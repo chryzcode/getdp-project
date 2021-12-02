@@ -159,9 +159,10 @@ def bannerCategory(request, category_name):
     context = {'banners':banners, 'category':category}
     return render(request, 'banner-category.html', context)
 
+#def previewBanner(request)
+
 # def discoverPage(request):
 #     banners = Banner.objects.filter
 
 #def downloadBanner(request)
 
-#def previewBanner(request)
