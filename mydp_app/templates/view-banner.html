@@ -1,20 +1,28 @@
-{% extends 'base.html' %} {% block content %}
+{% extends 'base.html' %} {% load static %} {% block content %}
 <div style="margin-top: 15=00px">
-    <div class="view-banner-container">
-        <img class="view-banner-image" src="{{banner.image.url}}" alt="" />
-    </div>
+  <div class="view-banner-container">
+    <img class="view-banner-image" src="{{banner.image.url}}" alt="" />
+  </div>
   <div class="container">
-    <p><a href="{% url 'edit-banner' banner.slug %}"><span class="material-icons"> edit </span>Edit Banner</a></p>
-    <p><a href="{% url 'delete-banner' banner.slug %}"><span class="material-icons"> delete </span>Delete Banner</a></p>
+    {% if request.user == banner.user %}
+    <div class="edit-delete-container">
+      <div>
+        <a href="{% url 'edit-banner' banner.slug %}"><span class="material-icons"> edit </span></a>
+      </div>
+      <div>
+        <a href="{% url 'delete-banner' banner.slug %}"
+          ><span id="delete-banner-icon" class="material-icons"> delete </span></a
+        >
+      </div>
+    </div>
+    {% endif %}
     <h2 class="header">{{ banner.name }}</h2>
-    <p class="header">
-      {{banner.category|title}} Category
-    </p>
+    <p class="header">{{banner.category|title}} Category</p>
     <div class="view-banner-data">
-        <span>By <a href="{% url 'user-profile' banner.user.username %}">{{banner.user.full_name}}</a></span>
-        <span>{{banner.created}}</span>
-        <span>546 views</span>
-        <span>{{comments_count}} comments</span>
+      <span>By <a href="{% url 'user-profile' banner.user.username %}">{{banner.user.full_name}}</a></span>
+      <span>{{banner.created}}</span>
+      <span>546 views</span>
+      <span>{{comments_count}} comments</span>
     </div>
     <div>{{banner.banner_users.all.count}} Usage</div>
     {% if banner.description %}
@@ -23,7 +31,7 @@
     {% endif %}
     <h4 class="header">Generate Banner</h4>
     <div class="main-banner-image-container">
-      <img class="main-banner-image" src="{{banner.image.url}}" alt="">
+      <img class="main-banner-image" src="{{banner.image.url}}" alt="" />
     </div>
     <form class="mini-form" action="" method="POST" enctype="multipart/form-data">
       {% csrf_token %}
@@ -34,11 +42,11 @@
       </div>
 
       <div>
-       <label>{{usebannerform.full_name.label_tag}}</label>
+        <label>{{usebannerform.full_name.label_tag}}</label>
         {{usebannerform.full_name}}
-     </div>
+      </div>
 
-     <input class="gen-btn" type="submit" value="submit" />
+      <input class="gen-btn" type="submit" value="submit" />
     </form>
 
     <h4>Comments</h4>
@@ -49,10 +57,15 @@
     {% for comment in comments %}
     <div>
       <div>
+        {% if user.avatar %}
+        <img class="comment-image" src="{{user.avatar.url}}" alt="" />
+        {% else %}
+        <img class="comment-image" src="{{ static user.avatar.url}}" alt="" />
+        {% endif %}
         <span><a href="{% url 'user-profile' comment.user.username %}">{{comment.user.full_name}}</a></span>
       </div>
       <small>{{comment.created}}</small>
-      <h5>{{comment.name}}</h5>   
+      <h5>{{comment.name}}</h5>
     </div>
     {% endfor %}
   </div>

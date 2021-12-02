@@ -1,23 +1,27 @@
 {% extends 'base.html' %} {% load static %} {% block content %}
 <div style="padding-top: 50px">
-  {% if user.avatar %}
-  <img class="user-profile-avatar" src="{{ user.avatar.url }}" alt="" />
-  {% else %}
-  <img class="user-profile-avatar" src="{% static 'images/default-avatar.svg' %}" alt="" />
-  {% endif %}
+  <div>
+    {% if user.avatar %}
+    <div class="custom-profile-avatar-container">
+      <img class="custom-profile-avatar" src="{{ user.avatar.url }}" alt="" />
+    </div>
+    {% else %}
+    <img class="default-profile-avatar" src="{% static 'images/default-avatar.svg' %}" alt="" />
+    {% endif %}
+  </div>
   <h2 class="header">{{user.full_name}}</h2>
   <h4 class="header">@{{user.username}}</h4>
   {% if user.email %}
   <h6 class="header">{{ user.email}}</h6>
   {% endif %} {% if request.user == user %}
   <div class="btn-guide">
-    <a
+    <span
       class="edit-profile-btn"
       data-bs-toggle="offcanvas"
       data-bs-target="#offcanvasRight"
       aria-controls="offcanvasRight"
       href="{% url 'user-profile' user.username %}"
-      >Edit Profile</a
+      >Edit Profile</span
     >
     <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
       <div class="offcanvas-header">
@@ -26,9 +30,7 @@
       </div>
       <div class="offcanvas-body">
         <form action="{% url 'user-profile' user.username %}" method="POST" enctype="multipart/form-data">
-          {% csrf_token %}
-          {% if user.avatar %}
-          Current Avatar:
+          {% csrf_token %} {% if user.avatar %} Current Avatar:
           <a href="{{user.avatar.url}}">{{user.avatar.url}}</a>
           {% endif %}
           <div>

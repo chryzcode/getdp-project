@@ -68,16 +68,17 @@ def createBanner(request):
 @login_required(login_url='login')
 def editBanner(request, slug):
     banner = get_object_or_404(Banner.objects.all(), slug=slug)
-    form = BannerForm(instance = banner)
-    if request.method =="POST":
-        if banner.user == request.user:
+    if request.user == banner.user:
+        form = BannerForm(instance = banner)
+        if request.method =="POST":
             form = BannerForm(request.POST, request.FILES, instance = banner)
             if form.is_valid():
                 form.save()
                 return redirect('home')
-        return redirect('home')
-    context = {'form':form, 'banner':banner}
-    return render(request, 'edit-banner.html', context)
+        context = {'form':form, 'banner':banner}
+        return render(request, 'edit-banner.html', context)
+    return redirect('home')
+    
 
 @login_required(login_url='login')
 def deleteBanner(request, slug):
