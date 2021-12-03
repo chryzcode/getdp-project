@@ -34,6 +34,7 @@ class UserBannerForm(ModelForm):
     class Meta:
         model = UserBanner
         fields = ['image', 'full_name' ]
+        exclude = ['user', 'banner']
 
         widgets={
             'full_name':forms.TextInput(attrs={'class':'form-control', 'placeholder':'Put in your name'}),

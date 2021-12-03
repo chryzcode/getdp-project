@@ -1,8 +1,11 @@
 {% extends 'base.html' %} {% load static %} {% block content %}
 
-<div style="margin-top: 100px;">
-    <img src="" alt="">
-
+<div style="margin-top: 100px">
+  <h2 class="header">Preview Banner</h2>
+ <div>
+      <img src="{{userbanner.banner.image.url}}" alt="" />
+ </div>
+  <img src="{{userbanner.image.url}}" alt="" />
+  {{userbanner.full_name}}
 </div>
-
 {% endblock %}

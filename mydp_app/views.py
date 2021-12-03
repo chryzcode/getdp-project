@@ -129,7 +129,7 @@ def viewBanner(request, slug):
     context = {'banner': banner, 'comments':comments, 'form':form, 'usebannerform':usebannerform, 'comments_count':comments_count, 'banner_users':banner_users}
     if request.method == 'POST':
         form = CommentForm(request.POST)
-        usebannerform = UserBannerForm(request.POST)
+        usebannerform = UserBannerForm(request.POST, request.FILES)
         if form.is_valid():
             comment = form.save(commit=False)
             comment.user = request.user
@@ -142,7 +142,7 @@ def viewBanner(request, slug):
             usebanner.banner = banner
             usebanner.save()
             banner.banner_users.add(request.user)
-            return redirect('view-banner', slug=banner.slug)
+            return redirect('preview-banner', slug=banner.slug)
    
     return render(request, 'view-banner.html', context)
 
@@ -160,8 +160,9 @@ def bannerCategory(request, category_name):
     return render(request, 'banner-category.html', context)
 
 def previewBanner(request, slug):
-    banner = get_object_or_404(Banner.objects.all(), slug=slug)
-    context = {'banner':banner}
+    banner = Banner.objects.get(slug=slug)
+    userbanner = UserBanner.objects.get(banner=banner)
+    context = {'banner':banner, 'userbanner':userbanner}
     return render(request, 'preview-banner.html', context)
 
 

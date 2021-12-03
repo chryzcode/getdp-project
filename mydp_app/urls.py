@@ -14,4 +14,5 @@ urlpatterns = [
     path('banner/<slug:slug>/', views.viewBanner, name='view-banner'),
     path('banner/<slug:slug>/edit/', views.editBanner, name='edit-banner'),
     path('banner/<slug:slug>/delete/', views.deleteBanner, name='delete-banner'),
+    path('preview/banner/<slug:slug>/', views.previewBanner, name='preview-banner'),
 ]

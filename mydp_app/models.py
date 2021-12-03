@@ -74,11 +74,6 @@ class UserBanner(models.Model):
     full_name = models.CharField(max_length=300, null=True, blank=True)
 
     def __str__(self):
-        return self.name
+        return self.user.username + ' ' + str('use banner')
 
-    def save(self, request, *args, **kwargs):
-        self.user = request.user
-        if not self.full_name:
-            self.full_name = self.user.full_name
-        return super(UserBanner, self).save(*args, **kwargs)
 
