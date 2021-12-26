@@ -119,41 +119,13 @@ def home(request):
     context = {'banners':banners, 'comment':comment}
     return render(request, 'home.html', context)
 
-# def viewBanner(request, slug):
-#     context = {}
-#     banner = get_object_or_404(Banner.objects.all(), slug=slug)
-#     comments = Comment.objects.filter(banner=banner)
-#     comments_count = comments.count()
-#     banner_users = banner.banner_users.all()[:5]
-#     form = CommentForm
-#     usebannerform = UserBannerForm
-#     deletecommentform = CommentForm
-#     context = {'banner': banner, 'comments':comments, 'form':form, 'usebannerform':usebannerform, 'comments_count':comments_count, 'banner_users':banner_users}
-    
-#     if request.method == 'POST':
-#         form = CommentForm(request.POST)
-#         usebannerform = UserBannerForm(request.POST, request.FILES)
-#         if form.is_valid():
-#             comment = form.save(commit=False)
-#             comment.user = request.user
-#             comment.banner = banner
-#             comment.save()
-#             return redirect('view-banner', slug=banner.slug)
-#         if usebannerform.is_valid():
-#             usebanner = usebannerform.save(commit=False)
-#             usebanner.user = request.user
-#             usebanner.banner = banner
-#             usebanner.save()
-#             banner.banner_users.add(request.user)
-#             return redirect('preview-banner', slug=banner.slug) 
-#     return render(request, 'view-banner.html', context)
-
 class viewBanner(HitCountDetailView):
     model = Banner
     template_name = 'view-banner.html'
     context_object_name = 'banner'
     count_hit = True
     slug_field = 'slug'
+    ordering = ['-created']
     def get_context_data(self, **kwargs):
         context = super(viewBanner, self).get_context_data(**kwargs)
         context['comments'] = Comment.objects.filter(banner=self.object)
