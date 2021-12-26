@@ -97,6 +97,16 @@ li {
   list-style: none;
 }
 
+
+nav > ul {
+  color: #ffffff;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  list-style: none;
+}
+
 li a {
   text-decoration: none;
   color: #28125e;
@@ -475,13 +485,37 @@ a {
   object-position: center;
 }
 
-.comment-grid{
+.comment-grid {
   display: grid;
   grid-template-columns: 1fr 20fr;
   grid-column-gap: 10px;
 }
 
-.comment-created{
+.comment-created {
   font-size: 10px;
   display: block;
+}
+
+.preview-banner-image {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.user-banner-preview-image-container {
+  position: absolute;
+  width: 200px;
+  height: 200px;
+  overflow: hidden;
+  border-radius: 50%;
+  border: 4px solid #cdcdcd;
+  top: 31%;
+  left: 43%;
+}
+
+.user-banner-preview-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
 }

@@ -4,6 +4,9 @@ from django.contrib import messages
 from .forms import *
 from django.contrib.auth.decorators import login_required
 from .models import *
+from hitcount.utils import get_ip
+from hitcount.models import Hit, BlacklistIP, BlacklistUserAgent
+from hitcount.utils import RemovedInHitCount13Warning, get_hitcount_model
 
 # Create your views here.
 def loginPage(request):
@@ -127,6 +130,17 @@ def viewBanner(request, slug):
     usebannerform = UserBannerForm
     deletecommentform = CommentForm
     context = {'banner': banner, 'comments':comments, 'form':form, 'usebannerform':usebannerform, 'comments_count':comments_count, 'banner_users':banner_users}
+    
+    hit_count = get_hitcount_model().objects.get_for_object(banner)
+    hits = hit_count.hits
+    hitcontext = context['hitcount'] = {'pk': hit_count.pk}
+    hit_count_response = HitCountMixin.hit_count(request, hit_count)
+    if hit_count_response.hit_counted:
+        hits = hits + 1
+        hitcontext['hit_counted'] = hit_count_response.hit_counted
+        hitcontext['hit_message'] = hit_count_response.hit_message
+        hitcontext['total_hits'] = hits
+    
     if request.method == 'POST':
         form = CommentForm(request.POST)
         usebannerform = UserBannerForm(request.POST, request.FILES)
@@ -143,6 +157,9 @@ def viewBanner(request, slug):
             usebanner.save()
             banner.banner_users.add(request.user)
             return redirect('preview-banner', slug=banner.slug)
+
+    
+
    
     return render(request, 'view-banner.html', context)
 
