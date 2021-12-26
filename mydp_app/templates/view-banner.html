@@ -1,4 +1,4 @@
-{% extends 'base.html' %} {% load static %} {% block content %}
+{% extends 'base.html' %} {% load static %} {% load hitcount_tags %} {% block content %}
 <div style="margin-top: 15=00px">
   <div class="view-banner-container">
     <img class="view-banner-image" src="{{banner.image.url}}" alt="" />
@@ -21,7 +21,11 @@
     <div class="view-banner-data">
       <span>By <a href="{% url 'user-profile' banner.user.username %}">{{banner.user.full_name}}</a></span>
       <span>{{banner.created}}</span>
-      <span>546 views</span>
+      {% if current_hit_count > 1 %}
+      <span>{% get_hit_count for banner %} Views</span>
+      {% else %}
+      <span>{% get_hit_count for banner %} View</span>
+      {% endif %}
       <span>{{comments_count}} comments</span>
     </div>
     <div>{{banner.banner_users.all.count}} Usage</div>

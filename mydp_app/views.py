@@ -4,9 +4,7 @@ from django.contrib import messages
 from .forms import *
 from django.contrib.auth.decorators import login_required
 from .models import *
-from hitcount.utils import get_ip
-from hitcount.models import Hit, BlacklistIP, BlacklistUserAgent
-from hitcount.utils import RemovedInHitCount13Warning, get_hitcount_model
+from hitcount.views import HitCountDetailView
 
 # Create your views here.
 def loginPage(request):
@@ -121,47 +119,76 @@ def home(request):
     context = {'banners':banners, 'comment':comment}
     return render(request, 'home.html', context)
 
-def viewBanner(request, slug):
-    banner = get_object_or_404(Banner.objects.all(), slug=slug)
-    comments = Comment.objects.filter(banner=banner)
-    comments_count = comments.count()
-    banner_users = banner.banner_users.all()[:5]
-    form = CommentForm
-    usebannerform = UserBannerForm
-    deletecommentform = CommentForm
-    context = {'banner': banner, 'comments':comments, 'form':form, 'usebannerform':usebannerform, 'comments_count':comments_count, 'banner_users':banner_users}
+# def viewBanner(request, slug):
+#     context = {}
+#     banner = get_object_or_404(Banner.objects.all(), slug=slug)
+#     comments = Comment.objects.filter(banner=banner)
+#     comments_count = comments.count()
+#     banner_users = banner.banner_users.all()[:5]
+#     form = CommentForm
+#     usebannerform = UserBannerForm
+#     deletecommentform = CommentForm
+#     context = {'banner': banner, 'comments':comments, 'form':form, 'usebannerform':usebannerform, 'comments_count':comments_count, 'banner_users':banner_users}
     
-    hit_count = get_hitcount_model().objects.get_for_object(banner)
-    hits = hit_count.hits
-    hitcontext = context['hitcount'] = {'pk': hit_count.pk}
-    hit_count_response = HitCountMixin.hit_count(request, hit_count)
-    if hit_count_response.hit_counted:
-        hits = hits + 1
-        hitcontext['hit_counted'] = hit_count_response.hit_counted
-        hitcontext['hit_message'] = hit_count_response.hit_message
-        hitcontext['total_hits'] = hits
-    
-    if request.method == 'POST':
-        form = CommentForm(request.POST)
-        usebannerform = UserBannerForm(request.POST, request.FILES)
+#     if request.method == 'POST':
+#         form = CommentForm(request.POST)
+#         usebannerform = UserBannerForm(request.POST, request.FILES)
+#         if form.is_valid():
+#             comment = form.save(commit=False)
+#             comment.user = request.user
+#             comment.banner = banner
+#             comment.save()
+#             return redirect('view-banner', slug=banner.slug)
+#         if usebannerform.is_valid():
+#             usebanner = usebannerform.save(commit=False)
+#             usebanner.user = request.user
+#             usebanner.banner = banner
+#             usebanner.save()
+#             banner.banner_users.add(request.user)
+#             return redirect('preview-banner', slug=banner.slug) 
+#     return render(request, 'view-banner.html', context)
+
+class viewBanner(HitCountDetailView):
+    model = Banner
+    template_name = 'view-banner.html'
+    context_object_name = 'banner'
+    count_hit = True
+    slug_field = 'slug'
+    def get_context_data(self, **kwargs):
+        context = super(viewBanner, self).get_context_data(**kwargs)
+        context['comments'] = Comment.objects.filter(banner=self.object)
+        context['comments_count'] = context['comments'].count()
+        context['banner_users'] = self.object.banner_users.all()[:5]
+        context['form'] = CommentForm
+        context['usebannerform'] = UserBannerForm
+        context['deletecommentform'] = CommentForm
+        return context
+    def post(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        context = self.get_context_data(object=self.object)
+        form = context['form']
+        usebannerform = context['usebannerform']
+        deletecommentform = context['deletecommentform']
         if form.is_valid():
             comment = form.save(commit=False)
             comment.user = request.user
-            comment.banner = banner
+            comment.banner = self.object
             comment.save()
-            return redirect('view-banner', slug=banner.slug)
+            return redirect('view-banner', slug=self.object.slug)
         if usebannerform.is_valid():
             usebanner = usebannerform.save(commit=False)
             usebanner.user = request.user
-            usebanner.banner = banner
+            usebanner.banner = self.object
             usebanner.save()
-            banner.banner_users.add(request.user)
-            return redirect('preview-banner', slug=banner.slug)
-
-    
-
-   
-    return render(request, 'view-banner.html', context)
+            self.object.banner_users.add(request.user)
+            return redirect('preview-banner', slug=self.object.slug) 
+        if deletecommentform.is_valid():
+            comment = deletecommentform.save(commit=False)
+            comment.user = request.user
+            comment.banner = self.object
+            comment.save()
+            return redirect('view-banner', slug=self.object.slug)
+        return self.render_to_response(context)
 
 @login_required(login_url='login')
 def deleteComment(request, pk):

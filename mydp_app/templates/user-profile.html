@@ -73,7 +73,11 @@
           <div>{{banner.description|safe|truncatewords:15}}</div>
         </div>
         <div class="banner-bottom">
+          {% if current_hit_count > 1 %}
           <span>{% get_hit_count for banner %} Views</span>
+          {% else %}
+          <span>{% get_hit_count for banner %} View</span>
+          {% endif %}
           <span>{{banner.banner_users.all.count}} Usage</span>
         </div>
       </div>
