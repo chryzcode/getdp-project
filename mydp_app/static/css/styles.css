@@ -97,16 +97,6 @@ li {
   list-style: none;
 }
 
-
-nav > ul {
-  color: #ffffff;
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  list-style: none;
-}
-
 li a {
   text-decoration: none;
   color: #28125e;
