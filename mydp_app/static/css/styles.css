@@ -277,6 +277,7 @@ form {
   color: white;
   text-decoration: none;
   background-color: #26174b;
+  cursor: pointer;
 }
 
 .edit-profile-btn:hover {
@@ -289,6 +290,7 @@ form {
 .delete-btn {
   float: left !important;
   margin-top: 60px;
+  color: #ffffff !important;
 }
 
 .banner-grid {

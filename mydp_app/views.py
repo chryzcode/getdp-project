@@ -131,16 +131,16 @@ class viewBanner(HitCountDetailView):
         context['comments'] = Comment.objects.filter(banner=self.object)
         context['comments_count'] = context['comments'].count()
         context['banner_users'] = self.object.banner_users.all()[:5]
-        context['form'] = CommentForm
-        context['usebannerform'] = UserBannerForm
-        context['deletecommentform'] = CommentForm
+        context['form'] = CommentForm()
+        context['usebannerform'] = UserBannerForm()
+        context['deletecommentform'] = CommentForm()
         return context
     def post(self, request, *args, **kwargs):
         self.object = self.get_object()
         context = self.get_context_data(object=self.object)
-        form = context['form']
-        usebannerform = context['usebannerform']
-        deletecommentform = context['deletecommentform']
+        form = CommentForm(request.POST)
+        usebannerform = UserBannerForm(request.POST)
+        deletecommentform = CommentForm(request.POST)
         if form.is_valid():
             comment = form.save(commit=False)
             comment.user = request.user
