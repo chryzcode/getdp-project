@@ -454,12 +454,9 @@ a {
 }
 
 .edit-delete-container {
-  text-align: right;
-  /* font-size: 25px; */
   margin-top: 15px;
-  float: right;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
+  display: flex;
+  justify-content: right;
 }
 
 .edit-banner-btn {
@@ -471,6 +468,7 @@ a {
   justify-content: space-between;
   align-items: center;
   width: 70px;
+  margin-right: 10px;
 }
 
 .delete-banner-btn {
@@ -482,6 +480,7 @@ a {
   justify-content: space-between;
   align-items: center;
   width: 80px;
+  margin-left: 10px;
 }
 
 #delete-banner-icon {

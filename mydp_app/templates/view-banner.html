@@ -20,14 +20,24 @@
     <div class="view-banner-data">
       <span>By <a href="{% url 'user-profile' banner.user.username %}">{{banner.user.full_name}}</a></span>
       <span>{{banner.created}}</span>
-      {% if current_hit_count >= 1 %}
-      <span>{% get_hit_count for banner %} View</span>
-      {% else %}
+      {% if banner.current_hit_count > 1 %}
       <span>{% get_hit_count for banner %} Views</span>
+      {% else %}
+      <span>{% get_hit_count for banner %} View</span>
       {% endif %}
+      {% if banner.comments_count > 1 %}
       <span>{{comments_count}} comments</span>
+      {% else %}
+      <span>{{comments_count}} comment</span>
+      {% endif %}
     </div>
-    <div>{{banner.banner_users.all.count}} Usage</div>
+    <div>
+      {% if banner.banner_users.all.count > 1 %}
+      {{banner.banner_users.all.count}} Usages
+      {% else %}
+      {{banner.banner_users.all.count}} Usage
+      {% endif %}
+    </div>
     {% if banner.description %}
     <h4>Description</h4>
     <div>{{ banner.description|safe}}</div>

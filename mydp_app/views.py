@@ -182,8 +182,10 @@ def previewBanner(request, slug):
     return render(request, 'preview-banner.html', context)
 
 
-# def discoverPage(request):
-#     banners = Banner.objects.filter
+def discoverPage(request):
+    most_viewed = Banner.objects.order_by('-hit_count_generic__hits')[:5]
+    most_commented = Banner.objects.order_by('-comments')[:5]
+    most_used = Banner.objects.order_by('-banner_users')[:5]
 
 #def downloadBanner(request)
 

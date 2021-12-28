@@ -54,9 +54,6 @@ class Banner(models.Model):
             self.slug = slugify(self.name)
         return super(Banner, self).save(*args, **kwargs)
 
-    def current_hit_count(self):
-        return self.hit_count.hits
-
 class Comment(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     banner = models.ForeignKey(Banner, on_delete=models.CASCADE)
