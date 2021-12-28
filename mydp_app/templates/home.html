@@ -25,10 +25,10 @@
           <div class="banner-description">{{banner.description|safe|truncatewords:15}}</div>
         </div>
         <div class="banner-bottom">
-          {% if current_hit_count > 1 %}
-          <span>{% get_hit_count for banner %} Views</span>
+          {% if current_hit_count >= 1 %}
+          <span>{% get_hit_count for banner %} View</span>
           {% else %}
-           <span>{% get_hit_count for banner %} View</span>
+           <span>{% get_hit_count for banner %} Views</span>
           {% endif %}
           <span>{{banner.banner_users.all.count}} Usage</span>
         </div>

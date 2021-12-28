@@ -6,11 +6,13 @@
   <div class="container">
     {% if request.user == banner.user %}
     <div class="edit-delete-container">
-        <a class="edit-banner-btn" href="{% url 'edit-banner' banner.slug %}"><span id="edit-banner-icon" class="material-icons"> edit </span> Edit</a>
+      <a class="edit-banner-btn" href="{% url 'edit-banner' banner.slug %}"
+        ><span id="edit-banner-icon" class="material-icons"> edit </span> Edit</a
+      >
 
-        <a class="delete-banner-btn" href="{% url 'delete-banner' banner.slug %}"
-          ><span id="delete-banner-icon" class="material-icons"> delete </span>Delete</a
-        >
+      <a class="delete-banner-btn" href="{% url 'delete-banner' banner.slug %}"
+        ><span id="delete-banner-icon" class="material-icons"> delete </span>Delete</a
+      >
     </div>
     {% endif %}
     <h2 class="header">{{ banner.name }}</h2>
@@ -18,10 +20,10 @@
     <div class="view-banner-data">
       <span>By <a href="{% url 'user-profile' banner.user.username %}">{{banner.user.full_name}}</a></span>
       <span>{{banner.created}}</span>
-      {% if current_hit_count > 1 %}
-      <span>{% get_hit_count for banner %} Views</span>
-      {% else %}
+      {% if current_hit_count >= 1 %}
       <span>{% get_hit_count for banner %} View</span>
+      {% else %}
+      <span>{% get_hit_count for banner %} Views</span>
       {% endif %}
       <span>{{comments_count}} comments</span>
     </div>
