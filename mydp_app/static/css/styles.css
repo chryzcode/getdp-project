@@ -455,11 +455,43 @@ a {
 
 .edit-delete-container {
   text-align: right;
-  font-size: 25px;
+  /* font-size: 25px; */
+  margin-top: 15px;
+  float: right;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
+.edit-banner-btn {
+  padding: 5px;
+  border-radius: 10px;
+  background: #26174b;
+  color: #ffffff !important;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 70px;
+}
+
+.delete-banner-btn {
+  padding: 5px;
+  border-radius: 10px;
+  background: rgba(255, 0, 0, 0.831) !important;
+  color: #ffffff !important;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 80px;
 }
 
 #delete-banner-icon {
-  color: rgba(255, 0, 0, 0.831) !important;
+  color: rgba(255, 255, 255, 0.831) !important;
+  font-size: large;
+}
+
+#edit-banner-icon {
+  color: rgba(255, 255, 255, 0.831) !important;
+  font-size: large;
 }
 
 .comment-image-container {

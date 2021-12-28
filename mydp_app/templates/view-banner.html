@@ -6,14 +6,11 @@
   <div class="container">
     {% if request.user == banner.user %}
     <div class="edit-delete-container">
-      <div>
-        <a href="{% url 'edit-banner' banner.slug %}"><span class="material-icons"> edit </span></a>
-      </div>
-      <div>
-        <a href="{% url 'delete-banner' banner.slug %}"
-          ><span id="delete-banner-icon" class="material-icons"> delete </span></a
+        <a class="edit-banner-btn" href="{% url 'edit-banner' banner.slug %}"><span id="edit-banner-icon" class="material-icons"> edit </span> Edit</a>
+
+        <a class="delete-banner-btn" href="{% url 'delete-banner' banner.slug %}"
+          ><span id="delete-banner-icon" class="material-icons"> delete </span>Delete</a
         >
-      </div>
     </div>
     {% endif %}
     <h2 class="header">{{ banner.name }}</h2>
