@@ -5,7 +5,10 @@ from .forms import *
 from django.contrib.auth.decorators import login_required
 from .models import *
 from hitcount.views import HitCountDetailView
+from datetime import datetime, timedelta
 
+
+one_week_ago = datetime.today() - timedelta(days=7)
 # Create your views here.
 def loginPage(request):
     context = {}
@@ -183,7 +186,7 @@ def previewBanner(request, slug):
 
 
 def discoverPage(request):
-    most_viewed = Banner.objects.order_by('-hit_count_generic__hits')[:5]
+    most_viewed = Banner.objects.order_by('-hit_count_generic__hits')[:5].filter()
     most_commented = Banner.objects.order_by('-comments')[:5]
     most_used = Banner.objects.order_by('-banner_users')[:5]
 

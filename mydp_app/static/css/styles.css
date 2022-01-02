@@ -542,3 +542,19 @@ a {
   object-fit: cover;
   object-position: center;
 }
+
+.dev-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 100px;
+  font-size: 25px;
+}
+
+.dev-info > div > a{
+  text-decoration: underline !important;
+}
+
+.dev-info > a > i{
+    font-size: 40px;
+}
