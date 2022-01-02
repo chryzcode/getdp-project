@@ -8,7 +8,9 @@
         <img class="category-img" src="{{category.image.url}}" alt="" />
         <h4 class="category-name">{{category.name|title }}</h4>
       </div>
-      </a>
-  {% endfor %}
+    </a>
+    {% endfor %} 
+  </div>
+  {% include 'footer.html' %}
+  {% endblock %}
 </div>
-{% endblock %}

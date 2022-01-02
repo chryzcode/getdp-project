@@ -558,3 +558,18 @@ a {
 .dev-info > a > i{
     font-size: 40px;
 }
+
+.footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  font-size: 18px;
+}
+
+.footer > span > a {
+  text-decoration: underline !important;
+}
+
+.footer > a > i {
+  font-size: 25px;
+}
