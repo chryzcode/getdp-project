@@ -9,30 +9,24 @@
     <form action="" method="POST" enctype="multipart/form-data">
       {% csrf_token %}
       <div class="form-floating mb-3">
-        <input
-          id="name"
-          class="form-control"
-          name="name"
-          type="text"
-          placeholder="e.g. The Dev Fest Conference Banner"
-        />
-        <label for="name">Banner Name</label>
+        {{form.name}}
+        <label>{{ form.name.label_tag }}</label>
       </div>
-      {% if form.image %}
-      Current Image:
+     
+      {% if form.image %} Current Image:
       <a href="{{banner.image.url}}">{{banner.image.url}}</a>
       {% endif %}
-     <div class="mb-3">
+      <div class="mb-3">
         <label for="image" class="form-label">Image</label>
         <input class="form-control" type="file" id="image" name="image" />
       </div>
-     
+
       {{ form.media }}
       <p>{{ form.description.label_tag }}</p>
       {{ form.description }}
 
       <div class="form-floating mb-3">
-      {{form.tag}}
+        {{form.tag}}
         <label>{{ form.tag.label_tag }}</label>
       </div>
 
@@ -40,9 +34,8 @@
         {{form.category}}
         <label>{{ form.category.label_tag }}</label>
       </div>
-        <button class="save-btn" type="submit">Save</button>
+      <button class="save-btn" type="submit">Save</button>
     </form>
   </div>
 </div>
-{% include 'footer.html' %}
-{% endblock %}
+{% include 'footer.html' %} {% endblock %}
