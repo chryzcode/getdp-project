@@ -484,6 +484,7 @@ form {
   align-items: center;
   width: 70px;
   margin-right: 10px;
+  text-decoration: none;
 }
 
 .delete-banner-btn {
@@ -496,6 +497,7 @@ form {
   align-items: center;
   width: 80px;
   margin-left: 10px;
+  text-decoration: none;
 }
 
 #delete-banner-icon {
