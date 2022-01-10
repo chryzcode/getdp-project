@@ -8,7 +8,7 @@
   }
 }
 
-@media all and (min-width: 100px) and (max-width: 620px) {
+@media all and (min-width: 100px) and (max-width: 750px) {
   .flex-container {
     display: block;
     width: 100%;
