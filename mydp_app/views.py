@@ -195,9 +195,9 @@ def discoverPage(request):
         Q(user__full_name__icontains=q) |
         Q(description__icontains=q) 
     )
-    most_viewed = Banner.objects.filter(created__gte= one_week_ago).order_by('-hit_count_generic__hits')[:5]
-    most_commented = Banner.objects.filter(created__gte= one_week_ago).order_by('-comment')[:5]
-    most_used = Banner.objects.filter(created__gte= one_week_ago).order_by('-banner_users')[:5]
+    most_viewed = Banner.objects.order_by('-hit_count_generic__hits')[:6]
+    most_commented = Banner.objects.filter(created__gte= one_week_ago).order_by('-comment')[:6]
+    most_used = Banner.objects.filter(created__gte= one_week_ago).order_by('-banner_users')[:6]
     context = {'banners':banners, 'most_viewed':most_viewed, 'most_commented':most_commented, 'most_used':most_used}
     return render(request, 'discover-banner.html', context)
 

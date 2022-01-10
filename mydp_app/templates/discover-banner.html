@@ -6,22 +6,22 @@
       <p>By enabling them create and share personalized DP based on your brand, event or campaign banners</p>
     </div>
   </div>
-  
-  <div class="search-wrap">
-      <div class="search-box">
-        <div class="btn btn_common">
-          <i class="fas fa-search"></i>
-        </div>
-        <form class="search" action="{% url 'discover-page' %}" method="get">
-          <button class="btn btn_common" type="submit" name="button">
-            <i class="fas fa-search"></i>
-          </button>
-          <input name="q" class="input" type="text" placeholder="Discover DP Banners">
-        </form>
-      </div>
-    </div>
 
-  <div class="banner-grid">
+  <div class="search-wrap">
+    <div class="search-box">
+      <div class="btn btn_common">
+        <i class="fas fa-search"></i>
+      </div>
+      <form class="search" action="{% url 'discover-page' %}" method="get">
+        <button class="btn btn_common" type="submit" name="button">
+          <i class="fas fa-search"></i>
+        </button>
+        <input name="q" class="input" type="text" placeholder="Discover DP Banners" />
+      </form>
+    </div>
+  </div>
+
+  <!-- <div class="banner-grid">
     {% for banner in banners %}
     <a class="banner-link" href="{% url 'view-banner' banner.slug %}">
       <div class="banner-card">
@@ -52,6 +52,86 @@
       </div>
     </a>
     {% endfor %}
+  </div> -->
+
+  <!-- MOST VIEWED BANNERS -->
+  <div>
+    {% if most_viewed %}
+    <div class="discover_banners_header">MOST VIEWED BANNERS</div>
+    {% endif %}
+    <div class="banner-grid">
+      {% for banner in most_viewed %}
+      <a class="banner-link" href="{% url 'view-banner' banner.slug %}">
+        <div class="banner-card">
+          <div class="banner-top">
+            <span class="banner-category"> {{banner.category|title}} </span>
+            <span class="banner-created"> {{banner.created}} </span>
+          </div>
+          <div class="banner-image-container">
+            {% if banner.image %}
+            <img class="banner-image" src="{{ banner.image.url }}" alt="" />
+            {% endif %}
+          </div>
+          <div class="banner-content">
+            <h5 class="banner-header">{{banner.name}}</h5>
+            <div class="banner-description">{{banner.description|safe|truncatewords:15}}</div>
+          </div>
+          <div class="banner-bottom">
+            {% if banner.current_hit_count > 1 %}
+            <span>{% get_hit_count for banner %} Views</span>
+            {% else %}
+            <span>{% get_hit_count for banner %} View</span>
+            {% endif %} {% if banner.banner_users.all.count > 1 %}
+            <span>{{banner.banner_users.all.count}} Usages</span>
+            {% else %}
+            <span>{{banner.banner_users.all.count}} Usage</span>
+            {% endif %}
+          </div>
+        </div>
+      </a>
+      {% endfor %}
+    </div>
   </div>
+
+  <!-- MOST COMMENTED BANNERS -->
+  <div style="margin-top: 70px">
+    {% if most_commented %}
+    <div class="discover_banners_header">MOST COMMENTED BANNERS</div>
+    {% endif %}
+    <div class="banner-grid">
+      {% for banner in most_commented %}
+      <a class="banner-link" href="{% url 'view-banner' banner.slug %}">
+        <div class="banner-card">
+          <div class="banner-top">
+            <span class="banner-category"> {{banner.category|title}} </span>
+            <span class="banner-created"> {{banner.created}} </span>
+          </div>
+          <div class="banner-image-container">
+            {% if banner.image %}
+            <img class="banner-image" src="{{ banner.image.url }}" alt="" />
+            {% endif %}
+          </div>
+          <div class="banner-content">
+            <h5 class="banner-header">{{banner.name}}</h5>
+            <div class="banner-description">{{banner.description|safe|truncatewords:15}}</div>
+          </div>
+          <div class="banner-bottom">
+            {% if banner.current_hit_count > 1 %}
+            <span>{% get_hit_count for banner %} Views</span>
+            {% else %}
+            <span>{% get_hit_count for banner %} View</span>
+            {% endif %} {% if banner.banner_users.all.count > 1 %}
+            <span>{{banner.banner_users.all.count}} Usages</span>
+            {% else %}
+            <span>{{banner.banner_users.all.count}} Usage</span>
+            {% endif %}
+          </div>
+        </div>
+      </a>
+      {% endfor %}
+    </div>
+  </div>
+
+  
 </div>
 {% include 'footer.html' %} {% endblock %}
