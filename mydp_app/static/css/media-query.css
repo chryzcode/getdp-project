@@ -9,7 +9,7 @@
 }
 
 @media all and (min-width: 100px) and (max-width: 620px) {
-  .nav-item-center {
+  /* .nav-item-center {
     position: initial;
     margin-top: 40px;
     text-align: center;
@@ -35,7 +35,7 @@
     margin: 25px 0px;
     line-height: 30px;
     text-align: center;
-  }
+  } */
 
   nav ul li a {
     font-size: 20px;

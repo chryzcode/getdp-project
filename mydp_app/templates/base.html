@@ -27,19 +27,35 @@
         <i id="cross" class="fa fa-times"></i>
         <i id="bars" class="fa fa-bars" aria-hidden="true"></i>
       </label>
-      <a class="navbar-logo" href="/">Get My Dp</a>
-      <ul>
+      <span class="flex-container">
+
+        <span class="nav-item-left">
+          <a class="navbar-logo" href="/">Get My Dp</a>
+        </span>
+      
         <span class="nav-item-center"> 
+          <ul>
           <li><a href="#">Discover</a></li>
           <li><a href="{% url 'categories' %}">Categories</a></li>
           <li><a href="{% url 'create-banner' %}">Create Banner</a></li>
+          </ul>
         </span>
+
+         <span class="nav-item-right">
         {% if user.is_authenticated %}
-        <li><a href="{% url 'user-profile' user.username %}">My Profile</a></li>
-        <li><a href="{% url 'logout' %}">Log Out</a></li>
-        {% else %}
-        <li nav justify-content-end ><a href="{% url 'login' %}">Sign In</a></li>
-      </ul>
+       <ul>
+         <input type="checkbox" id="check" />
+          <label for="check" class="checkbtn">
+          <i id="cross" class="fa fa-times"></i>
+          <i id="bars" class="fa fa-bars" aria-hidden="true"></i>
+        </label>
+          <li><a href="{% url 'user-profile' user.username %}">My Profile</a></li>
+          <li><a href="{% url 'logout' %}">Log Out</a></li>
+          {% else %}
+        <li ><a href="{% url 'login' %}">Sign In</a></li>
+        </ul>
+        </span>
+      </span>
       {% endif %}
     </nav>
     {% block content %} 

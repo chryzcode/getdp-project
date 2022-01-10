@@ -5,6 +5,10 @@
   box-sizing: border-box;
 }
 
+a {
+  color: #28125e !important;
+}
+
 nav {
   position: fixed;
   top: 0;
@@ -24,23 +28,19 @@ nav:after {
   display: table;
 }
 
-nav ul {
-  float: right;
-  padding-right: 20px;
-}
-
-.nav-item-center {
-  position: absolute;
-  left: 35%;
+.flex-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-left: 20px;
+  margin-right: 20px;
+  margin-top: 15px;
 }
 
 .navbar-logo {
   font-size: 28px;
-  padding-left: 20px;
   text-decoration: none;
   color: #26174b;
-  margin-top: 10px;
-  display: inline-block !important;
 }
 
 .navbar-logo:hover {
@@ -87,10 +87,15 @@ nav ul {
   display: block;
 }
 
-nav ul li {
-  display: inline-block;
-  line-height: 80px;
-  margin: 0 10px;
+.nav-item-center > ul {
+  display: flex;
+  flex-direction: row;
+  padding-left: 0;
+  margin-bottom: 0;
+}
+
+.nav-item-center > ul > li {
+   margin: 0 20px;
 }
 
 li {
@@ -387,10 +392,6 @@ form {
   margin-top: 5px;
 }
 
-a {
-  text-decoration: none !important;
-  color: #28125e !important;
-}
 
 .mini-form {
   width: 70%;
@@ -551,12 +552,12 @@ a {
   font-size: 25px;
 }
 
-.dev-info > div > a{
+.dev-info > div > a {
   text-decoration: underline !important;
 }
 
-.dev-info > a > i{
-    font-size: 40px;
+.dev-info > a > i {
+  font-size: 40px;
 }
 
 .footer {
