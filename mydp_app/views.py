@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 from .forms import *
+from django.db.models import Q
 from django.contrib.auth.decorators import login_required
 from .models import *
 from hitcount.views import HitCountDetailView
@@ -186,9 +187,19 @@ def previewBanner(request, slug):
 
 
 def discoverPage(request):
-    most_viewed = Banner.objects.order_by('-hit_count_generic__hits')[:5].filter()
-    most_commented = Banner.objects.order_by('-comments')[:5]
-    most_used = Banner.objects.order_by('-banner_users')[:5]
+    context = {}
+    q = request.GET.get('q') if request.GET.get('q') != None else ''
+    banners = Banner.objects.filter(
+        Q(name__icontains=q) | 
+        Q(user__username__icontains=q) |
+        Q(user__full_name__icontains=q) |
+        Q(description__icontains=q) 
+    )
+    most_viewed = Banner.objects.filter(created__gte= one_week_ago).order_by('-hit_count_generic__hits')[:5]
+    most_commented = Banner.objects.filter(created__gte= one_week_ago).order_by('-comment')[:5]
+    most_used = Banner.objects.filter(created__gte= one_week_ago).order_by('-banner_users')[:5]
+    context = {'banners':banners, 'most_viewed':most_viewed, 'most_commented':most_commented, 'most_used':most_used}
+    return render(request, 'discover-banner.html', context)
 
 #def downloadBanner(request)
 
