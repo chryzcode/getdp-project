@@ -37,6 +37,10 @@ nav:after {
   margin-top: 15px;
 }
 
+.mobile-logo {
+  display: none;
+}
+
 .navbar-logo {
   font-size: 28px;
   text-decoration: none;
@@ -97,6 +101,18 @@ nav:after {
   margin: 0 20px;
 }
 
+.nav-item-right > ul {
+  display: flex;
+  flex-direction: row;
+  padding-left: 0;
+  margin-bottom: 0;
+  align-items: center;
+}
+
+.nav-item-right > ul > li {
+  margin: 0 15px;
+}
+
 li {
   list-style: none;
 }
@@ -112,8 +128,6 @@ li a:hover {
   color: #28125e;
   transition: ease-out 0.3s;
 }
-
-
 
 .messages {
   color: red;
