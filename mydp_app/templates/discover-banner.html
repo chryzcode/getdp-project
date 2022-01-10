@@ -21,38 +21,43 @@
     </div>
   </div>
 
-  <div class="banner-grid">
-    {% for banner in banners %}
-    <a class="banner-link" href="{% url 'view-banner' banner.slug %}">
-      <div class="banner-card">
-        <div class="banner-top">
-          <span class="banner-category"> {{banner.category|title}} </span>
-          <span class="banner-created"> {{banner.created}} </span>
+  {% if searchbar_word %}
+  <div style="margin-bottom: 90px">
+    <div class="discover_banners_header">Your Search Result</div>
+    <div class="banner-grid">
+      {% for banner in banners %}
+      <a class="banner-link" href="{% url 'view-banner' banner.slug %}">
+        <div class="banner-card">
+          <div class="banner-top">
+            <span class="banner-category"> {{banner.category|title}} </span>
+            <span class="banner-created"> {{banner.created}} </span>
+          </div>
+          <div class="banner-image-container">
+            {% if banner.image %}
+            <img class="banner-image" src="{{ banner.image.url }}" alt="" />
+            {% endif %}
+          </div>
+          <div class="banner-content">
+            <h5 class="banner-header">{{banner.name}}</h5>
+            <div class="banner-description">{{banner.description|safe|truncatewords:15}}</div>
+          </div>
+          <div class="banner-bottom">
+            {% if banner.current_hit_count > 1 %}
+            <span>{% get_hit_count for banner %} Views</span>
+            {% else %}
+            <span>{% get_hit_count for banner %} View</span>
+            {% endif %} {% if banner.banner_users.all.count > 1 %}
+            <span>{{banner.banner_users.all.count}} Usages</span>
+            {% else %}
+            <span>{{banner.banner_users.all.count}} Usage</span>
+            {% endif %}
+          </div>
         </div>
-        <div class="banner-image-container">
-          {% if banner.image %}
-          <img class="banner-image" src="{{ banner.image.url }}" alt="" />
-          {% endif %}
-        </div>
-        <div class="banner-content">
-          <h5 class="banner-header">{{banner.name}}</h5>
-          <div class="banner-description">{{banner.description|safe|truncatewords:15}}</div>
-        </div>
-        <div class="banner-bottom">
-          {% if banner.current_hit_count > 1 %}
-          <span>{% get_hit_count for banner %} Views</span>
-          {% else %}
-          <span>{% get_hit_count for banner %} View</span>
-          {% endif %} {% if banner.banner_users.all.count > 1 %}
-          <span>{{banner.banner_users.all.count}} Usages</span>
-          {% else %}
-          <span>{{banner.banner_users.all.count}} Usage</span>
-          {% endif %}
-        </div>
-      </div>
-    </a>
-    {% endfor %}
+      </a>
+      {% endfor %}
+    </div>
   </div>
+  {% endif %}
 
   <!-- MOST VIEWED BANNERS -->
   <div>
@@ -93,8 +98,6 @@
     </div>
   </div>
 
-  
-
   <!-- MOST USED BANNER-->
   <div style="margin-top: 70px">
     {% if most_used %}
@@ -133,8 +136,5 @@
       {% endfor %}
     </div>
   </div>
-
-
-
 </div>
 {% include 'footer.html' %} {% endblock %}

@@ -189,6 +189,7 @@ def previewBanner(request, slug):
 def discoverPage(request):
     context = {}
     q = request.GET.get('q') if request.GET.get('q') != None else ''
+    searchbar_word = request.GET.get('q')
     banners = Banner.objects.filter(
         Q(name__icontains=q) | 
         Q(user__username__icontains=q) |
@@ -197,7 +198,7 @@ def discoverPage(request):
     )
     most_viewed = Banner.objects.order_by('-hit_count_generic__hits')[:6]
     most_used = Banner.objects.order_by('banner_users')[:6]
-    context = {'banners':banners, 'most_viewed':most_viewed, 'most_used':most_used}
+    context = {'banners':banners, 'most_viewed':most_viewed, 'most_used':most_used, 'searchbar_word':searchbar_word}
     return render(request, 'discover-banner.html', context)
 
 #def downloadBanner(request)
