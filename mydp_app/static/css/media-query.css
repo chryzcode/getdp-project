@@ -23,6 +23,10 @@
     text-align: center;
   }
 
+  .mobile-logo {
+    display: block;
+  }
+
   .nav-item-center > ul {
     display: block;
     text-align: center;
@@ -35,6 +39,17 @@
   .nav-item-right > ul {
     padding-left: 0 !important;
     margin-bottom: 0 !important;
+  }
+
+  .nav-item-right > ul {
+    display: block;
+    text-align: center;
+    padding-left: 0;
+    margin-bottom: 0;
+  }
+
+  .nav-item-right > ul > li {
+    margin: 0;
   }
 
   .nav-item-left {
