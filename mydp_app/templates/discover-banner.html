@@ -6,9 +6,21 @@
       <p>By enabling them create and share personalized DP based on your brand, event or campaign banners</p>
     </div>
   </div>
-  <form action="{% url 'discover-page' %}" method="get">
-    <input name="q" placeholder="Search for posts" />
-  </form>
+  
+  <div class="search-wrap">
+      <div class="search-box">
+        <div class="btn btn_common">
+          <i class="fas fa-search"></i>
+        </div>
+        <form class="search" action="{% url 'discover-page' %}" method="get">
+          <button class="btn btn_common" type="submit" name="button">
+            <i class="fas fa-search"></i>
+          </button>
+          <input name="q" class="input" type="text" placeholder="Discover DP Banners">
+        </form>
+      </div>
+    </div>
+
   <div class="banner-grid">
     {% for banner in banners %}
     <a class="banner-link" href="{% url 'view-banner' banner.slug %}">
