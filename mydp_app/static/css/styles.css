@@ -19,7 +19,7 @@ nav {
   border-bottom: 1px solid #cdcdcd;
   z-index: 10;
   background-color: White;
-  overflow: hidden;
+  /* overflow: hidden; */
 }
 
 nav:after {
@@ -52,7 +52,6 @@ nav:after {
 .checkbtn {
   font-size: 25px;
   float: right;
-  line-height: 80px;
   margin-right: 40px;
   display: none;
   cursor: pointer;
@@ -63,7 +62,7 @@ nav:after {
 }
 
 #bars {
-  line-height: 80px;
+  line-height: 50px;
   margin-right: 10px;
   font-size: 22px;
   cursor: pointer;
@@ -72,7 +71,7 @@ nav:after {
 
 #cross {
   display: none;
-  line-height: 80px;
+  line-height: 50px;
   margin-right: 10px;
   font-size: 22px;
   cursor: pointer;
@@ -95,7 +94,7 @@ nav:after {
 }
 
 .nav-item-center > ul > li {
-   margin: 0 20px;
+  margin: 0 20px;
 }
 
 li {
@@ -113,6 +112,8 @@ li a:hover {
   color: #28125e;
   transition: ease-out 0.3s;
 }
+
+
 
 .messages {
   color: red;
@@ -391,7 +392,6 @@ form {
   text-align: center;
   margin-top: 5px;
 }
-
 
 .mini-form {
   width: 70%;
