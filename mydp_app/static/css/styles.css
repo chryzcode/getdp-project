@@ -580,6 +580,7 @@ form {
   align-items: center;
   justify-content: space-evenly;
   font-size: 18px;
+  margin-top: 40px;
 }
 
 .footer > span > a {

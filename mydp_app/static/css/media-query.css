@@ -101,6 +101,37 @@
     grid-row-gap: 10px;
     text-align: center;
   }
+
+  .search-wrap {
+    width: 90%;
+    margin: auto;
+    margin-top: 50px;
+  }
+  
+  .search-wrap .search-box {
+    width: 90%;
+    height: 45px;
+    margin: auto;
+  }
+
+  .search-wrap .search-box .input {
+    padding: 2.5px 5px;
+    font-size: 11px;
+    padding-right: 40px;
+  }
+
+  .search-wrap .search-box .input:hover {
+    font-size: 12px;
+  }
+
+  .search-wrap .search-box .btn {
+    width: 35px;
+  }
+
+  .search-wrap .search-box .btn.btn_common .fas {
+    font-size: 13px;
+  }
+
 }
 
 @media all and (min-width: 620px) and (max-width: 950px) {
