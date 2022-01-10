@@ -143,7 +143,7 @@ class viewBanner(HitCountDetailView):
         self.object = self.get_object()
         context = self.get_context_data(object=self.object)
         form = CommentForm(request.POST)
-        usebannerform = UserBannerForm(request.POST)
+        usebannerform = UserBannerForm(request.POST, request.FILES)
         deletecommentform = CommentForm(request.POST)
         if form.is_valid():
             comment = form.save(commit=False)
@@ -151,14 +151,13 @@ class viewBanner(HitCountDetailView):
             comment.banner = self.object
             comment.save()
             return redirect('view-banner', slug=self.object.slug)
-        if usebannerform:
+        if usebannerform.is_valid():
             usebanner = usebannerform.save(commit=False)
             usebanner.user = request.user
             usebanner.banner = self.object
             usebanner.save()
             self.object.banner_users.add(request.user)
-            # return redirect('preview-banner', slug=self.object.slug)
-            return redirect('home') 
+            return redirect('preview-banner', slug=self.object.slug)
         if deletecommentform.is_valid():
             comment = deletecommentform.save(commit=False)
             comment.user = request.user
