@@ -151,13 +151,14 @@ class viewBanner(HitCountDetailView):
             comment.banner = self.object
             comment.save()
             return redirect('view-banner', slug=self.object.slug)
-        if usebannerform.is_valid():
+        if usebannerform:
             usebanner = usebannerform.save(commit=False)
             usebanner.user = request.user
             usebanner.banner = self.object
             usebanner.save()
             self.object.banner_users.add(request.user)
-            return redirect('preview-banner', slug=self.object.slug) 
+            # return redirect('preview-banner', slug=self.object.slug)
+            return redirect('home') 
         if deletecommentform.is_valid():
             comment = deletecommentform.save(commit=False)
             comment.user = request.user
@@ -196,9 +197,8 @@ def discoverPage(request):
         Q(description__icontains=q) 
     )
     most_viewed = Banner.objects.order_by('-hit_count_generic__hits')[:6]
-    most_commented = Banner.objects.filter(created__gte= one_week_ago).order_by('-comment')[:6]
-    most_used = Banner.objects.filter(created__gte= one_week_ago).order_by('-banner_users')[:6]
-    context = {'banners':banners, 'most_viewed':most_viewed, 'most_commented':most_commented, 'most_used':most_used}
+    most_used = Banner.objects.order_by('banner_users')[:6]
+    context = {'banners':banners, 'most_viewed':most_viewed, 'most_used':most_used}
     return render(request, 'discover-banner.html', context)
 
 #def downloadBanner(request)

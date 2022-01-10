@@ -39,6 +39,7 @@ class UserBannerForm(ModelForm):
 
         widgets={
             'full_name':forms.TextInput(attrs={'class':'form-control', 'placeholder':'Put in your name'}),
+            'image':forms.FileInput(attrs={'class':'form-control'}),
         }
 
     def __init__(self, *args, **kwargs):

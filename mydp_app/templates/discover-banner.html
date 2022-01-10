@@ -93,13 +93,15 @@
     </div>
   </div>
 
-  <!-- MOST COMMENTED BANNERS -->
+  
+
+  <!-- MOST USED BANNER-->
   <div style="margin-top: 70px">
-    {% if most_commented %}
-    <div class="discover_banners_header">MOST COMMENTED BANNERS</div>
+    {% if most_used %}
+    <div class="discover_banners_header">MOST USED BANNERS</div>
     {% endif %}
     <div class="banner-grid">
-      {% for banner in most_commented %}
+      {% for banner in most_used %}
       <a class="banner-link" href="{% url 'view-banner' banner.slug %}">
         <div class="banner-card">
           <div class="banner-top">
@@ -132,6 +134,7 @@
     </div>
   </div>
 
-  
+
+
 </div>
 {% include 'footer.html' %} {% endblock %}
