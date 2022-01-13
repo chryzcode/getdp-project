@@ -66,7 +66,6 @@ nav:after {
 }
 
 #bars {
-  /* line-height: 50px; */
   margin-right: 10px;
   font-size: 22px;
   cursor: pointer;
@@ -76,11 +75,11 @@ nav:after {
 
 #cross {
   display: none;
-  line-height: 50px;
   margin-right: 10px;
   font-size: 22px;
   cursor: pointer;
   color: #26174b;
+  margin-top: 20px;
 }
 
 #check:checked + label i#bars {
