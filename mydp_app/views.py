@@ -9,7 +9,7 @@ from hitcount.views import HitCountDetailView
 from datetime import datetime, timedelta
 
 
-one_week_ago = datetime.today() - timedelta(days=7)
+one_week_ago = datetime.today() - timedelta(days=31)
 # Create your views here.
 def loginPage(request):
     context = {}
