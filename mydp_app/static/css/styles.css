@@ -592,10 +592,6 @@ form {
   font-size: 25px;
 }
 
-
-
-
-
 .search-wrap {
   width: 550px;
   margin: 15px auto;
@@ -625,7 +621,7 @@ form {
 }
 
 form .search::after {
-  content: '';
+  content: "";
   clear: both;
   display: table;
 }
@@ -661,8 +657,7 @@ button {
 }
 
 .discover_banners_header {
-  color: #26174b; ;
+  color: #26174b;
   font-size: 25px;
-  margin-left: 70px;
+  text-align: center;
 }
-
