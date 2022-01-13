@@ -195,8 +195,8 @@ def discoverPage(request):
         Q(user__full_name__icontains=q) |
         Q(description__icontains=q) 
     )
-    most_viewed = Banner.objects.filter(created_at__gte = a_month_ago).order_by('-hit_count_generic__hits')[:6]
-    most_used = Banner.objects.filter(created_at__gte = a_month_ago).order_by('banner_users')[:6]
+    most_viewed = Banner.objects.filter(created__gte = a_month_ago).order_by('-hit_count_generic__hits')[:6]
+    most_used = Banner.objects.filter(created__gte = a_month_ago).order_by('banner_users')[:6]
     context = {'banners':banners, 'most_viewed':most_viewed, 'most_used':most_used, 'searchbar_word':searchbar_word}
     return render(request, 'discover-banner.html', context)
 
