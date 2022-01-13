@@ -8,8 +8,6 @@ from .models import *
 from hitcount.views import HitCountDetailView
 from datetime import datetime, timedelta
 
-
-one_week_ago = datetime.today() - timedelta(days=31)
 # Create your views here.
 def loginPage(request):
     context = {}
@@ -188,6 +186,7 @@ def previewBanner(request, slug):
 
 def discoverPage(request):
     context = {}
+    a_month_ago = datetime.today() - timedelta(days=31)
     q = request.GET.get('q') if request.GET.get('q') != None else ''
     searchbar_word = request.GET.get('q')
     banners = Banner.objects.filter(
@@ -196,8 +195,8 @@ def discoverPage(request):
         Q(user__full_name__icontains=q) |
         Q(description__icontains=q) 
     )
-    most_viewed = Banner.objects.order_by('-hit_count_generic__hits')[:6]
-    most_used = Banner.objects.order_by('banner_users')[:6]
+    most_viewed = Banner.objects.filter(created_at__gte = a_month_ago).order_by('-hit_count_generic__hits')[:6]
+    most_used = Banner.objects.filter(created_at__gte = a_month_ago).order_by('banner_users')[:6]
     context = {'banners':banners, 'most_viewed':most_viewed, 'most_used':most_used, 'searchbar_word':searchbar_word}
     return render(request, 'discover-banner.html', context)
 
