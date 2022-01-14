@@ -24,8 +24,9 @@
   {% if searchbar_word %}
   <div style="margin-bottom: 90px">
     <div class="discover_banners_header">Your Search Result</div>
+    {% if banners %} 
     <div class="banner-grid">
-      {% for banner in banners %}
+    {% for banner in banners %}
       <a class="banner-link" href="{% url 'view-banner' banner.slug %}">
         <div class="banner-card">
           <div class="banner-top">
@@ -56,6 +57,9 @@
       </a>
       {% endfor %}
     </div>
+    {% else %}
+    <h2 class="header">There are no banners</h2>
+    {% endif %}
   </div>
   {% endif %}
 
