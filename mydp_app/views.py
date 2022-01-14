@@ -198,7 +198,8 @@ def discoverPage(request):
     most_viewed = Banner.objects.filter(created__gte = a_month_ago).order_by('-hit_count_generic__hits')[:6]
     most_used = Banner.objects.filter(created__gte = a_month_ago).order_by('banner_users')[:6]
     all_most_viewed_banner = Banner.objects.order_by('-hit_count_generic__hits')[:6]
-    context = {'banners':banners, 'most_viewed':most_viewed, 'most_used':most_used, 'searchbar_word':searchbar_word, 'all_most_viewed_banner':all_most_viewed_banner}
+    all_most_used_banner = Banner.objects.order_by('banner_users')[:6]
+    context = {'banners':banners, 'most_viewed':most_viewed, 'most_used':most_used, 'searchbar_word':searchbar_word, 'all_most_viewed_banner':all_most_viewed_banner, 'all_most_used_banner':all_most_used_banner}
     return render(request, 'discover-banner.html', context)
 
 #def downloadBanner(request)
