@@ -43,3 +43,19 @@ class TestUrls(SimpleTestCase):
     def test_view_banner_urls_is_resolved(self):
         url = reverse('view-banner', args=['slug'])
         self.assertEquals(resolve(url).func.view_class, viewBanner)
+
+    def test_edit_banner_urls_is_resolved(self):
+        url = reverse('edit-banner', args=['slug'])
+        self.assertEquals(resolve(url).func, editBanner)
+    
+    def test_delete_banner_urls_is_resolved(self):
+        url = reverse('delete-banner', args=['slug'])
+        self.assertEquals(resolve(url).func, deleteBanner)
+
+    def test_preview_banner_urls_is_resolved(self):
+        url = reverse('preview-banner', args=['slug'])
+        self.assertEquals(resolve(url).func, previewBanner)
+
+    def test_discover_banner_urls_is_resolved(self):
+        url = reverse('discover-page')
+        self.assertEquals(resolve(url).func, discoverPage)
