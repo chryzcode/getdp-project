@@ -6,6 +6,5 @@ class TestViews(TestCase):
 
     def test_home(self):
         client = Client()
-        response = client.get(reverse('home'))
-        self.assertEqual(response.status_code, 200)
+        self.assertEquals(response.status_code, 200)
         self.assertTemplateUsed(response, 'mydp_app/home.html')
