@@ -92,17 +92,6 @@ WSGI_APPLICATION = 'getdp_project.wsgi.application'
 AUTH_USER_MODEL = 'mydp_app.User'
 
 
-# DATABASES = {
-#     'default': {
-#         # 'ENGINE': 'django.db.backends.postgresql_psycopg2',
-#         'ENGINE': 'django.db.backends.postgresql',
-#         'NAME': 'd56fejar46d1tj',
-#         'USER': 'qpvkceenkposms',
-#         'PASSWORD': 'cc1d538136403098a3ee85e0720fff236d3851056198ec0efed31d5eecb48b54',
-#         'HOST': 'ec2-35-174-52-65.compute-1.amazonaws.com',
-#         'POST': '5432',
-#     } 
-# }
 
 DATABASES = {
     'default': {
