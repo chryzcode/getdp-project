@@ -1,6 +1,7 @@
 from django.test import TestCase, Client
 from django.urls import reverse
 from mydp_app.models import *
+import json
 
 class TestViews(TestCase):
 
@@ -80,9 +81,22 @@ class TestViews(TestCase):
         self.assertEquals(response.status_code, 200)
         self.assertTemplateUsed(response, 'user-profile.html')
 
+
+    def test_create_user_banner_no_data(self):
+        response = self.client.post(self.create_banner_url, {
+            'name': '',
+            'description': '',
+            'category': '',
+            'user': self.user,
+            'tag': '',
+            'image': '',
+
+        })
+        self.assertEquals(response.status_code, 302)
+
     # def test_delete_account(self):
     #     user = self.user
-    #     response = self.client.get(reverse('delete-account'))
+    #     response = self.client.delete(reverse('delete-account'))
     #     self.assertEquals(response.status_code, 302)
 
     def test_categories(self):
@@ -100,13 +114,25 @@ class TestViews(TestCase):
         self.assertEquals(response.status_code, 200)
         self.assertTemplateUsed(response, 'view-banner.html')
 
+    #edit banner
     def test_edit_banner(self):
-        response = self.client.get(reverse('edit-banner', args=['testbanner']))
+        banner = self.banner
+        response = self.client.get(reverse('edit-banner', args=['testbanner']), {
+            'name': 'Edited Banner',
+            'description': 'Edited Description',
+            'category': 'testcategory',
+            'user': self.user,
+            'tag': 'testtag',
+            'image': 'testimage.jpg',
+        })
         self.assertEquals(response.status_code, 302)
+        banner.refresh_from_db()
+        self.assertEquals(banner.name, 'Test Banner')
 
     def test_delete_banner(self):
-        response = self.client.get(reverse('delete-banner', args=['testbanner']))
+        response = self.client.delete(reverse('delete-banner', args=['testbanner']))
         self.assertEquals(response.status_code, 302)
+
 
     def test_preview_banner(self):
         response = self.client.get(reverse('preview-banner', args=['testbanner']))
@@ -118,10 +144,21 @@ class TestViews(TestCase):
         self.assertEquals(response.status_code, 200)
         self.assertTemplateUsed(response, 'discover-banner.html')
 
-    def test_create_user_banner(self):
-        response = self.client.post(reverse('view-banner', args=['testbanner']), {
-            'user':self.user,
-            'user_banner': self.user_banner,
-            'image': 'testimage.jpg',
-            'full_name': 'Test User',
-        })
+    # def test_create_user_banner(self):
+    #     banner = Banner.objects.create(
+    #         name='Bonny Banner',
+    #         description='Test Description',
+    #         category='testcategory',
+    #         user= self.user,
+    #         slug= 'bonnybanner',
+    #         tag='testtag',
+    #         image='testimage.jpg',
+    #     )
+
+    #     response = self.client.post(reverse('view-banner', args=['bonnybanner']), {
+    #         'user':self.user,
+    #         'user_banner': banner,
+    #         'image': 'testimage.jpg',
+    #         'full_name': 'Test User',
+    #     })
+    #     self.assertEquals(response.status_code, 302)
