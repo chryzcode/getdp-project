@@ -20,6 +20,7 @@ class TestViews(TestCase):
 
         self.category = Category.objects.create(
             name='testcategory',
+            image='testimage.jpg',
         )
 
         self.tag = Tag.objects.create(
@@ -65,6 +66,7 @@ class TestViews(TestCase):
         self.assertTemplateUsed(response, 'user-profile.html')
 
     def test_delete_account(self):
+        user = self.user
         response = self.client.get(reverse('delete-account'))
         self.assertEquals(response.status_code, 302)
 
