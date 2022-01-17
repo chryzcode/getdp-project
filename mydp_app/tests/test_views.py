@@ -11,7 +11,30 @@ class TestViews(TestCase):
         self.logout_url = reverse('logout')
         self.register_url = reverse('register')
         self.create_banner_url = reverse('create-banner')
-        self.user_profile_url = reverse('user-profile', args=['CODE'])
+
+        self.user = User.objects.create(
+            full_name='Test User',
+            username='testuser',
+            email='testuser@gmail.com',
+        )
+
+        self.category = Category.objects.create(
+            name='testcategory',
+        )
+
+        self.tag = Tag.objects.create(
+            name='testtag',
+        )
+
+        self.banner = Banner.objects.create(
+            name='Test Banner',
+            description='Test Description',
+            category='testcategory',
+            user= self.user,
+            slug= 'testbanner',
+            tag='testtag',
+
+        )
 
     def test_home(self):
         response = self.client.get(self.home_url)
@@ -37,23 +60,20 @@ class TestViews(TestCase):
         self.assertEquals(response.status_code, 302)
 
     def test_user_profile(self):
-        response = self.client.get(self.user_profile_url)
+        response = self.client.get(reverse('user-profile', args=['testuser']))
         self.assertEquals(response.status_code, 200)
-        self.assertTemplateUsed(response, 'user_profile.html')
+        self.assertTemplateUsed(response, 'user-profile.html')
 
-    # def test_delete_account(self):
-    #     client = Client()
-    #     response = client.get(reverse('delete-account'))
-    #     self.assertEquals(response.status_code, 302)
+    def test_delete_account(self):
+        response = self.client.get(reverse('delete-account'))
+        self.assertEquals(response.status_code, 302)
 
-    # def test_categories(self):
-    #     client = Client()
-    #     response = client.get(reverse('categories'))
-    #     self.assertEquals(response.status_code, 200)
-    #     self.assertTemplateUsed(response, 'categories.html')
+    def test_categories(self):
+        response = self.client.get(reverse('categories'))
+        self.assertEquals(response.status_code, 200)
+        self.assertTemplateUsed(response, 'categories.html')
 
-    # def test_banner_category(self):
-    #     client = Client()
-    #     response = client.get(reverse('banner-category', args=['category_name']))
-    #     self.assertEquals(response.status_code, 200)
-    #     self.assertTemplateUsed(response, 'banner_category.html')
+    def test_banner_category(self):
+        response = self.client.get(reverse('banner-category', args=['testcategory']))
+        self.assertEquals(response.status_code, 200)
+        self.assertTemplateUsed(response, 'banner-category.html')
