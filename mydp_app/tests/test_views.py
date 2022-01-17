@@ -34,7 +34,14 @@ class TestViews(TestCase):
             user= self.user,
             slug= 'testbanner',
             tag='testtag',
+            image='testimage.jpg',
+        )
 
+        self.user_banner = UserBanner.objects.create(
+            user=self.user,
+            banner=self.banner,
+            image='testimage.jpg',
+            full_name='Test User',
         )
 
     def test_home(self):
@@ -57,7 +64,15 @@ class TestViews(TestCase):
         self.assertTemplateUsed(response, 'registration/register.html')
 
     def test_create_banner(self):
-        response = self.client.get(self.create_banner_url)
+        response = self.client.post(self.create_banner_url, {
+            'name': 'Another banner',
+            'description': 'Another description',
+            'category': 'testcategory',
+            'user': self.user,
+            'tag': 'testtag',
+            'image': 'testimage.jpg',
+
+        })
         self.assertEquals(response.status_code, 302)
 
     def test_user_profile(self):
@@ -65,10 +80,10 @@ class TestViews(TestCase):
         self.assertEquals(response.status_code, 200)
         self.assertTemplateUsed(response, 'user-profile.html')
 
-    def test_delete_account(self):
-        user = self.user
-        response = self.client.get(reverse('delete-account'))
-        self.assertEquals(response.status_code, 302)
+    # def test_delete_account(self):
+    #     user = self.user
+    #     response = self.client.get(reverse('delete-account'))
+    #     self.assertEquals(response.status_code, 302)
 
     def test_categories(self):
         response = self.client.get(reverse('categories'))
@@ -79,3 +94,34 @@ class TestViews(TestCase):
         response = self.client.get(reverse('banner-category', args=['testcategory']))
         self.assertEquals(response.status_code, 200)
         self.assertTemplateUsed(response, 'banner-category.html')
+
+    def test_view_banner(self):
+        response = self.client.get(reverse('view-banner', args=['testbanner']))
+        self.assertEquals(response.status_code, 200)
+        self.assertTemplateUsed(response, 'view-banner.html')
+
+    def test_edit_banner(self):
+        response = self.client.get(reverse('edit-banner', args=['testbanner']))
+        self.assertEquals(response.status_code, 302)
+
+    def test_delete_banner(self):
+        response = self.client.get(reverse('delete-banner', args=['testbanner']))
+        self.assertEquals(response.status_code, 302)
+
+    def test_preview_banner(self):
+        response = self.client.get(reverse('preview-banner', args=['testbanner']))
+        self.assertEquals(response.status_code, 200)
+        self.assertTemplateUsed(response, 'preview-banner.html')
+
+    def test_discover_page(self):
+        response = self.client.get(reverse('discover-page'))
+        self.assertEquals(response.status_code, 200)
+        self.assertTemplateUsed(response, 'discover-banner.html')
+
+    def test_create_user_banner(self):
+        response = self.client.post(reverse('view-banner', args=['testbanner']), {
+            'user':self.user,
+            'user_banner': self.user_banner,
+            'image': 'testimage.jpg',
+            'full_name': 'Test User',
+        })
