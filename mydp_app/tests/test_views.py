@@ -95,9 +95,9 @@ class TestViews(TestCase):
         self.assertEquals(response.status_code, 302)
 
 
-    # def test_delete_user(self):
-    #     response = self.client.delete(reverse('delete-account'))
-    #     self.assertEquals(response.status_code, 302)
+    def test_delete_user(self):
+        response = self.client.delete(reverse('delete-account'))
+        self.assertEquals(response.status_code, 302)
 
     def test_categories(self):
         response = self.client.get(reverse('categories'))
@@ -146,9 +146,8 @@ class TestViews(TestCase):
         self.assertEquals(response.status_code, 200)
         self.assertTemplateUsed(response, 'discover-banner.html')
 
-  #create test user banner
     def test_create_user_banner(self):
-        response = self.client.post(reverse('view-banner', args=['testbanner']), {
+        response = self.client.post(reverse('use-banner', args=['testbanner']), {
             'user': self.user,
             'banner': self.banner,
             'image': 'testimage.jpg',
