@@ -29,7 +29,7 @@ class TestUrls(SimpleTestCase):
         self.assertEquals(resolve(url).func, userProfile)
 
     def test_delete_account_urls_resolves(self):
-        url = reverse('delete-account')
+        url = reverse('delete-account', args=['username'])
         self.assertEquals(resolve(url).func, deleteAccount)
 
     def test_banner_categories_urls_resolves(self):

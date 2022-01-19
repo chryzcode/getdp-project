@@ -77,7 +77,7 @@ class TestViews(TestCase):
         self.assertEquals(response.status_code, 302)
 
     def test_user_profile(self):
-        response = self.client.get(reverse('user-profile', args=['testuser']))
+        response = self.client.get(reverse('user-profile', args=[self.user.username]))
         self.assertEquals(response.status_code, 200)
         self.assertTemplateUsed(response, 'user-profile.html')
 
@@ -92,11 +92,6 @@ class TestViews(TestCase):
             'image': '',
 
         })
-        self.assertEquals(response.status_code, 302)
-
-
-    def test_delete_user(self):
-        response = self.client.delete(reverse('delete-account'))
         self.assertEquals(response.status_code, 302)
 
     def test_categories(self):
@@ -132,7 +127,7 @@ class TestViews(TestCase):
     
         
     def test_delete_banner(self):
-        response = self.client.delete(reverse('delete-banner', args=['testuser']))
+        response = self.client.delete(reverse('delete-banner', args=['testbanner']))
         self.assertEquals(response.status_code, 302)
 
 

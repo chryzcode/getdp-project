@@ -8,7 +8,6 @@ urlpatterns = [
     path('register/', views.registerPage, name='register'),
     path('create-banner/', views.createBanner, name='create-banner'),
     path('profile/<username>/', views.userProfile, name='user-profile'),
-    path('delete-account/<username>/', views.deleteAccount, name='delete-account'),
     path('banner/categories/', views.Categories, name='categories'),
     path('banner/category/<str:category_name>/', views.bannerCategory, name='banner-category'),  
     path('banner/<slug:slug>/', views.viewBanner.as_view(), name='view-banner'),
@@ -17,4 +16,5 @@ urlpatterns = [
     path('preview/banner/<slug:slug>/', views.previewBanner, name='preview-banner'),
     path('discover-banner/', views.discoverPage, name='discover-page'),
     path('use-banner/<slug:slug>/', views.useBanner, name='use-banner'),
+    path('delete-account/<username>', views.deleteAccount, name='delete-account'),
 ]

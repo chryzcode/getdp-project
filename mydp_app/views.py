@@ -101,15 +101,16 @@ def userProfile(request, username):
         if form.is_valid():
             form.save()
             username = request.POST.get('username')
-            return redirect('user-profile', username)
+            return redirect('user-profile', user.username)
     context = {'user':user, 'banners':banners, 'form':form, 'delete_user_username':delete_user_username}
     return render(request, 'user-profile.html', context)
 
-
+@login_required(login_url='login')
 def deleteAccount(request, username):
-    user = User.objects.get(username=username)
+    user = get_object_or_404(User, username=username)
     user.delete()
     return redirect('home')
+
 
 def Categories(request):
     categories = Category.objects.all()
