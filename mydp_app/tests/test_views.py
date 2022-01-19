@@ -124,6 +124,18 @@ class TestViews(TestCase):
     #     banner.refresh_from_db()
     #     self.assertEquals(banner.name, 'Test Banner')
     #     self.assertEquals(banner.description, 'Edited Description')
+
+    def test_edit_banner(self):
+        update_url = reverse('edit-banner', args=['testbanner'])
+        get_form = self.client.get(update_url)
+        form = get_form.context['form']
+        data = form.initial
+        data['name'] = 'Updated Banner'
+        data['description'] = 'Updated Description'
+        get_form = self.client.post(update_url, data)
+        form = self.client.get(update_url)
+        self.assertEquals(get_form.context['form'].initial['name'], 'Updated Banner')
+        self.assertEquals(get_form.context['form'].initial['description'], 'Updated description')
     
         
     def test_delete_banner(self):
