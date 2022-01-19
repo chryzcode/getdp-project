@@ -167,9 +167,9 @@ class viewBanner(HitCountDetailView):
 @login_required(login_url='login')
 def useBanner(request, slug):
     banner = get_object_or_404(Banner.objects.all(), slug=slug)
-    form = UserBannerForm(request.POST, request.FILES)
-    if form.is_valid():
-        usebanner = form.save(commit=False)
+    usebannerform = UserBannerForm(request.POST, request.FILES)
+    if usebannerform.is_valid():
+        usebanner = usebannerform.save(commit=False)
         usebanner.user = request.user
         usebanner.banner = banner
         usebanner.save()

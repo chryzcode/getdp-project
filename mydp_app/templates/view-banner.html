@@ -46,7 +46,7 @@
     <div class="main-banner-image-container">
       <img class="main-banner-image" src="{{banner.image.url}}" alt="" />
     </div>
-    <form class="mini-form" action="" method="POST" enctype="multipart/form-data">
+    <form class="mini-form" action="{% url 'use-banner' banner.slug %}" method="POST" enctype="multipart/form-data">
       {% csrf_token %}
 
       <div class="mb-3">
@@ -55,7 +55,8 @@
       </div>
 
       <div>
-        <label>{{usebannerform.full_name.label_tag}}</label>
+        <label for="full_name" class="form-label">Full Name</label>
+        <input class="form-control" type="text" name="full_name" id="full_name">
         {{usebannerform.full_name}}
       </div>
 
