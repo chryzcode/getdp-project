@@ -134,7 +134,7 @@ class viewBanner(HitCountDetailView):
         context['comments_count'] = context['comments'].count()
         context['banner_users'] = self.object.banner_users.all()[:5]
         context['form'] = CommentForm()
-        context['usebannerform'] = UserBannerForm()
+        # context['usebannerform'] = UserBannerForm()
         context['deletecommentform'] = CommentForm()
         return context
     def post(self, request, *args, **kwargs):
@@ -149,13 +149,13 @@ class viewBanner(HitCountDetailView):
             comment.banner = self.object
             comment.save()
             return redirect('view-banner', slug=self.object.slug)
-        if usebannerform.is_valid():
-            usebanner = usebannerform.save(commit=False)
-            usebanner.user = request.user
-            usebanner.banner = self.object
-            usebanner.save()
-            self.object.banner_users.add(request.user)
-            return redirect('preview-banner', slug=self.object.slug)
+        # if usebannerform.is_valid():
+        #     usebanner = usebannerform.save(commit=False)
+        #     usebanner.user = request.user
+        #     usebanner.banner = self.object
+        #     usebanner.save()
+        #     self.object.banner_users.add(request.user)
+        #     return redirect('preview-banner', slug=self.object.slug)
         if deletecommentform.is_valid():
             comment = deletecommentform.save(commit=False)
             comment.user = request.user
@@ -165,7 +165,7 @@ class viewBanner(HitCountDetailView):
         return self.render_to_response(context)
 
 @login_required(login_url='login')
-def usebanner(request, slug):
+def useBanner(request, slug):
     banner = get_object_or_404(Banner.objects.all(), slug=slug)
     form = UserBannerForm(request.POST, request.FILES)
     if form.is_valid():
