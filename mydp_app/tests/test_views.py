@@ -94,8 +94,8 @@ class TestViews(TestCase):
         })
         self.assertEquals(response.status_code, 302)
 
-    # def test_delete_account(self):
-    #     user = self.user
+
+    # def test_delete_user(self):
     #     response = self.client.delete(reverse('delete-account'))
     #     self.assertEquals(response.status_code, 302)
 
@@ -115,20 +115,22 @@ class TestViews(TestCase):
         self.assertTemplateUsed(response, 'view-banner.html')
 
     #edit banner
-    def test_edit_banner(self):
-        banner = self.banner
-        response = self.client.get(reverse('edit-banner', args=['testbanner']), {
-            'name': 'Edited Banner',
-            'description': 'Edited Description',
-            'category': 'testcategory',
-            'user': self.user,
-            'tag': 'testtag',
-            'image': 'testimage.jpg',
-        })
-        self.assertEquals(response.status_code, 302)
-        banner.refresh_from_db()
-        self.assertEquals(banner.name, 'Test Banner')
-
+    # def test_edit_banner(self):
+    #     banner = self.banner
+    #     response = self.client.post(reverse('edit-banner', args=['testbanner']), {
+    #         'name': 'Test Banner',
+    #         'description': 'Edited Description',
+    #         'category': 'testcategory',
+    #         'user': self.user,
+    #         'tag': 'testtag',
+    #         'image': 'testimage.jpg',
+    #     })
+    #     self.assertEquals(response.status_code, 302)
+    #     banner.refresh_from_db()
+    #     self.assertEquals(banner.name, 'Test Banner')
+    #     self.assertEquals(banner.description, 'Edited Description')
+    
+        
     def test_delete_banner(self):
         response = self.client.delete(reverse('delete-banner', args=['testbanner']))
         self.assertEquals(response.status_code, 302)
