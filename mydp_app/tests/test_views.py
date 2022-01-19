@@ -146,21 +146,12 @@ class TestViews(TestCase):
         self.assertEquals(response.status_code, 200)
         self.assertTemplateUsed(response, 'discover-banner.html')
 
-    # def test_create_user_banner(self):
-    #     banner = Banner.objects.create(
-    #         name='Bonny Banner',
-    #         description='Test Description',
-    #         category='testcategory',
-    #         user= self.user,
-    #         slug= 'bonnybanner',
-    #         tag='testtag',
-    #         image='testimage.jpg',
-    #     )
-
-    #     response = self.client.post(reverse('view-banner', args=['bonnybanner']), {
-    #         'user':self.user,
-    #         'user_banner': banner,
-    #         'image': 'testimage.jpg',
-    #         'full_name': 'Test User',
-    #     })
-    #     self.assertEquals(response.status_code, 302)
+  #create test user banner
+    def test_create_user_banner(self):
+        response = self.client.post(reverse('view-banner', args=['testbanner']), {
+            'user': self.user,
+            'banner': self.banner,
+            'image': 'testimage.jpg',
+            'full_name': 'Test User',
+        })
+        self.assertEquals(response.status_code, 302)

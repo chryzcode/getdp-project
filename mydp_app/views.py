@@ -165,6 +165,19 @@ class viewBanner(HitCountDetailView):
         return self.render_to_response(context)
 
 @login_required(login_url='login')
+def usebanner(request, slug):
+    banner = get_object_or_404(Banner.objects.all(), slug=slug)
+    form = UserBannerForm(request.POST, request.FILES)
+    if form.is_valid():
+        usebanner = form.save(commit=False)
+        usebanner.user = request.user
+        usebanner.banner = banner
+        usebanner.save()
+        banner.banner_users.add(request.user)
+        return redirect('preview-banner', slug=banner.slug)
+    return redirect('home')
+
+@login_required(login_url='login')
 def deleteComment(request, pk):
     comment = Comment.objects.get(id=pk)
     if request.user == comment.user:
