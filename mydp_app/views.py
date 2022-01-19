@@ -93,6 +93,7 @@ def deleteBanner(request, slug):
 
 def userProfile(request, username):
     user = get_object_or_404(User, username=username)
+    delete_user_username = request.user.username
     banners = user.banner_set.all()
     form = UserProfileForm(instance= user) 
     if request.method == 'POST':
@@ -101,7 +102,7 @@ def userProfile(request, username):
             form.save()
             username = request.POST.get('username')
             return redirect('user-profile', username)
-    context = {'user':user, 'banners':banners, 'form':form}
+    context = {'user':user, 'banners':banners, 'form':form, 'delete_user_username':delete_user_username}
     return render(request, 'user-profile.html', context)
 
 

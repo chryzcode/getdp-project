@@ -132,7 +132,7 @@ class TestViews(TestCase):
     
         
     def test_delete_banner(self):
-        response = self.client.delete(reverse('delete-banner', args=['testbanner']))
+        response = self.client.delete(reverse('delete-banner', args=['testuser']))
         self.assertEquals(response.status_code, 302)
 
 
