@@ -105,8 +105,8 @@ def userProfile(request, username):
     return render(request, 'user-profile.html', context)
 
 
-def deleteAccount(request):
-    user = request.user
+def deleteAccount(request, username):
+    user = User.objects.get(username=username)
     user.delete()
     return redirect('home')
 
@@ -134,7 +134,6 @@ class viewBanner(HitCountDetailView):
         context['comments_count'] = context['comments'].count()
         context['banner_users'] = self.object.banner_users.all()[:5]
         context['form'] = CommentForm()
-        # context['usebannerform'] = UserBannerForm()
         context['deletecommentform'] = CommentForm()
         return context
     def post(self, request, *args, **kwargs):
@@ -149,13 +148,6 @@ class viewBanner(HitCountDetailView):
             comment.banner = self.object
             comment.save()
             return redirect('view-banner', slug=self.object.slug)
-        # if usebannerform.is_valid():
-        #     usebanner = usebannerform.save(commit=False)
-        #     usebanner.user = request.user
-        #     usebanner.banner = self.object
-        #     usebanner.save()
-        #     self.object.banner_users.add(request.user)
-        #     return redirect('preview-banner', slug=self.object.slug)
         if deletecommentform.is_valid():
             comment = deletecommentform.save(commit=False)
             comment.user = request.user
