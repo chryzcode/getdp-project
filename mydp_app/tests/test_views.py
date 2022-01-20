@@ -1,7 +1,6 @@
 from django.test import TestCase, Client
 from django.urls import reverse
-from mydp_app.models import *
-# from django.contrib.auth.models import User
+from mydp_app.models import User, Banner, Comment, Category, Tag, UserBanner
 
 class TestViews(TestCase):
 
@@ -59,19 +58,7 @@ class TestViews(TestCase):
     def test_logout(self):
         self.client.login(username='testuser', password='testpassword')
         response = self.client.get(self.logout_url, follow=True)
-        self.assertEquals(response.status_code, 200)
-
-    def test_register(self):
-        response = self.client.post(self.register_url, {
-            'full_name': 'Test User',
-            'username': 'testuser',
-            'email': 'testuser@gmail.com',
-            'password': 'testpassword',
-            'password2': 'testpassword',
-
-        }) 
-        self.assertEquals(response.status_code, 200)
-        
+        self.assertEquals(response.status_code, 200)     
 
     def test_create_banner(self):
         response = self.client.post(self.create_banner_url, {
@@ -117,22 +104,7 @@ class TestViews(TestCase):
         response = self.client.get(reverse('view-banner', args=['testbanner']))
         self.assertEquals(response.status_code, 200)
         self.assertTemplateUsed(response, 'view-banner.html')
-
-    #edit banner
-    # def test_edit_banner(self):
-    #     banner = self.banner
-    #     response = self.client.post(reverse('edit-banner', args=['testbanner']), {
-    #         'name': 'Test Banner',
-    #         'description': 'Edited Description',
-    #         'category': 'testcategory',
-    #         'user': self.user,
-    #         'tag': 'testtag',
-    #         'image': 'testimage.jpg',
-    #     })
-    #     self.assertEquals(response.status_code, 302)
-    #     banner.refresh_from_db()
-    #     self.assertEquals(banner.name, 'Test Banner')
-    #     self.assertEquals(banner.description, 'Edited Description')   
+  
         
     def test_delete_banner(self):
         response = self.client.delete(reverse('delete-banner', args=['testbanner']))
@@ -159,16 +131,31 @@ class TestViews(TestCase):
         self.assertEquals(response.status_code, 302)
 
 
-    def test_login(self):
-        response = self.client.post(self.login_url, {
+    def test_register_post(self):
+        response = self.client.post(reverse('register'), {
+            'full_name': 'Test User',
+            'username': 'testuser',
             'email': 'testuser@gmail.com',
             'password': 'testpassword',
-        }, format='text/html')
-        user = User.objects.filter(email= self.user['email']).first()
-        user.is_active = True
-        user.save()
-        response = self.client.post(self.login_url, {
-            'email': 'testuser@gmail.com',
+            'password2': 'testpassword',
+        })
+        self.assertEquals(response.status_code, 302)
+
+    def test_login_post(self):
+        response = self.client.post(reverse('login'), {
+            'username': 'testuser',
             'password': 'testpassword',
-        }, format='text/html')
+        })
+        self.assertEquals(response.status_code, 302)
+
+
+    def test_edit_banner(self):
+        response = self.client.post(reverse('edit-banner', args=['testbanner']), {
+            'name': 'Edited Banner',
+            'description': 'Edited Description',
+            'category': 'testcategory',
+            'user': self.user,
+            'tag': 'testtag',
+            'image': 'testimage.jpg',
+        })
         self.assertEquals(response.status_code, 302)
