@@ -143,10 +143,16 @@ class TestViews(TestCase):
 
     def test_login_post(self):
         response = self.client.post(reverse('login'), {
-            'username': 'testuser',
+            'email': 'testuser@gmail.com',
             'password': 'testpassword',
         })
         self.assertEquals(response.status_code, 302)
+
+    def test_logout(self):
+        self.client.login(email='testuser@gmail.com', password='testpassword')
+        response = self.client.get(reverse('logout'), follow=True)
+        self.assertEquals(response.status_code, 302)
+
 
 
     def test_edit_banner(self):
@@ -157,5 +163,6 @@ class TestViews(TestCase):
             'user': self.user,
             'tag': 'testtag',
             'image': 'testimage.jpg',
+            'slug': 'editedbanner',
         })
         self.assertEquals(response.status_code, 302)
