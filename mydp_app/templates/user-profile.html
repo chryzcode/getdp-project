@@ -31,7 +31,7 @@
       <div class="offcanvas-body">
         <form action="{% url 'user-profile' user.username %}" method="POST" enctype="multipart/form-data">
           {% csrf_token %} {% if user.avatar %} Current Avatar:
-          <a href="{{user.avatar.url}}">{{user.avatar.url}}</a>
+          <a href="{{user.avatar.url}}">{{user.username}} current avatar</a>
           {% endif %}
           <div>
             <label>{{form.avatar.label_tag}}</label>
