@@ -1,7 +1,7 @@
 from django.test import TestCase, Client
 from django.urls import reverse
 from mydp_app.models import *
-import json
+# from django.contrib.auth.models import User
 
 class TestViews(TestCase):
 
@@ -67,6 +67,8 @@ class TestViews(TestCase):
             'username': 'testuser',
             'email': 'testuser@gmail.com',
             'password': 'testpassword',
+            'password2': 'testpassword',
+
         }) 
         self.assertEquals(response.status_code, 200)
         
@@ -161,5 +163,12 @@ class TestViews(TestCase):
         response = self.client.post(self.login_url, {
             'email': 'testuser@gmail.com',
             'password': 'testpassword',
-        }, follow=True)
-        self.assertEquals(response.status_code, 200)
+        }, format='text/html')
+        user = User.objects.filter(email= self.user['email']).first()
+        user.is_active = True
+        user.save()
+        response = self.client.post(self.login_url, {
+            'email': 'testuser@gmail.com',
+            'password': 'testpassword',
+        }, format='text/html')
+        self.assertEquals(response.status_code, 302)
