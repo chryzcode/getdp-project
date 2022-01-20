@@ -17,6 +17,7 @@ class TestViews(TestCase):
             full_name='Test User',
             username='testuser',
             email='testuser@gmail.com',
+            password='testpassword',
         )
 
         self.category = Category.objects.create(
@@ -56,13 +57,20 @@ class TestViews(TestCase):
         self.assertTemplateUsed(response, 'registration/login.html')
 
     def test_logout(self):
-        response = self.client.get(self.logout_url)
-        self.assertEquals(response.status_code, 302)
+        self.client.login(username='testuser', password='testpassword')
+        response = self.client.get(self.logout_url, follow=True)
+        self.assertEquals(response.status_code, 200)
+        self.assertEquals(response.url, '/')
 
     def test_register(self):
-        response = self.client.get(self.register_url)
-        self.assertEquals(response.status_code, 200)
-        self.assertTemplateUsed(response, 'registration/register.html')
+        response = self.client.post(self.register_url, {
+            'full_name': 'Test User',
+            'username': 'testuser',
+            'email': 'testuser@gmail.com',
+            'password': 'testpassword',
+        })
+        self.assertEquals(response.status_code, 302)
+        
 
     def test_create_banner(self):
         response = self.client.post(self.create_banner_url, {
@@ -123,20 +131,7 @@ class TestViews(TestCase):
     #     self.assertEquals(response.status_code, 302)
     #     banner.refresh_from_db()
     #     self.assertEquals(banner.name, 'Test Banner')
-    #     self.assertEquals(banner.description, 'Edited Description')
-
-    def test_edit_banner(self):
-        update_url = reverse('edit-banner', args=['testbanner'])
-        get_form = self.client.get(update_url)
-        form = get_form.context['form']
-        data = form.initial
-        data['name'] = 'Updated Banner'
-        data['description'] = 'Updated Description'
-        get_form = self.client.post(update_url, data)
-        form = self.client.get(update_url)
-        self.assertEquals(get_form.context['form'].initial['name'], 'Updated Banner')
-        self.assertEquals(get_form.context['form'].initial['description'], 'Updated description')
-    
+    #     self.assertEquals(banner.description, 'Edited Description')   
         
     def test_delete_banner(self):
         response = self.client.delete(reverse('delete-banner', args=['testbanner']))
@@ -161,3 +156,12 @@ class TestViews(TestCase):
             'full_name': 'Test User',
         })
         self.assertEquals(response.status_code, 302)
+
+
+    def test_login(self):
+        response = self.client.post(self.login_url, {
+            'email': 'testuser@gmail.com',
+            'password': 'testpassword',
+        }, follow=True)
+        self.assertEquals(response.status_code, 200)
+        self.assertEquals(response.url, '/')
