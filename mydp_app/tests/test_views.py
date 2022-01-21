@@ -51,14 +51,12 @@ class TestViews(TestCase):
         self.assertTemplateUsed(response, 'home.html')
 
     def test_login(self):
-        response = self.client.get(self.login_url)
-        self.assertEquals(response.status_code, 200)
-        self.assertTemplateUsed(response, 'registration/login.html')
+        response = self.client.get(self.login_url, {'email':'testuser@gmail.com', 'password':'testpassword'})
+        self.assertEquals(response.status_code, 302)
 
     def test_logout(self):
-        self.client.login(username='testuser', password='testpassword')
-        response = self.client.get(self.logout_url, follow=True)
-        self.assertEquals(response.status_code, 200)     
+        response= self.client.post(self.logout_url, {'email':'testuser@gmail.com', 'password':'testpassword'})
+        self.assertEquals(response.status_code, 302) 
 
     def test_create_banner(self):
         response = self.client.post(self.create_banner_url, {
@@ -66,11 +64,12 @@ class TestViews(TestCase):
             'description': 'Another description',
             'category': 'testcategory',
             'user': self.user,
-            'tag': 'testtag',
             'image': 'testimage.jpg',
 
         })
         self.assertEquals(response.status_code, 302)
+        self.assertEquals(self.banner.name, 'Another Banner')
+        self.assertEquals(self.banner.slug, 'another-banner')
 
     def test_user_profile(self):
         response = self.client.get(reverse('user-profile', args=[self.user.username]))
@@ -83,7 +82,7 @@ class TestViews(TestCase):
             'name': '',
             'description': '',
             'category': '',
-            'user': self.user,
+            'user': '',
             'tag': '',
             'image': '',
 
@@ -131,31 +130,7 @@ class TestViews(TestCase):
         self.assertEquals(response.status_code, 302)
         self.assertEquals(self.user_banner.full_name, 'Test User')
         self.assertEquals(self.user_banner.banner, self.banner)
-        self.assertTemplateUsed(response, 'view-banner')
 
-
-
-    # def test_register_post(self):
-    #     response = self.client.post(reverse('register'), {
-    #         'full_name': 'Test User',
-    #         'username': 'testuser',
-    #         'email': 'testuser@gmail.com',
-    #         'password': 'testpassword',
-    #         'password2': 'testpassword',
-    #     })
-    #     self.assertEquals(response.status_code, 302)
-
-    # def test_login_post(self):
-    #     response = self.client.post(reverse('login'), {
-    #         'email': 'testuser@gmail.com',
-    #         'password': 'testpassword',
-    #     })
-    #     self.assertEquals(response.status_code, 302)
-
-    # def test_logout(self):
-    #     self.client.login(email='testuser@gmail.com', password='testpassword')
-    #     response = self.client.post(reverse('logout'), follow=True)
-    #     self.assertEquals(response.status_code, 302)
 
 
 
