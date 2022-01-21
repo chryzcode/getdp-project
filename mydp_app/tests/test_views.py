@@ -133,7 +133,7 @@ class TestViews(TestCase):
         self.client.login(email='testuser@gmail.com', password='testpassword')
         response = self.client.post(reverse('logout'), follow=True)
         self.assertEquals(response.status_code, 200)
-        self.assertTemplateUsed(self.response, 'home.html')
+        self.assertTemplateUsed(response, 'home.html')
 
     def test_login_page(self):
         response = self.client.get(self.login_url)
