@@ -124,6 +124,29 @@ class TestViews(TestCase):
         response= self.client.post(self.logout_url, {'email':'alabaolanrewaju13@gmail.com', 'password':'flyingaway13'})
         self.assertEquals(response.status_code, 302)
 
-    # def test_login(self):
+    def test_login_page(self):
+        response = self.client.get(self.login_url)
+        self.assertEquals(response.status_code, 200)
+        self.assertTemplateUsed(response, 'registration/login.html')
+
+    def test_login(self):
+        register_user = {
+            'full_name':'Test User',
+            'username':'testuser',
+            'email':'testeruser@gmail.com',
+            'password1':'testpassword',
+            'password2':'testpassword',
+        }
+
+        login_user = {
+            'email':'testeruser@gmail.com',
+            'password':'testpassword',
+        }
+        response = self.client.post(self.register_url, register_user, format='text/html')
+        user = User.objects.filter(email=register_user['email']).first()
+        user.is_active = True
+        user.save()
+        response = self.client.post(self.login_url, login_user, format='text/html')
+        self.assertEquals(response.status_code, 302)
 
     # def test_edit_banner(slf):
