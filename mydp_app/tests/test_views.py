@@ -124,6 +124,17 @@ class TestViews(TestCase):
         response= self.client.post(self.logout_url, {'email':'alabaolanrewaju13@gmail.com', 'password':'flyingaway13'})
         self.assertEquals(response.status_code, 302)
 
+    def test_logged_out_user_was_redirected(self):
+        self.client.login(email='testuser@gmail.com', password='testpassword')
+        response = self.client.post(reverse('logout'))
+        self.assertEquals(response.status_code, 302)
+
+    def test_logout_redirect_succeeds(self):
+        self.client.login(email='testuser@gmail.com', password='testpassword')
+        response = self.client.post(reverse('logout'), follow=True)
+        self.assertEquals(response.status_code, 200)
+        self.assertTemplateUsed(self.response, 'home.html')
+
     def test_login_page(self):
         response = self.client.get(self.login_url)
         self.assertEquals(response.status_code, 200)
