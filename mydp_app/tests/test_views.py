@@ -45,49 +45,27 @@ class TestViews(TestCase):
             full_name='Test User',
         )
 
+    def test_create_banner(self):
+        response = self.client.post(self.create_banner_url, {
+            'name': 'Test Banner',
+            'description': 'Test Description',
+            'category': 'testcategory',
+            'user': self.user,
+            'tag': 'testtag',
+            'image': 'testimage.jpg',
+        })
+        self.assertEquals(response.status_code, 302)
+
     def test_home(self):
         response = self.client.get(self.home_url)
         self.assertEquals(response.status_code, 200)
-        self.assertTemplateUsed(response, 'home.html')
+        self.assertTemplateUsed(response, 'home.html')  
 
-    def test_login(self):
-        response = self.client.get(self.login_url, {'email':'testuser@gmail.com', 'password':'testpassword'})
-        self.assertEquals(response.status_code, 302)
-
-    def test_logout(self):
-        response= self.client.post(self.logout_url, {'email':'testuser@gmail.com', 'password':'testpassword'})
-        self.assertEquals(response.status_code, 302) 
-
-    def test_create_banner(self):
-        response = self.client.post(self.create_banner_url, {
-            'name': 'Another banner',
-            'description': 'Another description',
-            'category': 'testcategory',
-            'user': self.user,
-            'image': 'testimage.jpg',
-
-        })
-        self.assertEquals(response.status_code, 302)
-        self.assertEquals(self.banner.name, 'Another Banner')
-        self.assertEquals(self.banner.slug, 'another-banner')
-
+    
     def test_user_profile(self):
         response = self.client.get(reverse('user-profile', args=[self.user.username]))
         self.assertEquals(response.status_code, 200)
         self.assertTemplateUsed(response, 'user-profile.html')
-
-
-    def test_create_user_banner_no_data(self):
-        response = self.client.post(self.create_banner_url, {
-            'name': '',
-            'description': '',
-            'category': '',
-            'user': '',
-            'tag': '',
-            'image': '',
-
-        })
-        self.assertEquals(response.status_code, 302)
 
     def test_categories(self):
         response = self.client.get(reverse('categories'))
@@ -132,18 +110,20 @@ class TestViews(TestCase):
         self.assertEquals(self.user_banner.banner, self.banner)
 
 
+    def test_register(self):
+        response = self.client.post(self.register_url, {
+            'full_name': 'Olanrewaju Alaba',
+            'username': 'code',
+            'email': 'alabaolanrewaju13@gmail.com',
+            'password1': 'flyingaway13',
+            'password2': 'flyingaway13',
+        })
+        self.assertEquals(response.status_code, 302)
 
+    def test_logout(self):
+        response= self.client.post(self.logout_url, {'email':'alabaolanrewaju13@gmail.com', 'password':'flyingaway13'})
+        self.assertEquals(response.status_code, 302)
 
-    # def test_edit_banner(self):
-    #     response = self.client.get(reverse('view-banner', args=['testbanner']))
-    #     response = self.client.post(reverse('edit-banner', args=['testbanner']), {
-    #         'name': 'Edited Banner',
-    #         'description': 'Edited Description',
-    #         'category': 'testcategory',
-    #         'user': self.user,
-    #         'tag': 'testtag',
-    #         'image': 'testimage.jpg',
-    #         'slug': 'editedbanner',
-    #     })
-    #     self.assertEquals(response.status_code, 302)
-    #     self.assertEquals(self.banner.name, 'Edited Banner')
+    # def test_login(self):
+
+    # def test_edit_banner(slf):

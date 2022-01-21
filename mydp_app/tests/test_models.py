@@ -22,9 +22,9 @@ class TestModels(TestCase):
         self.banner = Banner.objects.create(
             name='Another Banner',
             description='Test Description',
-            category= self.category,
+            category= 'testcategory',
             user= self.user,
-            tag= self.tag,
+            tag= 'testtag',
             image='testimage.jpg',
         )
 
