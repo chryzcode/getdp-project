@@ -150,7 +150,7 @@ class TestViews(TestCase):
 
     def test_logout(self):
         self.client.login(email='testuser@gmail.com', password='testpassword')
-        response = self.client.get(reverse('logout'), follow=True)
+        response = self.client.post(reverse('logout'), follow=True)
         self.assertEquals(response.status_code, 302)
 
 
