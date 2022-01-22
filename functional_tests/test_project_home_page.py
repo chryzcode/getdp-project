@@ -11,9 +11,17 @@ class TestProjectHomePage(StaticLiveServerTestCase):
     def tearDown(self):
         self.browser.close()
 
-    def test_no_projects_alert_is_displayed(self):
+    def test_home_page_content(self):
         self.browser.get(self.live_server_url)
-        banner_grid = self.browser.find_element_by_class_name('banner-grid')
         intro = self.browser.find_element_by_class_name('intro')
-        self.assertEquals(intro.find_element_by_tag_name('h2').text, 'Get Your DP Banner ---')
-        time.sleep(2000)
+        self.assertEquals(intro.find_element_by_tag_name('h2').text, 'Get Your DP Banner')
+
+    def test_click_banner_redirect_to_view_page(self):
+        self.browser.get(self.live_server_url)
+        view_banner_url = self.live_server_url + reverse('view-banner', kwargs={'slug': 'testbanner'})
+        banner = self.browser.find_element_by_class_name('banner-grid')
+        banner.find_element_by_tag_name('a').click()
+        self.assertEquals(self.browser.current_url, view_banner_url)
+
+
+    
