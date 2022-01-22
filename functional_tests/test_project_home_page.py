@@ -18,7 +18,7 @@ class TestProjectHomePage(StaticLiveServerTestCase):
 
     def test_click_banner_redirect_to_view_page(self):
         self.browser.get(self.live_server_url)
-        view_banner_url = self.live_server_url + reverse('view-banner', kwargs={'slug': 'testbanner'})
+        view_banner_url = self.live_server_url + reverse('view-banner', kwargs={'slug': 'testing-banner'})
         banner = self.browser.find_element_by_class_name('banner-grid')
         banner.find_element_by_tag_name('a').click()
         self.assertEquals(self.browser.current_url, view_banner_url)
