@@ -15,13 +15,14 @@ class TestProjectHomePage(StaticLiveServerTestCase):
         self.browser.get(self.live_server_url)
         intro = self.browser.find_element_by_class_name('intro')
         self.assertEquals(intro.find_element_by_tag_name('h2').text, 'Get Your DP Banner')
+        time.sleep(40)
 
-    def test_click_banner_redirect_to_view_page(self):
-        self.browser.get(self.live_server_url)
-        view_banner_url = self.live_server_url + reverse('view-banner', kwargs={'slug': 'testing-banner'})
-        banner = self.browser.find_element_by_class_name('banner-grid')
-        banner.find_element_by_tag_name('a').click()
-        self.assertEquals(self.browser.current_url, view_banner_url)
+    # def test_click_banner_redirect_to_view_page(self):
+    #     self.browser.get(self.live_server_url)
+    #     view_banner_url = self.live_server_url + reverse('view-banner', kwargs={'slug': 'testing-banner'})
+    #     banner = self.browser.find_element_by_class_name('banner-grid')
+    #     banner.find_element_by_tag_name('a').click()
+    #     self.assertEquals(self.browser.current_url, view_banner_url)
 
 
     
