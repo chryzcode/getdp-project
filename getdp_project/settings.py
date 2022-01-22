@@ -99,7 +99,7 @@ DATABASES = {
         'NAME': 'get_my_dp',
         'USER': 'postgres',
         'PASSWORD': 'chryz1342003',
-        'HOST': 'get-my-dp.herokuapp.com',
+        'HOST': 'localhost',
         'PORT': '5432',
     }
 }
