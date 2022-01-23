@@ -3,11 +3,12 @@ from selenium.webdriver.common.by import By
 from mydp_app.models import *
 from django.contrib.staticfiles.testing import StaticLiveServerTestCase
 from django.urls import reverse
+from selenium.webdriver.common.keys import Keys
 import time
 
 class TestProjectHomePage(StaticLiveServerTestCase):
     def setUp(self):
-        self.browser = webdriver.Chrome('functional_tests/chromedriver.exe')
+        self.browser = webdriver.Chrome()
 
     def tearDown(self):
         self.browser.close()
