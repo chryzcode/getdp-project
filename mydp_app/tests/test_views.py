@@ -55,6 +55,32 @@ class TestViews(TestCase):
             'image': 'testimage.jpg',
         })
         self.assertEquals(response.status_code, 302)
+        #get banner name from database
+        self.assertEquals(Banner.objects.get(name='Test Banner').name, 'Test Banner')
+
+
+
+    def test_edit_banner(self):
+        new_banner = Banner.objects.create(
+            name='The Test Banner',
+            description='Test Description',
+            category='testcategory',
+            user= self.user,
+            slug= 'the-test-banner',
+            tag='testtag',
+            image='testimage.jpg',
+        )
+        response = self.client.post(reverse('edit-banner', args=['the-test-banner']), {
+            'name': 'The Test Banner',
+            'description': 'Edited Test Description',
+            'category': 'testcategory',
+            'user': self.user,
+            'tag': 'testtag',
+            'image': 'testimage.jpg',
+        })
+        self.assertEquals(response.status_code, 302)
+        new_banner.refresh_from_db()
+        self.assertEquals(new_banner.description, 'Edited Test Description')
 
     def test_home(self):
         response = self.client.get(self.home_url)
@@ -160,4 +186,3 @@ class TestViews(TestCase):
         response = self.client.post(self.login_url, login_user, format='text/html')
         self.assertEquals(response.status_code, 302)
 
-    # def test_edit_banner(slf):
