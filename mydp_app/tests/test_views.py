@@ -77,9 +77,12 @@ class TestViews(TestCase):
             'user': self.user,
             'tag': 'testtag',
             'image': 'testimage.jpg',
+            'slug': 'the-test-banner',
         })
+        new_banner.save()
         self.assertEquals(response.status_code, 302)
         new_banner.refresh_from_db()
+        
         self.assertEquals(new_banner.description, 'Edited Test Description')
 
     def test_home(self):
