@@ -5,26 +5,33 @@ from django.contrib.auth.forms import UserCreationForm
 
 
 class SignupForm(UserCreationForm):
-    full_name = forms.CharField(max_length = 100)
+    full_name = forms.CharField(max_length=100)
     email = forms.EmailField()
+
     class Meta:
         model = User
-        fields = ('full_name', 'username', 'email','password1', 'password2')
+        fields = ("full_name", "username", "email", "password1", "password2")
 
-    def __init__ (self, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         super(SignupForm, self).__init__(*args, **kwargs)
 
 
 class BannerForm(ModelForm):
     class Meta:
         model = Banner
-        fields = ('name', 'description', 'category', 'tag', 'image')
-        exclude = ['user', 'slug', 'banner_users']
+        fields = ("name", "description", "category", "tag", "image")
+        exclude = ["user", "slug", "banner_users"]
 
-        widgets={
-            'name': forms.TextInput(attrs={'class': 'form-control'}),
-            'category':forms.Select(choices= Category.objects.all().values_list('name', 'name'), attrs={'class':'form-control'}),
-            'tag':forms.Select(choices= Tag.objects.all().values_list('name', 'name'), attrs={'class':'form-control'}),
+        widgets = {
+            "name": forms.TextInput(attrs={"class": "form-control"}),
+            "category": forms.Select(
+                choices=Category.objects.all().values_list("name", "name"),
+                attrs={"class": "form-control"},
+            ),
+            "tag": forms.Select(
+                choices=Tag.objects.all().values_list("name", "name"),
+                attrs={"class": "form-control"},
+            ),
         }
 
     def __init__(self, *args, **kwargs):
@@ -34,40 +41,54 @@ class BannerForm(ModelForm):
 class UserBannerForm(ModelForm):
     class Meta:
         model = UserBanner
-        fields = ['image', 'full_name' ]
-        exclude = ['user', 'banner']
+        fields = ["image", "full_name"]
+        exclude = ["user", "banner"]
 
-        widgets={
-            'full_name':forms.TextInput(attrs={'class':'form-control', 'placeholder':'Put in your name'}),
-            'image':forms.FileInput(attrs={'class':'form-control'}),
+        widgets = {
+            "full_name": forms.TextInput(
+                attrs={"class": "form-control", "placeholder": "Put in your name"}
+            ),
+            "image": forms.FileInput(attrs={"class": "form-control"}),
         }
 
     def __init__(self, *args, **kwargs):
         super(UserBannerForm, self).__init__(*args, **kwargs)
 
+
 class CommentForm(ModelForm):
     class Meta:
         model = Comment
-        fields = ['name']
-        widgets={
-            'name':forms.TextInput(attrs={'class':'form-control', 'placeholder':'Put in your comments.....'}),
+        fields = ["name"]
+        widgets = {
+            "name": forms.TextInput(
+                attrs={
+                    "class": "form-control",
+                    "placeholder": "Put in your comments.....",
+                }
+            ),
         }
         labels = {
-        'name': (''),
-    }
+            "name": (""),
+        }
+
     def __init__(self, *args, **kwargs):
         super(CommentForm, self).__init__(*args, **kwargs)
+
 
 class UserProfileForm(ModelForm):
     class Meta:
         model = User
-        fields = ['avatar', 'full_name', 'username']
+        fields = ["avatar", "full_name", "username"]
 
-        widgets={
-            'avatar':forms.FileInput(attrs={'class':'form-control'}),
-            'full_name':forms.TextInput(attrs={'class':'form-control', 'placeholder':'Full Name'}),
-            'username':forms.TextInput(attrs={'class':'form-control', 'placeholder':'Username'}),
-    }
+        widgets = {
+            "avatar": forms.FileInput(attrs={"class": "form-control"}),
+            "full_name": forms.TextInput(
+                attrs={"class": "form-control", "placeholder": "Full Name"}
+            ),
+            "username": forms.TextInput(
+                attrs={"class": "form-control", "placeholder": "Username"}
+            ),
+        }
 
     def __init__(self, *args, **kwargs):
         super(UserProfileForm, self).__init__(*args, **kwargs)
