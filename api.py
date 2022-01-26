@@ -80,7 +80,7 @@ def get_a_tag(tag_name: str):
 #     banner.save()
 #     return {"message": "Banner created"}
 
-# app.mount('/mydp_app', WSGIMiddleware(django_app))
+
 
 
 @app.delete("/banner/{banner_slug}")
@@ -92,3 +92,4 @@ def delete_a_banner(banner_slug: str):
     else:
         return {"message": "Banner not found"}
 
+app.mount('/mydp_app', WSGIMiddleware(django_app))
