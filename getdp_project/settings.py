@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 
 import os
 from pathlib import Path
+from decouple import config
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -24,7 +25,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = str(os.environ.get("SECRET_KEY"))
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = str(os.environ.get("DEBUG"))
 
 ALLOWED_HOSTS = ["get-my-dp.herokuapp.com", "127.0.0.1"]
 
@@ -93,9 +94,9 @@ AUTH_USER_MODEL = "mydp_app.User"
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql_psycopg2",
-        "NAME": "get_my_dp",
-        "USER": "postgres",
-        "PASSWORD": "chryz1342003",
+        "NAME": config("DATABASES_NAME"),
+        "USER": config("DATABASES_USER"),
+        "PASSWORD": config("DATABASES_PASSWORD"),
         "HOST": "localhost",
         "PORT": "5432",
     }
@@ -151,9 +152,9 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 DEFAULT_FILE_STORAGE = "cloudinary_storage.storage.MediaCloudinaryStorage"
 
 CLOUDINARY_STORAGE = {
-    "CLOUD_NAME": "chryz",
-    "API_KEY": "247126667243974",
-    "API_SECRET": "v5t7W6565VTtGuE5sh1MbkPT_sM",
+    "CLOUD_NAME": config("CLOUDINARY_CLOUD_NAME"),
+    "API_KEY": config("CLOUDINARY_API_KEY"),
+    "API_SECRET": config("CLOUDINARY_API_SECRET"),
 }
 
 import django_heroku

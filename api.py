@@ -13,6 +13,7 @@ from typing import List
 import cloudinary
 import cloudinary.uploader
 from pydantic import BaseModel
+from fastapi_cloudinary_config import *
 
 # export Django settings env variable
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "getdp_project.settings")
@@ -21,7 +22,6 @@ django_app = get_wsgi_application()
 
 # import models
 from mydp_app.models import *
-from getdp_project.settings import CLOUDINARY_STORAGE
 
 
 def serialize_banner(banner):
@@ -51,13 +51,6 @@ class BannerModel(BaseModel):
     category: str
     tag: str
     image: dict
-
-
-cloudinary.config(
-    cloud_name="chryz",
-    api_key="247126667243974",
-    api_secret="v5t7W6565VTtGuE5sh1MbkPT_sM",
-)
 
 app = FastAPI()
 

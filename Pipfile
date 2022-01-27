@@ -13,6 +13,7 @@ django-ckeditor = "*"
 django-hitcount = "*"
 pillow = "*"
 django-cloudinary-storage = "*"
+python-decouple = "*"
 
 [dev-packages]
 
