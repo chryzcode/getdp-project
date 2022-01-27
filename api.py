@@ -146,9 +146,19 @@ def get_all_banners():
     if banners:
         for banner in banners:
             banner_list.append(banner)
-        print(banner_list)
         return banner_list
     else:
         return {"message": "No banners found"}
+
+@app.get("/users")
+def get_all_users():
+    users  = User.objects.all()
+    user_list = []
+    if users:
+        for user in users:
+            user_list.append(user)
+        return user_list
+    else:
+        return {"message": "No users found"}
 
 app.mount("/mydp_app", WSGIMiddleware(django_app))
