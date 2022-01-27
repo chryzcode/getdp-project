@@ -1,4 +1,7 @@
+from datetime import datetime
+from black import re
 from corsheaders import django
+from django.urls import re_path
 from fastapi import FastAPI, File, UploadFile
 from fastapi.middleware.wsgi import WSGIMiddleware
 from django.core.wsgi import get_wsgi_application
@@ -7,6 +10,9 @@ from importlib.util import find_spec
 from fastapi.staticfiles import StaticFiles
 from django.conf import settings
 from typing import List
+import cloudinary
+import cloudinary.uploader
+from pydantic import BaseModel
 
 #export Django settings env variable 
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'getdp_project.settings')
@@ -15,6 +21,44 @@ django_app = get_wsgi_application()
 
 #import models
 from mydp_app.models import *
+from getdp_project.settings import CLOUDINARY_STORAGE
+
+
+def serialize_banner(banner):
+    return {
+        'user': banner.user.username,
+        'name': banner.name,
+        'description': banner.description,
+        'image': banner.image,
+        'tag': banner.tag,
+        'category': banner.category,
+        'slug': banner.slug,
+        'created': banner.created,
+        'updated': banner.updated,
+    }
+
+def banner_serializer(banners, many=False):
+    if many:
+        return [serialize_banner(banner) for banner in banners]
+    return [serialize_banner(banners)]
+
+
+class BannerModel(BaseModel):
+    user: str
+    name: str
+    description: str
+    category: str
+    tag: str
+    image: dict
+
+    
+    
+
+cloudinary.config(
+    cloud_name = "chryz",
+    api_key= "247126667243974",
+    api_secret = "v5t7W6565VTtGuE5sh1MbkPT_sM",
+)
 
 app = FastAPI()
 
@@ -60,28 +104,25 @@ def get_a_tag(tag_name: str):
     else:
         return {"message": "Tag not found"}
 
-# @app.post("/banner")
-# def create_a_banner(
-#     banner_user: str,
-#     banner_name: str,
-#     banner_description: str,
-#     banner_category: str,
-#     banner_tag: str,
-#     banner_image: UploadFile = File(...)
-# ):
-#     banner = Banner(
-#         user_id=User.objects.filter(username=banner_user).first().id,
-#         name=banner_name,
-#         description=banner_description,
-#         category=banner_category,
-#         tag=banner_tag,
-#         image=banner_image,
-#     )
-#     banner.save()
-#     return {"message": "Banner created"}
-
-
-
+@app.post("/banner")
+def create_a_banner(
+    banner_user: str,
+    banner_name: str,
+    banner_description: str,
+    banner_category: str,
+    banner_tag: str,
+    banner_image: UploadFile = File(...)
+    ):
+    banner = Banner.objects.create(
+        user_id=User.objects.filter(username=banner_user).first().id,
+        name=banner_name,
+        description=banner_description,
+        category= Category.objects.filter(name=banner_category).first(),
+        tag=Tag.objects.filter(name=banner_tag).first(),
+        image = cloudinary.uploader.upload(banner_image.file, folder="mydp_app/banner-images/"),
+    )
+    banner.save()
+    return {"message": "Banner created"}
 
 @app.delete("/banner/{banner_slug}")
 def delete_a_banner(banner_slug: str):
@@ -91,5 +132,44 @@ def delete_a_banner(banner_slug: str):
         return {"message": "Banner deleted"}
     else:
         return {"message": "Banner not found"}
+
+
+# @app.get("/banners")
+# def get_a_list_of_banners():
+#     banners = Banner.objects.all()
+#     print(banners[0])
+#     if banners:      
+#         return banner_serializer(banners, many=False)
+#     else:
+#         return {"message": "No banners found"}
+
+
+
+@app.get("/banners")
+def get_all_banners():
+    banners = Banner.objects.all()
+    banner_list = []
+    if banners:
+        for banner in banners:
+            banner_list.append(banner)
+        print(banner_list)
+        return banner_list
+    else:
+        return {"message": "No banners found"}
+
+
+# @app.get("/banners")
+# def get_all_banners():
+#     banners = Banner.objects.all()
+#     banner_list = []
+#     if banners:
+#         for i in range(len(banners)):
+#             banner_list.append(banners[i])
+#         print(banner_list)
+#         return banner_list
+#     else:
+#         return {"message": "No banners found"}
+
+
 
 app.mount('/mydp_app', WSGIMiddleware(django_app))
