@@ -14,28 +14,29 @@ import cloudinary
 import cloudinary.uploader
 from pydantic import BaseModel
 
-#export Django settings env variable 
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'getdp_project.settings')
+# export Django settings env variable
+os.environ.setdefault("DJANGO_SETTINGS_MODULE", "getdp_project.settings")
 
 django_app = get_wsgi_application()
 
-#import models
+# import models
 from mydp_app.models import *
 from getdp_project.settings import CLOUDINARY_STORAGE
 
 
 def serialize_banner(banner):
     return {
-        'user': banner.user.username,
-        'name': banner.name,
-        'description': banner.description,
-        'image': banner.image,
-        'tag': banner.tag,
-        'category': banner.category,
-        'slug': banner.slug,
-        'created': banner.created,
-        'updated': banner.updated,
+        "user": banner.user.username,
+        "name": banner.name,
+        "description": banner.description,
+        "image": banner.image,
+        "tag": banner.tag,
+        "category": banner.category,
+        "slug": banner.slug,
+        "created": banner.created,
+        "updated": banner.updated,
     }
+
 
 def banner_serializer(banners, many=False):
     if many:
@@ -51,19 +52,18 @@ class BannerModel(BaseModel):
     tag: str
     image: dict
 
-    
-    
 
 cloudinary.config(
-    cloud_name = "chryz",
-    api_key= "247126667243974",
-    api_secret = "v5t7W6565VTtGuE5sh1MbkPT_sM",
+    cloud_name="chryz",
+    api_key="247126667243974",
+    api_secret="v5t7W6565VTtGuE5sh1MbkPT_sM",
 )
 
 app = FastAPI()
 
-#serve static files
+# serve static files
 app.mount("/static", StaticFiles(directory="mydp_app/static"), name="static")
+
 
 @app.get("/")
 def home():
@@ -77,6 +77,7 @@ def get_a_banner(banner_slug: str):
         return {"banner": banner}
     else:
         return {"message": "Banner not found"}
+
 
 @app.get("/user/{user_username}")
 def get_a_user(user_username: str):
@@ -104,6 +105,7 @@ def get_a_tag(tag_name: str):
     else:
         return {"message": "Tag not found"}
 
+
 @app.post("/banner")
 def create_a_banner(
     banner_user: str,
@@ -111,18 +113,21 @@ def create_a_banner(
     banner_description: str,
     banner_category: str,
     banner_tag: str,
-    banner_image: UploadFile = File(...)
-    ):
+    banner_image: UploadFile = File(...),
+):
     banner = Banner.objects.create(
         user_id=User.objects.filter(username=banner_user).first().id,
         name=banner_name,
         description=banner_description,
-        category= Category.objects.filter(name=banner_category).first(),
+        category=Category.objects.filter(name=banner_category).first(),
         tag=Tag.objects.filter(name=banner_tag).first(),
-        image = cloudinary.uploader.upload(banner_image.file, folder="mydp_app/banner-images/"),
+        image=cloudinary.uploader.upload(
+            banner_image.file, folder="mydp_app/banner-images/"
+        ),
     )
     banner.save()
     return {"message": "Banner created"}
+
 
 @app.delete("/banner/{banner_slug}")
 def delete_a_banner(banner_slug: str):
@@ -132,17 +137,6 @@ def delete_a_banner(banner_slug: str):
         return {"message": "Banner deleted"}
     else:
         return {"message": "Banner not found"}
-
-
-# @app.get("/banners")
-# def get_a_list_of_banners():
-#     banners = Banner.objects.all()
-#     print(banners[0])
-#     if banners:      
-#         return banner_serializer(banners, many=False)
-#     else:
-#         return {"message": "No banners found"}
-
 
 
 @app.get("/banners")
@@ -157,19 +151,4 @@ def get_all_banners():
     else:
         return {"message": "No banners found"}
 
-
-# @app.get("/banners")
-# def get_all_banners():
-#     banners = Banner.objects.all()
-#     banner_list = []
-#     if banners:
-#         for i in range(len(banners)):
-#             banner_list.append(banners[i])
-#         print(banner_list)
-#         return banner_list
-#     else:
-#         return {"message": "No banners found"}
-
-
-
-app.mount('/mydp_app', WSGIMiddleware(django_app))
+app.mount("/mydp_app", WSGIMiddleware(django_app))
