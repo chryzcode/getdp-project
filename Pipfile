@@ -14,6 +14,7 @@ django-hitcount = "*"
 pillow = "*"
 django-cloudinary-storage = "*"
 python-decouple = "*"
+psycopg2-binary = "*"
 
 [dev-packages]
 
