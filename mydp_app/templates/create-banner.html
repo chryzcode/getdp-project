@@ -29,12 +29,22 @@
       {{ form.description }}
 
       <div class="form-floating mb-3">
-      {{form.tag}}
+      <select class="form-control" name="tag" id="tag">
+        <option value="">Select Tag</option>
+        {% for tag in tags %}
+        <option value="{{tag.id}}">{{tag.name}}</option>
+        {% endfor %}
+      </select>
         <label>{{ form.tag.label_tag }}</label>
       </div>
 
       <div class="form-floating mb-3">
-        {{form.category}}
+        <select class="form-control" name="category" id="category">
+          <option value="">Select Category</option>
+          {% for category in categories %}
+          <option value="{{category.id}}">{{category.name}}</option>
+          {% endfor %}
+        </select>
         <label>{{ form.category.label_tag }}</label>
       </div>
         <button class="save-btn" type="submit">Save</button>

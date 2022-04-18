@@ -74,6 +74,8 @@ def createBanner(request):
 @login_required(login_url="login")
 def editBanner(request, slug):
     banner = get_object_or_404(Banner, slug=slug)
+    categories = Category.objects.all()
+    tags = Tag.objects.all()
     if request.user == banner.user:
         form = BannerForm(instance=banner)
         if request.method == "POST":
@@ -81,7 +83,7 @@ def editBanner(request, slug):
             if form.is_valid():
                 form.save()
                 return redirect("home")
-        context = {"form": form, "banner": banner}
+        context = {"form": form, "banner": banner, "categories": categories, "tags": tags}
         return render(request, "edit-banner.html", context)
     return redirect("home")
 
