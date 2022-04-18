@@ -51,11 +51,11 @@ class Category(models.Model):
         return self.name
 
 
-# class Tag(models.Model):
-#     name = models.CharField(max_length=500)
+class Tag(models.Model):
+    name = models.CharField(max_length=500)
 
-#     def __str__(self):
-#         return self.name
+    def __str__(self):
+        return self.name
 
 
 

@@ -16,26 +16,26 @@ class SignupForm(UserCreationForm):
         super(SignupForm, self).__init__(*args, **kwargs)
 
 
-# class BannerForm(ModelForm):
-#     class Meta:
-#         model = Banner
-#         fields = ("name", "description", "category", "tag", "image")
-#         exclude = ["user", "slug", "banner_users"]
+class BannerForm(ModelForm):
+    class Meta:
+        model = Banner
+        fields = ("name", "description", "category", "tag", "image")
+        exclude = ["user", "slug", "banner_users"]
 
-#         widgets = {
-#             "name": forms.TextInput(attrs={"class": "form-control"}),
-#             "category": forms.Select(
-#                 choices=Category.objects.all().values_list("name", "name"),
-#                 attrs={"class": "form-control"},
-#             ),
-#             "tag": forms.Select(
-#                 choices=Tag.objects.all().values_list("name", "name"),
-#                 attrs={"class": "form-control"},
-#             ),
-#         }
+        widgets = {
+            "name": forms.TextInput(attrs={"class": "form-control"}),
+            # "category": forms.Select(
+            #     choices=Category.objects.all().values_list("name", "name"),
+            #     attrs={"class": "form-control"},
+            # ),
+            # "tag": forms.Select(
+            #     choices=Tag.objects.all().values_list("name", "name"),
+            #     attrs={"class": "form-control"},
+            # ),
+        }
 
-#     def __init__(self, *args, **kwargs):
-#         super(BannerForm, self).__init__(*args, **kwargs)
+    def __init__(self, *args, **kwargs):
+        super(BannerForm, self).__init__(*args, **kwargs)
 
 
 class UserBannerForm(ModelForm):
