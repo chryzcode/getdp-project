@@ -128,11 +128,11 @@ def Categories(request):
     return render(request, "categories.html", context)
 
 
-def home(request):
-    banners = Banner.objects.all()
-    comment = Comment.objects.all()
-    context = {"banners": banners, "comment": comment}
-    return render(request, "home.html", context)
+# def home(request):
+#     banners = Banner.objects.all()
+#     comment = Comment.objects.all()
+#     context = {"banners": banners, "comment": comment}
+#     return render(request, "home.html", context)
 
 
 class viewBanner(HitCountDetailView):
