@@ -1,6 +1,6 @@
 from django.forms import ModelForm
 from django import forms
-from .models import *
+from .models import Tag, Category, Banner, UserBanner, Comment, User
 from django.contrib.auth.forms import UserCreationForm
 
 
