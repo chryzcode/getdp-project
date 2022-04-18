@@ -19,7 +19,7 @@ class SignupForm(UserCreationForm):
 class BannerForm(ModelForm):
     class Meta:
         model = Banner
-        fields = ("name", "description", "category", "tag", "image")
+        fields = ("name", "description", "category", "image")
         exclude = ["user", "slug", "banner_users"]
 
         widgets = {

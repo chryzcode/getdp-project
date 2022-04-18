@@ -42,10 +42,32 @@ class Banner(models.Model):
         return super(Banner, self).save(*args, **kwargs)
 
 
+class UserBanner(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    banner = models.ForeignKey(Banner, on_delete=models.CASCADE)
+    created = models.DateField(auto_now_add=True)
+    updated = models.DateField(auto_now=True)
+    image = models.ImageField(
+        upload_to="banner-users-image/",
+    )
+    full_name = models.CharField(max_length=300, null=True, blank=True)
+
+    def __str__(self):
+        return self.user.username + " " + str("use banner")
 
 class Category(models.Model):
     name = models.CharField(max_length=100)
     image = models.ImageField(upload_to="category-images/")
+
+    def __str__(self):
+        return self.name
+
+class Comment(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    banner = models.ForeignKey(Banner, on_delete=models.CASCADE)
+    name = models.TextField()
+    created = models.DateField(auto_now_add=True)
+    updated = models.DateField(auto_now=True)
 
     def __str__(self):
         return self.name
@@ -60,26 +82,6 @@ class Tag(models.Model):
 
 
 
-class Comment(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
-    banner = models.ForeignKey(Banner, on_delete=models.CASCADE)
-    name = models.TextField()
-    created = models.DateField(auto_now_add=True)
-    updated = models.DateField(auto_now=True)
-
-    def __str__(self):
-        return self.name
 
 
-class UserBanner(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
-    banner = models.ForeignKey(Banner, on_delete=models.CASCADE)
-    created = models.DateField(auto_now_add=True)
-    updated = models.DateField(auto_now=True)
-    image = models.ImageField(
-        upload_to="banner-users-image/",
-    )
-    full_name = models.CharField(max_length=300, null=True, blank=True)
 
-    def __str__(self):
-        return self.user.username + " " + str("use banner")
