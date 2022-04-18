@@ -53,37 +53,37 @@ def logoutPage(request):
     return redirect("home")
 
 
-@login_required(login_url="login")
-def createBanner(request):
-    form = BannerForm
-    slug_field = "slug"
-    categories = Category.objects.all()
-    tags = Tag.objects.all()
-    if request.method == "POST":
-        form = BannerForm(request.POST, request.FILES)
-        if form.is_valid():
-            banner = form.save(commit=False)
-            banner.user = request.user
-            banner.slug = banner.slug
-            banner.save()
-            return redirect("view-banner", slug=banner.slug)
-    context = {"form": form, "categories": categories, "tags": tags}
-    return render(request, "create-banner.html", context)
+# @login_required(login_url="login")
+# def createBanner(request):
+#     form = BannerForm
+#     slug_field = "slug"
+#     categories = Category.objects.all()
+#     tags = Tag.objects.all()
+#     if request.method == "POST":
+#         form = BannerForm(request.POST, request.FILES)
+#         if form.is_valid():
+#             banner = form.save(commit=False)
+#             banner.user = request.user
+#             banner.slug = banner.slug
+#             banner.save()
+#             return redirect("view-banner", slug=banner.slug)
+#     context = {"form": form, "categories": categories, "tags": tags}
+#     return render(request, "create-banner.html", context)
 
 
-@login_required(login_url="login")
-def editBanner(request, slug):
-    banner = get_object_or_404(Banner, slug=slug)
-    if request.user == banner.user:
-        form = BannerForm(instance=banner)
-        if request.method == "POST":
-            form = BannerForm(request.POST, request.FILES, instance=banner)
-            if form.is_valid():
-                form.save()
-                return redirect("home")
-        context = {"form": form, "banner": banner}
-        return render(request, "edit-banner.html", context)
-    return redirect("home")
+# @login_required(login_url="login")
+# def editBanner(request, slug):
+#     banner = get_object_or_404(Banner, slug=slug)
+#     if request.user == banner.user:
+#         form = BannerForm(instance=banner)
+#         if request.method == "POST":
+#             form = BannerForm(request.POST, request.FILES, instance=banner)
+#             if form.is_valid():
+#                 form.save()
+#                 return redirect("home")
+#         context = {"form": form, "banner": banner}
+#         return render(request, "edit-banner.html", context)
+#     return redirect("home")
 
 
 @login_required(login_url="login")
