@@ -108,7 +108,7 @@
     margin: auto;
     margin-top: 50px;
   }
-  
+
   .search-wrap .search-box {
     width: 90%;
     height: 45px;
@@ -132,7 +132,6 @@
   .search-wrap .search-box .btn.btn_common .fas {
     font-size: 13px;
   }
-
 }
 
 @media all and (min-width: 620px) and (max-width: 950px) {
@@ -148,5 +147,16 @@
     grid-template-columns: 1fr 1fr;
     grid-row-gap: 10px;
     text-align: center;
+  }
+}
+
+@media all and (max-width: 450px) {
+  .main-banner-image-container {
+    width: 90%;
+    height: 90%;
+  }
+
+  ..main-banner-image {
+    object-fit: cover;
   }
 }

@@ -218,6 +218,10 @@ form {
   padding: 100px 0;
 }
 
+.container > h4 {
+  margin-top: 40px;
+}
+
 .create-banner-form-container {
   border-radius: 20px;
   margin-left: auto;
@@ -459,14 +463,19 @@ form {
 }
 
 .main-banner-image-container {
-  width: 100%;
+  width: 300px;
+  height: 300px;
   overflow: hidden;
+  display: block;
+  margin: 0 auto;
 }
 
 .main-banner-image {
   overflow: hidden;
   display: block;
   margin: 0 auto;
+  width: 100%;
+  height: 100%;
 }
 
 .edit-delete-container {
