@@ -15,6 +15,7 @@ pillow = "*"
 django-cloudinary-storage = "*"
 python-decouple = "*"
 psycopg2-binary = "*"
+requests = "*"
 
 [dev-packages]
 

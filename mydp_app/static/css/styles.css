@@ -546,15 +546,17 @@ form {
   display: block;
 }
 
+
 .user-banner-preview-image-container {
   position: absolute;
-  width: 200px;
-  height: 200px;
+  width: 5%;
+  /* height: 5%; */
   overflow: hidden;
   border-radius: 50%;
   border: 4px solid #cdcdcd;
-  /* top: 31%;
-  left: 43%; */
+  top: 31%;
+  left: 43%;
+  margin: 0 auto;
 }
 
 .user-banner-preview-image {
