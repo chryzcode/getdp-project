@@ -32,7 +32,7 @@
       <select class="form-control" name="tag" id="tag">
         <option value="">Select Tag</option>
         {% for tag in tags %}
-        <option value="{{tag.id}}">{{tag.name}}</option>
+        <option value="{{tag.name}}">{{tag.name}}</option>
         {% endfor %}
       </select>
         <label>{{ form.tag.label_tag }}</label>
@@ -42,7 +42,7 @@
         <select class="form-control" name="category" id="category">
           <option value="">Select Category</option>
           {% for category in categories %}
-          <option value="{{category.id}}">{{category.name}}</option>
+          <option value="{{category.name}}">{{category.name}}</option>
           {% endfor %}
         </select>
         <label>{{ form.category.label_tag }}</label>

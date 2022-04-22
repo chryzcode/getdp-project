@@ -242,6 +242,7 @@ form {
   background-color: #26174bec !important;
   transition: ease-out 0.3s;
   border: 1px solid #26174b !important;
+  cursor: pointer;
 }
 
 .save-btn {
@@ -259,6 +260,7 @@ form {
   background-color: #26174bec;
   transition: ease-out 0.3s;
   border: 1px solid #26174b !important;
+  cursor: pointer;
 }
 
 .default-profile-avatar {
