@@ -7,6 +7,10 @@ from django.contrib.auth.decorators import login_required
 from .models import *
 from hitcount.views import HitCountDetailView
 from datetime import datetime, timedelta
+import requests
+from django.conf import settings
+
+
 
 # Create your views here.
 def loginPage(request):
@@ -185,6 +189,10 @@ def useBanner(request, slug):
         usebanner.banner = banner
         usebanner.save()
         banner.banner_users.add(request.user)
+        data = {
+            
+        }
+        image = requests.post(url = settings.HCTI_API_ENDPOINT, data = data, auth=(settings.HCTI_API_USER_ID, settings.HCTI_API_KEY))
         return redirect("preview-banner", slug=banner.slug)
     return redirect("home")
 

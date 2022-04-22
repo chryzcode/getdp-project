@@ -2,14 +2,15 @@
 
 <div style="margin-top: 100px">
   <h2 class="header">Preview Banner</h2>
-  <span class="banner-preview-container">
+  <div class="banner-preview-container">
     <div class="main-banner-image-container">
       <img class="main-banner-image" src="{{userbanner.banner.image.url}}" alt="" />
+
+      <div class="user-banner-preview-image-container">
+        <img class="user-banner-preview-image" src="{{userbanner.image.url}}" alt="" />
+      </div>
+      <span> {{userbanner.full_name}} </span>
     </div>
-    <div class="user-banner-preview-image-container">
-      <img class="user-banner-preview-image" src="{{userbanner.image.url}}" alt="" />
-    </div>
-  </span>
-  {{userbanner.full_name}}
+  </div>
 </div>
 {% include 'footer.html' %} {% endblock %}

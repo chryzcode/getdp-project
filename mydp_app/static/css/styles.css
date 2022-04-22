@@ -468,6 +468,9 @@ form {
   overflow: hidden;
   display: block;
   margin: 0 auto;
+  position: relative;
+  top: 0;
+  left: 0;
 }
 
 .main-banner-image {
@@ -476,6 +479,9 @@ form {
   margin: 0 auto;
   width: 100%;
   height: 100%;
+  position: relative;
+  left: 0;
+  top: 0;
 }
 
 .edit-delete-container {
@@ -546,17 +552,29 @@ form {
   display: block;
 }
 
-
 .user-banner-preview-image-container {
   position: absolute;
-  width: 5%;
-  /* height: 5%; */
+  width: 100px;
+  height: 100px;
   overflow: hidden;
   border-radius: 50%;
-  border: 4px solid #cdcdcd;
-  top: 31%;
-  left: 43%;
-  margin: 0 auto;
+  border: 2px solid #cdcdcd;
+  top: 20%;
+  margin: auto;
+  left: 0;
+  right: 0;
+  text-align: center;
+}
+
+.main-banner-image-container > span {
+  position: absolute;
+  color: white;
+  height: 100px;
+  top: 80%;
+  margin: auto;
+  left: 0;
+  right: 0;
+  text-align: center;
 }
 
 .user-banner-preview-image {

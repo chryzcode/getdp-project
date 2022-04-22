@@ -157,6 +157,10 @@ CLOUDINARY_STORAGE = {
     "API_SECRET": config("CLOUDINARY_API_SECRET"),
 }
 
+HCTI_API_ENDPOINT = str(os.environ.get("HCTI_API_ENDPOINT"))
+HCTI_API_USER_ID = str(os.environ.get("HCTI_API_USER_ID"))
+HCTI_API_KEY = str(os.environ.get("HCTI_API_KEY"))
+
 import django_heroku
 
 django_heroku.settings(locals())
