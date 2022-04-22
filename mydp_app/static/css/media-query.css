@@ -156,7 +156,7 @@
     height: 90%;
   }
 
-  ..main-banner-image {
+  .main-banner-image {
     object-fit: cover;
   }
 }
