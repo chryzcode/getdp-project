@@ -9,7 +9,7 @@ from .models import *
 from hitcount.views import HitCountDetailView
 from datetime import datetime, timedelta
 import requests
-from django.conf import settings
+
 
 
 
