@@ -1,3 +1,4 @@
+from unicodedata import name
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
@@ -189,10 +190,6 @@ def useBanner(request, slug):
         usebanner.banner = banner
         usebanner.save()
         banner.banner_users.add(request.user)
-        data = {
-            
-        }
-        image = requests.post(url = settings.HCTI_API_ENDPOINT, data = data, auth=(settings.HCTI_API_USER_ID, settings.HCTI_API_KEY))
         return redirect("preview-banner", slug=banner.slug)
     return redirect("home")
 
@@ -214,7 +211,7 @@ def bannerCategory(request, category_name):
 
 def previewBanner(request, slug):
     banner = Banner.objects.get(slug=slug)
-    userbanner = UserBanner.objects.get(banner=banner)
+    userbanner = UserBanner.objects.filter(banner=banner).last()
     context = {"banner": banner, "userbanner": userbanner}
     return render(request, "preview-banner.html", context)
 
