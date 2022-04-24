@@ -81,6 +81,34 @@ class UserProfileForm(ModelForm):
     def __init__(self, *args, **kwargs):
         super(UserProfileForm, self).__init__(*args, **kwargs)
 
+class CategoryForm(ModelForm):
+    class Meta:
+        model = Category
+        fields = ["name"]
+
+        widgets = {
+            "name": forms.TextInput(
+                attrs={"class": "form-control", "placeholder": "Category Name"}
+            ),
+        }
+
+    def __init__(self, *args, **kwargs):
+        super(CategoryForm, self).__init__(*args, **kwargs)
+
+class TagForm(ModelForm):
+    class Meta:
+        model = Tag
+        fields = ["name"]
+
+        widgets = {
+            "name": forms.TextInput(
+                attrs={"class": "form-control", "placeholder": "Tag Name"}
+            ),
+        }
+
+    def __init__(self, *args, **kwargs):
+        super(TagForm, self).__init__(*args, **kwargs)
+
 
 # class PasswordChangeForm(SetPasswordForm):
 #     """
