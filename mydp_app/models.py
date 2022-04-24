@@ -43,7 +43,7 @@ class Banner(models.Model):
 
 
 class UserBanner(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
     banner = models.ForeignKey(Banner, on_delete=models.CASCADE)
     created = models.DateField(auto_now_add=True)
     updated = models.DateField(auto_now=True)

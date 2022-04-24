@@ -180,16 +180,16 @@ class viewBanner(HitCountDetailView):
         return self.render_to_response(context)
 
 
-@login_required(login_url="login")
 def useBanner(request, slug):
     banner = get_object_or_404(Banner.objects.all(), slug=slug)
     usebannerform = UserBannerForm(request.POST, request.FILES)
     if usebannerform.is_valid():
         usebanner = usebannerform.save(commit=False)
-        usebanner.user = request.user
+        if request.user.is_authenticated:
+            usebanner.user = request.user
+            banner.banner_users.add(request.user)
         usebanner.banner = banner
         usebanner.save()
-        banner.banner_users.add(request.user)
         return redirect("preview-banner", slug=banner.slug)
     return redirect("home")
 
