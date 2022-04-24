@@ -21,10 +21,4 @@ urlpatterns = [
     path("discover-banner/", views.discoverPage, name="discover-page"),
     path("use-banner/<slug:slug>/", views.useBanner, name="use-banner"),
     path("delete-account/<username>", views.deleteAccount, name="delete-account"),
-    path("create-category/", views.createCategory, name="create-category"),
-    path("delete-category/<str:pk>/", views.deleteCategory, name="delete-category"),
-    path("create-tag/", views.createTag, name="create-tag"),
-    path("delete-tag/<str:pk>/", views.deleteTag, name="delete-tag"),
-    path("all-tags/", views.allTags, name="all-tags"),
-    path("all-categories/", views.allCategories, name="all-categories"),
 ]

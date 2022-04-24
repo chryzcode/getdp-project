@@ -247,48 +247,5 @@ def discoverPage(request):
 
 
 # def downloadBanner(request)
-@login_required(login_url="login")
-def createTag(request):
-    form = TagForm()
-    if request.method == "POST":
-        form = TagForm(request.POST)
-        if form.is_valid():
-            form.save()
-            return redirect("create-tag")
-    context = {"form": form}
-    return render(request, "create-tag.html", context)
-
-@login_required(login_url="login")
-def createCategory(request):
-    form = CategoryForm()
-    if request.method == "POST":
-        form = CategoryForm(request.POST)
-        if form.is_valid():
-            form.save()
-            return redirect("create-category")
-    context = {"form": form}
-    return render(request, "create-category.html", context)
-
-def allTags(request):
-    tags = Tag.objects.filter()
-    context = {"tags": tags}
-    return render(request, "all-tags.html", context)
-
-def allCategories(request):
-    categories = Category.objects.all()
-    context = {"categories": categories}
-    return render(request, "all-categories.html", context)
-
-def deleteTag(request, pk):
-    tag = Tag.objects.get(id=pk)
-    if request.user == tag.user:
-        tag.delete()
-        return redirect("all-tags")
-
-def deleteCategory(request, pk):
-    category = Category.objects.get(id=pk)
-    if request.user == category.user:
-        category.delete()
-        return redirect("all-categories")
 
 
