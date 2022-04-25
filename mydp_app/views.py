@@ -211,7 +211,7 @@ def bannerCategory(request, category_name):
 
 def previewBanner(request, slug):
     banner = Banner.objects.get(slug=slug)
-    userbanner = UserBanner.objects.filter(banner=banner).last()
+    userbanner = UserBanner.objects.filter(banner=banner, user=request.user).last()
     context = {"banner": banner, "userbanner": userbanner}
     return render(request, "preview-banner.html", context)
 

@@ -1,16 +1,48 @@
-{% extends 'base.html' %} {% load static %} {% block content %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.js"></script>
+    {% extends 'base.html' %} {% load static %} {% block content %}
+  </head>
+  <body onload="autoClick();">
+    <div style="margin-top: 100px">
+      <h2 class="header">Preview Banner</h2>
+      <div class="banner-preview-container">
+        <div class="main-banner-image-container" id="image">
+          <img class="main-banner-image" src="{{banner.image.url}}" alt="" />
 
-<div style="margin-top: 100px">
-  <h2 class="header">Preview Banner</h2>
-  <div class="banner-preview-container">
-    <div class="main-banner-image-container">
-      <img class="main-banner-image" src="{{banner.image.url}}" alt="" />
-
-      <div class="user-banner-preview-image-container">
-        <img class="user-banner-preview-image" src="{{userbanner.image.url}}" alt="" />
+          <div class="user-banner-preview-image-container">
+            <img class="user-banner-preview-image" src="{{userbanner.image.url}}" alt="" />
+          </div>
+          <span> {{userbanner.full_name}} </span>
+        </div>
       </div>
-      <span> {{userbanner.full_name}} </span>
+      <a id="download">Download</a>
     </div>
-  </div>
-</div>
-{% include 'footer.html' %} {% endblock %}
+  
+    <script type="text/javascript">
+      function autoClick() {
+        $('#download').click();
+      }
+      $(document).ready(function() {
+        var element = document.getElementById("image");
+
+        $("#download").on('click', function(){
+          html2canvas(element, {
+            onrendered: function(canvas) {
+              var imageData = canvas.toDataURL("image/png");
+              var newData = imageData.replace(/^data:image\/png/, "data:application/octet-stream");
+              $("#download").attr("download", "image.png").attr("href", newData);
+            }
+          });
+        });
+      });
+    </script>
+
+      {% include 'footer.html' %} {% endblock %}
+  </body>
+</html>
