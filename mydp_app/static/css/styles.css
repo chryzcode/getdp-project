@@ -276,9 +276,9 @@ form {
 }
 
 .custom-profile-avatar-container {
-  width: 200px;
-  height: 200px;
-  margin: 10px auto;
+  width: 150px;
+  height: 150px;
+  margin: 25px auto 0 auto;
   overflow: hidden;
   border-radius: 50%;
   border: 4px solid #26174b;
@@ -290,6 +290,16 @@ form {
   height: 100%;
   object-fit: cover;
   object-position: center;
+}
+
+.user-naming-container {
+  text-align: center;
+  color: #28125e;
+  margin: 2px 0 15px 0;
+}
+
+.user-naming-container > * {
+  margin: 0 !important;
 }
 
 .btn-guide {

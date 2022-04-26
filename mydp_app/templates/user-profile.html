@@ -9,11 +9,11 @@
     <img class="default-profile-avatar" src="{% static 'images/default-avatar.svg' %}" alt="" />
     {% endif %}
   </div>
-  <h2 class="header">{{user.full_name}}</h2>
-  <h4 class="header">@{{user.username}}</h4>
-  {% if user.email %}
-  <h6 class="header">{{ user.email}}</h6>
-  {% endif %} {% if request.user == user %}
+  <div class="user-naming-container">
+    <h2>{{user.full_name}}</h2>
+    <h4>@{{user.username}}</h4>
+  </div>
+  {% if request.user == user %}
   <div class="btn-guide">
     <span
       class="edit-profile-btn"
@@ -49,7 +49,9 @@
           </div>
           <button class="save-btn" type="submit">Save</button>
         </form>
-        <a class="delete-btn btn btn-danger btn-sm" href="{% url 'delete-account' delete_user_username %}">Delete Account</a>
+        <a class="delete-btn btn btn-danger btn-sm" href="{% url 'delete-account' delete_user_username %}"
+          >Delete Account</a
+        >
       </div>
     </div>
   </div>
@@ -88,5 +90,4 @@
     {% endfor %}
   </div>
 </div>
-{% include 'footer.html' %}
-{% endblock %}
+{% include 'footer.html' %} {% endblock %}
