@@ -295,11 +295,11 @@ form {
 .user-naming-container {
   text-align: center;
   color: #28125e;
-  margin: 7px 0 15px 0;
+  margin: 10px 0 15px 0;
 }
 
 .user-naming-container > * {
-  margin: 0 !important;
+ 
 }
 
 .btn-guide {
