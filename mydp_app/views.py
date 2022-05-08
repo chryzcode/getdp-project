@@ -211,7 +211,10 @@ def bannerCategory(request, category_name):
 
 def previewBanner(request, slug):
     banner = Banner.objects.get(slug=slug)
-    userbanner = UserBanner.objects.filter(banner=banner, user=request.user).last()
+    if request.user.is_authenticated:
+        userbanner = UserBanner.objects.filter(banner=banner, user=request.user).last()
+    else:
+        userbanner = UserBanner.objects.filter(banner=banner).last()
     context = {"banner": banner, "userbanner": userbanner}
     return render(request, "preview-banner.html", context)
 
