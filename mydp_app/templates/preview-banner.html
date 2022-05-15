@@ -10,15 +10,15 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.0/FileSaver.min.js"></script>
     {% extends 'base.html' %} {% load static %} {% block content %}
   </head>
-  <body onload="autoClick();">
+  <body>
     <div style="margin-top: 100px">
       <h2 class="header">Preview Banner</h2>
       <div class="banner-preview-container">
         <div class="main-banner-image-container" id="image">
-          <img class="main-banner-image" src="{{banner.image.url}}" alt="" />
+          <img class="main-banner-image" src="{{banner.image.url}}" alt="" id="the-image"/>
 
           <div class="user-banner-preview-image-container">
-            <img class="user-banner-preview-image" src="{{userbanner.image.url}}" alt="" />
+            <img class="user-banner-preview-image" src="{{userbanner.image.url}}" alt="" id="the-image"/>
           </div>
           <span> {{userbanner.full_name}} </span>
         </div>
@@ -27,25 +27,46 @@
     </div>
   
     <script type="text/javascript">
-      function autoClick() {
-        $('#download').click();
-      }
-      $(document).ready(function() {
-        var element = document.getElementById("image");
+      // function autoClick() {
+      //   $('#download').click();
+      // }
+      // $(document).ready(function() {
+      //   var element = document.getElementById("image");
 
-        $("#download").on('click', function(){
-          // html2canvas(element, {
-          //   onrendered: function(canvas) {
-          //     var imageData = canvas.toDataURL("image/png");
-          //     var newData = imageData.replace(/^data:image\/png/, "data:application/octet-stream");
-          //     $("#download").attr("download", "image.png").attr("href", newData);
-          //   }
-          // });
-          html2canvas(element).then(function (canvas) {
-            canvas.toBlob((blob) => saveAs(blob, `image-${Date.now()}.png`));
-          });
-        });
-      });
+      //   $("#download").on('click', function(){
+      //     html2canvas(element).then(function (canvas) {
+      //       canvas.toBlob((blob) => saveAs(blob, `image-${Date.now()}.png`));
+      //     });
+      //   });
+      // });
+
+      
+      function getDataUrl(img) {
+      // Create canvas
+      const canvas = document.createElement('canvas');
+      const ctx = canvas.getContext('2d');
+      // Set width and height
+      canvas.width = img.width;
+      canvas.height = img.height;
+      // Draw the image
+      img.crossOrigin = "anonymous";
+      ctx.drawImage(img, 0, 0);
+      return canvas.toDataURL('image/jpeg');
+    }
+    const imageElements = document.querySelectorAll("img");
+    imageElements.forEach(i => {
+      i.addEventListener("load", function() {
+        i.setAttribute("src", getDataUrl(i));
+      })
+    })
+    const download = document.querySelector("#download");
+    download.addEventListener("click", function() {
+      const album = document.querySelector("#image");
+      html2canvas(album).then(canvas => {
+        // document.body.append(canvas);
+        canvas.toBlob(blob => saveAs(blob, "sample.png"));
+      })
+    });
     </script>
 
       {% include 'footer.html' %} {% endblock %}
