@@ -26,9 +26,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = str(os.environ.get("SECRET_KEY"))
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = config("DEBUG", default=False, cast=bool)
 
-ALLOWED_HOSTS = ["get-my-dp.herokuapp.com", "127.0.0.1", "localhost"]
+ALLOWED_HOSTS = ["getmydp-222c8444fcc8.herokuapp.com", "127.0.0.1", "localhost"]
 
 
 # Application definition
@@ -87,7 +87,7 @@ DATABASES = {
         "NAME": config("DATABASES_NAME"),
         "USER": config("DATABASES_USER"),
         "PASSWORD": config("DATABASES_PASSWORD"),
-        "HOST": "localhost",
+        "HOST": config("DATABASES_HOST"),
         "PORT": "5432",
     }
 }
