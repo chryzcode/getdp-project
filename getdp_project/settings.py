@@ -124,6 +124,7 @@ USE_L10N = True
 
 USE_TZ = True
 
+PASSWORD_RESET_TIMEOUT = 300  # 30 Mins in Seconds
 
 MEDIA_URL = "/get-my-dp/"
 MEDIA_ROOT = os.path.join(BASE_DIR, "media")
@@ -136,6 +137,13 @@ STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
+
+EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
+EMAIL_HOST = "smtp.gmail.com"
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = config("EMAIL_HOST_USER")
+EMAIL_HOST_PASSWORD = config("EMAIL_HOST_PASSWORD")
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 

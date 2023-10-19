@@ -2,6 +2,27 @@ from django.forms import ModelForm
 from django import forms
 from .models import Tag, Category, Banner, UserBanner, Comment, User
 from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.forms import PasswordResetForm, SetPasswordForm
+
+class PasswordResetForm(PasswordResetForm):
+    email = forms.CharField()
+
+    def clean_email(self):
+        email = self.cleaned_data["email"]
+        user = User.objects.filter(email=email)
+        if not user:
+            raise forms.ValidationError("Account not found")
+        return email
+    
+class PasswordResetConfirmForm(SetPasswordForm):
+    new_password1 = forms.CharField()
+    new_password2 = forms.CharField()
+
+    def clean_password2(self):
+        cd = self.cleaned_data
+        if cd["new_password1"] != cd["new_password2"]:
+            raise forms.ValidationError("Passwords do not match.")
+        return cd["new_password2"]
 
 
 class SignupForm(UserCreationForm):
