@@ -12,7 +12,7 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 
 import os
 from pathlib import Path
-import django_heroku
+
 
 from decouple import config
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -82,15 +82,22 @@ AUTH_USER_MODEL = "mydp_app.User"
 
 
 DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.postgresql_psycopg2",
-        "NAME": config("DATABASES_NAME"),
-        "USER": config("DATABASES_USER"),
-        "PASSWORD": config("DATABASES_PASSWORD"),
-        "HOST": config("DATABASES_HOST"),
-        "PORT": "5432",
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
+
+# DATABASES = {
+#     "default": {
+#         "ENGINE": "django.db.backends.postgresql_psycopg2",
+#         "NAME": config("DATABASES_NAME"),
+#         "USER": config("DATABASES_USER"),
+#         "PASSWORD": config("DATABASES_PASSWORD"),
+#         "HOST": config("DATABASES_HOST"),
+#         "PORT": "5432",
+#     }
+# }
 
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
@@ -131,7 +138,9 @@ MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 
 STATIC_URL = "/static/"
 # STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
-STATIC_ROOT = os.path.join(BASE_DIR, "static")
+
+STATICFILES_DIRS = [os.path.join(BASE_DIR, 'mydp_app/static')]
+STATIC_ROOT = os.path.join(BASE_DIR, "mydp_app/staticfiles")
 
 STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 
@@ -155,9 +164,6 @@ CLOUDINARY_STORAGE = {
     "API_SECRET": config("CLOUDINARY_API_SECRET"),
 }
 
-import django_heroku
-
-django_heroku.settings(locals())
 
 LOGIN_REDIRECT_URL = "home"
 LOGOUT_REDIRECT_URL = "home"
