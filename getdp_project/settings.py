@@ -137,10 +137,9 @@ MEDIA_URL = "/get-my-dp/"
 MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 
 STATIC_URL = "/static/"
-# STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
 
 STATICFILES_DIRS = [os.path.join(BASE_DIR, 'mydp_app/static')]
-STATIC_ROOT = os.path.join(BASE_DIR, "mydp_app/staticfiles")
+STATIC_ROOT = os.path.join(BASE_DIR, "getdp-project/staticfiles")
 
 STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 
